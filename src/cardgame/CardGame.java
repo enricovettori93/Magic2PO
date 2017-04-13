@@ -15,7 +15,7 @@ import java.util.Scanner;
 import cardgame.cards.Homeopathy;
 import cardgame.cards.Reflexologist;
 import cardgame.cards.FriendlyEnvironment;
-
+/* Commento di prova 2*/
 /**
  *
  * @author atorsell
