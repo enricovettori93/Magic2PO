@@ -7,8 +7,11 @@ package cardgame.cards;
 
 import cardgame.AbstractCardEffect;
 import cardgame.Card;
+import cardgame.CardGame;
 import cardgame.Effect;
+import cardgame.Enchantment;
 import cardgame.Player;
+import java.util.Scanner;
 
 /**
  *
@@ -17,9 +20,30 @@ import cardgame.Player;
 public class AuraBlast implements Card{
     
     private class AuraBlastEffect extends AbstractCardEffect {
-        public AuraBlastEffect(Player p, Card c) { super(p,c); }
+        public AuraBlastEffect(Player p, Card c) { super(p,c); }        
         @Override
-        public void resolve() {}
+        public void resolve() {
+            //draw a card
+            int i=0;
+            i=selectIndexTarget();
+            if(i!=0){
+                CardGame.instance.getCurrentAdversary().getEnchantments().remove(i);
+                /*bisogna ancora gestire i Decorator creati da quell'incantesimo rimossso*/
+            }
+            owner.draw();
+        }
+        private int selectIndexTarget(){
+            int i=1;
+            int index=0;
+            System.out.println(name()+" SELECT TARGET:");
+            for(Enchantment a : CardGame.instance.getCurrentAdversary().getEnchantments()){
+                System.out.println(i+" "+a.name());
+                i++;
+            }
+            Scanner input = new Scanner(System.in);
+            index = input.nextInt();
+            return index;
+        }
     }
     @Override
     public Effect getEffect(Player owner) {
