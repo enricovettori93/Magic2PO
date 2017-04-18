@@ -34,8 +34,8 @@ public class DayOfJudgment implements Card{
            }
         
            while (j < advcrt.size()){
-               System.out.println("Creature:"+ plrcrt.get(i).name()+" destroyed");
-               /*rimuove la creatura */
+               System.out.println("Creature:"+ advcrt.get(i).name()+" destroyed");
+               /*rimuove la creatura - DUBBIO : va bene solo rimuoverla o anche distruggerla? Se si come?*/
                advcrt.get(j).remove();
                j++;
            }
