@@ -12,9 +12,7 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.Scanner;
 
-import cardgame.cards.Homeopathy;
-import cardgame.cards.Reflexologist;
-import cardgame.cards.FriendlyEnvironment;
+import cardgame.cards.*;
 /* Commento di prova 2*/
 /**
  *
@@ -31,6 +29,8 @@ public class CardGame {
         for (int i=0; i!=5; ++i) deck.add(new Homeopathy());
         for (int i=0; i!=5; ++i) deck.add(new Reflexologist());
         for (int i=0; i!=5; ++i) deck.add(new FriendlyEnvironment());
+        //Aggiunta 5 carte VolcanicHammer per prova
+        for (int i=0; i!=5; ++i) deck.add(new BoilingEarth());
         
         instance.getPlayer(0).setDeck(deck.iterator());
         instance.getPlayer(1).setDeck(deck.iterator());
@@ -78,8 +78,8 @@ public class CardGame {
     public void removeTurnManager(TurnManager m) { turnManagerStack.remove(m); }
     
     Player getPlayer(int i) { return Players[i]; }    
-    Player getCurrentPlayer() { return turnManagerStack.peek().getCurrentPlayer(); }
-    Player getCurrentAdversary() { return turnManagerStack.peek().getCurrentAdversary(); }
+    public Player getCurrentPlayer() { return turnManagerStack.peek().getCurrentPlayer(); }
+    public Player getCurrentAdversary() { return turnManagerStack.peek().getCurrentAdversary(); }
     Player nextPlayer() { return turnManagerStack.peek().nextPlayer(); }
     
     

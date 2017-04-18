@@ -20,7 +20,7 @@ public class Triggers {
         
     }
     
-    ArrayList<Triggers.Entry> actions = new ArrayList<Triggers.Entry>();
+    ArrayList<Triggers.Entry> actions = new ArrayList<>();
     
     
     public void register(int phaseTrigger, TriggerAction a) {
