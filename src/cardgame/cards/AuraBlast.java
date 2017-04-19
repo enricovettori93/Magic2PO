@@ -1,16 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cardgame.cards;
 
-import cardgame.AbstractCardEffect;
+
+import cardgame.AbstractCardEffectTarget;
 import cardgame.Card;
 import cardgame.CardGame;
 import cardgame.Effect;
 import cardgame.Enchantment;
 import cardgame.Player;
+import cardgame.Target;
 import java.util.Scanner;
 
 /**
@@ -19,35 +17,62 @@ import java.util.Scanner;
  */
 public class AuraBlast implements Card{
     
-    private class AuraBlastEffect extends AbstractCardEffect {
-        public AuraBlastEffect(Player p, Card c) { super(p,c); }        
+    private class AuraBlastEffect extends AbstractCardEffectTarget {
+        //costruttore
+        
+        public AuraBlastEffect(Player p, Card c) { 
+            super(p,c);
+        }
+
+        @Override
+        public boolean play() {
+            setTarget();
+            return super.play(); //To change body of generated methods, choose Tools | Templates.
+        }
+       
+        @Override
+        public void setTarget(){
+            Player rival;
+            Scanner input = new Scanner(System.in);
+            int choice;
+            if(owner == CardGame.instance.getCurrentPlayer())
+                rival = CardGame.instance.getCurrentAdversary();
+            else
+                rival = CardGame.instance.getCurrentPlayer();
+            do{
+                System.out.println( "[AURA BLAST] SELECT TARGET (from the rival Enchantments), 0 for pass:");
+                rival.printEnchantments();
+                choice =  input.nextInt();
+            }while(choice < 0 && choice > rival.getEnchantments().size());
+            if(choice!=0)
+                targets.add(new Target(rival, rival.getEnchantments().get(choice-1)));
+            else{
+                if(choice == 0){
+                    do{
+                        System.out.println( "[AURA BLAST] SELECT TARGET (from your Enchantments), 0 for skip:");
+                        owner.printEnchantments();
+                        choice = input.nextInt();
+                    }while(choice < 0 && choice > owner.getEnchantments().size());
+                    if(choice != 0)
+                        targets.add(new Target(owner, owner.getEnchantments().get(choice-1)));
+                }
+            }
+        }
         @Override
         public void resolve() {
-            //draw a card
-            int i=0;
-            i=selectIndexTarget();
-            if(i!=0){
-                CardGame.instance.getCurrentAdversary().getEnchantments().remove(i);
-                /*bisogna ancora gestire i Decorator creati da quell'incantesimo rimossso*/
+            //destroy target         
+            for(Target t : targets){
+                t.getTargetOwner().getEnchantments().remove((Enchantment)t.getTarget());
             }
+            //draw a card
             owner.draw();
         }
-        private int selectIndexTarget(){
-            int i=1;
-            int index=0;
-            System.out.println(name()+" SELECT TARGET:");
-            for(Enchantment a : CardGame.instance.getCurrentAdversary().getEnchantments()){
-                System.out.println(i+" "+a.name());
-                i++;
-            }
-            Scanner input = new Scanner(System.in);
-            index = input.nextInt();
-            return index;
-        }
+        
     }
     @Override
     public Effect getEffect(Player owner) {
-        return new AuraBlastEffect(owner, this);
+        //get effect ritorna un nuovo effetto -- 
+        return new AuraBlastEffect(owner, this);  
     }
 
     @Override
