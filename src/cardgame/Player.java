@@ -74,6 +74,7 @@ public class Player {
     
     
     void executeTurn() {
+        //la prima cosa che fa quando si esegue un turno -- stampa i campi dei player
         System.out.println(name() + "'s turn");
         
         // print out the fields
@@ -171,4 +172,16 @@ public class Player {
     public List<Enchantment> getEnchantments() {return enchantments;}
     // destroy a creature in play
     public void destroy(Enchantment c) {enchantments.remove(c);} 
+
+/**
+ * printPermanents -> stampa la lista dei permanenti del Player
+ * 
+ */
+   public void printPermanents(){
+       int i=1;
+       for(Creature c : creatures){
+           System.out.println(i+". "+c.name());
+           i++;
+       }
+   }
 }
