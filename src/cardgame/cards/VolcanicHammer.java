@@ -19,6 +19,7 @@ public class VolcanicHammer implements Card{
     private class VolcanicHammerEffect extends AbstractCardEffect {
         public VolcanicHammerEffect(Player p, Card c) { super(p,c); }
         @Override
+        //MANCA METODO RESOLVE
         public void resolve() {}
     }
     @Override
