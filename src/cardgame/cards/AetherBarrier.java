@@ -44,7 +44,6 @@ public class AetherBarrier implements Card{
                 private final TriggerAction AetherBarrierAction = new TriggerAction() {
                 @Override
                 public void execute(Object args) {
-                    System.out.println("PORCODIO");
                     if (args != null  && args instanceof Creature) {
                         Creature c = (Creature)args;
                         Scanner s = new Scanner(System.in);
