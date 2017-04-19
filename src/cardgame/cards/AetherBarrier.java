@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cardgame.cards;
 
 import cardgame.AbstractEnchantment;
@@ -26,6 +22,7 @@ public class AetherBarrier implements Card{
     private class AetherBarrierEffect extends AbstractEnchantmentCardEffect{
         public AetherBarrierEffect(Player p, Card c) { 
             super(p,c);
+           
         }        
 
         @Override
@@ -110,11 +107,13 @@ public class AetherBarrier implements Card{
     public String ruleText() {
         return "Whenever a player plays Creature Spell, that player sacrifices a permanent unless he or she pays 1";
     }
-
+    
     @Override
     public boolean isInstant() {
        return false;
     }
+    
+    @Override
     public String toString(){
         return name() + " (" + type() + ") [" + ruleText() +"]";
     }

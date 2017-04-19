@@ -184,4 +184,12 @@ public class Player {
            i++;
        }
    }
+   
+   public void printEnchantments(){
+       int i=1;
+       for(Enchantment e : enchantments){
+           System.out.println(i+". "+e.name());
+           i++;
+       }
+   }
 }
