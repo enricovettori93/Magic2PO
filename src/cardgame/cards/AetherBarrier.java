@@ -9,6 +9,7 @@ import cardgame.AbstractEnchantment;
 import cardgame.AbstractEnchantmentCardEffect;
 import cardgame.Card;
 import cardgame.CardGame;
+import cardgame.Creature;
 import cardgame.Effect;
 import cardgame.Enchantment;
 import cardgame.Player;
@@ -43,8 +44,9 @@ public class AetherBarrier implements Card{
                 private final TriggerAction AetherBarrierAction = new TriggerAction() {
                 @Override
                 public void execute(Object args) {
-                    if (args != null  && args instanceof Enchantment) {
-                        Enchantment c = (Enchantment)args;
+                    System.out.println("PORCODIO");
+                    if (args != null  && args instanceof Creature) {
+                        Creature c = (Creature)args;
                         Scanner s = new Scanner(System.in);
                         String choice = new String();
                         //se sono qui, vuol dire che il giocatore p è il giocatore corrente (ha giocato la carta)
@@ -52,7 +54,8 @@ public class AetherBarrier implements Card{
                         do{
                             System.out.println("[AetherBarrier]"+p.name()+ "sacrifices a Permanent? Y/N");
                             choice = s.nextLine();
-                        }while(!(choice.equals("Y")) || !(choice.equals("N")));
+                            choice = choice.intern();
+                        }while(!(choice.equals("Y")) && !(choice.equals("N")));
                         if(p.getCreatures().isEmpty() && choice.equals("Y"))
                             System.out.println("[AetherBarrier]You don't have a permanent! ");
                         if(choice.equals("N") || p.getCreatures().isEmpty()){
