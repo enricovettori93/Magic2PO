@@ -116,5 +116,8 @@ public class AetherBarrier implements Card{
     public boolean isInstant() {
        return false;
     }
+    public String toString(){
+        return name() + " (" + type() + ") [" + ruleText() +"]";
+    }
     
 }
