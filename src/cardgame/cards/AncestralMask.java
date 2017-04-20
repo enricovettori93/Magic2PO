@@ -42,13 +42,13 @@ public class AncestralMask implements Card{
             System.out.println("Select player creature target -> 0 = player, 1 = adversary");
             do{
                 in =  input.nextInt();
-            }while(in != 0 || in != 1);
+            }while(in != 0 && in != 1);
             System.out.println("Select creature");
             if(in == 0){
                 System.out.println("" + CardGame.instance.getCurrentPlayer().getCreatures());
                 do{
                     in = input.nextInt();
-                }while(in < 0 || in > CardGame.instance.getCurrentPlayer().getCreatures().size());
+                }while(in < 0 && in > CardGame.instance.getCurrentPlayer().getCreatures().size());
                 //DA DEFINIRE DECORATORE PER AUMENTARE ATTACCO E DIFESA DELLA CREATURA
                 CardGame.instance.getCurrentPlayer().getCreatures().get(in+1).DECORATOREAUMENTAATKDEF(powerup);
             }
@@ -56,7 +56,7 @@ public class AncestralMask implements Card{
                 System.out.println("" + CardGame.instance.getCurrentAdversary().getCreatures());
                 do{
                     in = input.nextInt();
-                }while(in < 0 || in > CardGame.instance.getCurrentAdversary().getCreatures().size());
+                }while(in < 0 && in > CardGame.instance.getCurrentAdversary().getCreatures().size());
                 //DA DEFINIRE DECORATORE PER AUMENTARE ATTACCO E DIFESA DELLA CREATURA
                 CardGame.instance.getCurrentAdversary().getCreatures().get(in+1).DECORATOREAUMENTAATKDEF(powerup);
             }
