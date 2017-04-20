@@ -24,14 +24,11 @@ public class CalmingVerse implements Card{
            // prendere la lista di incantesimi dell'avversario */
            
            List<Enchantment> advenc = CardGame.instance.getCurrentAdversary().getEnchantments();
-        
-           while (i < advenc.size()){
-               System.out.println("Enchantment:"+ advenc.get(i).name()+" destroyed");
-               //rimuove l'incantesimo - DUBBIO : va bene solo rimuoverlo o anche distruggerlo?
-               advenc.get(i).remove();
-               i++;
-           }
            
+           for(i=0;i<advenc.size();i++){
+               System.out.println("Enchantment:"+ advenc.get(i).name()+" destroyed");
+               CardGame.instance.getCurrentAdversary().getEnchantments().remove(i);
+           }
         }
     }
     @Override
