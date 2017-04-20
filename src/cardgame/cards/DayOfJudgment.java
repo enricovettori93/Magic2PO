@@ -29,7 +29,6 @@ public class DayOfJudgment implements Card{
            app = CardGame.instance.getCurrentAdversary().getCreatures();
            for (i = 0;i < app.size(); i ++){
                System.out.println("Creature:"+ app.get(i).name()+" destroyed");
-               /*rimuove la creatura - DUBBIO : va bene solo rimuoverla o anche distruggerla? Se si come?*/
                CardGame.instance.getCurrentAdversary().destroy(CardGame.instance.getCurrentAdversary().getCreatures().get(i));
            }
            
