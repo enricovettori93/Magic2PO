@@ -58,7 +58,10 @@ public class FalsePeace implements Card {
     public String ruleText() {
         return "Target player skips his next combat phase.";
     }
-
+    
+    @Override
+    public String toString() { return name() + " (" + type() + ") [" + ruleText() +"]";}
+    
     @Override
     public boolean isInstant() {
         return false;
