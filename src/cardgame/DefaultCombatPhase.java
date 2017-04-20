@@ -34,10 +34,8 @@ public class DefaultCombatPhase implements Phase {
                 System.out.println(currentPlayer.name()+", select the creature that must attack, 0 to pass");
                 for(Creature c:currentPlayer.getCreatures()){
                     if(!c.isTapped()){
-                        if(!idxAttaccanti.contains(c)){
+                        if(!idxAttaccanti.contains(c))
                             System.out.println((i+1)+")"+c.name());
-                           
-                        }
                          i++;
                     }
                 }
@@ -75,10 +73,9 @@ public class DefaultCombatPhase implements Phase {
                         System.out.println(opponent.name()+", select the creature from which you have to defend yourself");
                         System.out.println("Opponent's attackers:");
                         
-                        while(j<scontri.size()){
+                        for(j=0;j<scontri.size();j++)
                             System.out.println((j+1)+")"+scontri.get(j).getAttaccante().name());
-                            j++;
-                        }
+
                         //TODO: Fase Effetti Stack e istantanei sulla sungola creatura(Difensore)
                         
                         //definizione dei difensori rispetto agli attaccanti
@@ -87,17 +84,16 @@ public class DefaultCombatPhase implements Phase {
                             idxDifensore.add(opponent.getCreatures().get(idx-1));
                             scontri.get(idxDif-1).addDifensore(opponent.getCreatures().get(idx-1));
                            
-                        }else{
-                            System.out.println("Error: there is any attacker in that position");
                         }
+                        else
+                            System.out.println("Error: there isn't any attacker in that position");
                     }
                     j=0;
                     i=0;
                 }while(idx!=0);
             }
             //Esecuzione scontri
-            i=0;    
-            while(i<scontri.size()){
+            for(i=0;i<scontri.size();i++){
                 //scontri.get(i).getAttaccante().attack(scontri.get(i).getDifensore());
                 if(scontri.get(i).nessunDif){
                     //System.out.println(scontri.get(i).getAttaccante().name()+" Attacca l'avversario");
@@ -106,11 +102,9 @@ public class DefaultCombatPhase implements Phase {
                     for(int j=0;j<scontri.get(i).getDifensore().size();j++){
                         //System.out.println(scontri.get(i).getAttaccante().name()+" Attacca "+scontri.get(i).getDifensore().get(j).name());
                         scontri.get(i).getDifensore().get(j).inflictDamage(scontri.get(i).getAttaccante().getPower()); //Danni al difensore
-                        
                     }
                 }
-                i++;
-            }            
+            }           
         }
     }
     
