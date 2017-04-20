@@ -32,11 +32,12 @@ public class SavorTheMoment implements Card {
         @Override
         public void resolve(){
             CardGame.instance.getCurrentPlayer().setPhase(Phases.END,new SkipPhase(Phases.END));
+            CardGame.instance.getCurrentPlayer().setPhase(Phases.NULL,new SkipPhase(Phases.NULL));
             CardGame.instance.getCurrentPlayer().setPhase(Phases.DRAW, new DefaultDrawPhase());
+            CardGame.instance.getCurrentPlayer().setPhase(Phases.UNTAP,new SkipPhase(Phases.UNTAP));
             CardGame.instance.getCurrentPlayer().setPhase(Phases.COMBAT, new DefaultCombatPhase());
             CardGame.instance.getCurrentPlayer().setPhase(Phases.MAIN, new DefaultMainPhase());
             CardGame.instance.getCurrentPlayer().setPhase(Phases.END, new DefaultEndPhase());
-            //CardGame.instance.getCurrentPlayer().setPhase(Phases.NULL, new ArrayDeque<Phase>());
         }
     }
     @Override
