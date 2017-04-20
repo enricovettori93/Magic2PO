@@ -21,14 +21,14 @@ public class DefaultCombatPhase implements Phase {
         Player opponent=CardGame.instance.getCurrentAdversary();
         Scanner reader = CardGame.instance.getScanner();
         System.out.println(currentPlayer.name() + ": combat phase");
-        int idx;
+        int idx,i,j;
         ArrayList <Creature>idxAttaccanti=new ArrayList<Creature>();
         ArrayList <Creature>idxDifensore=new ArrayList<Creature>();
         ArrayList <Scontro> scontri= new ArrayList<Scontro>();
         CardGame.instance.getTriggers().trigger(Triggers.COMBAT_FILTER);
         
         if(!currentPlayer.getCreatures().isEmpty()){ //nel programma del prof., le creature giocate sono contenute in "Player"
-            int i=0;
+            i=0;
             //Dichiarazione degli attaccanti
             do{
                 System.out.println(currentPlayer.name()+", select the creature that must attack, 0 to pass");
@@ -47,7 +47,7 @@ public class DefaultCombatPhase implements Phase {
                 if(idx!=0 && (idx-1)<currentPlayer.getCreatures().size() && !idxAttaccanti.contains(currentPlayer.getCreatures().get(idx-1))){
                     scontri.add(new Scontro(currentPlayer.getCreatures().get(idx-1)));
                     idxAttaccanti.add(currentPlayer.getCreatures().get(idx-1));
-                   }
+                }
                 i=0;
             }while(idx!=0);
             //TODO: Fase Effetti Stack e istantanei
@@ -55,7 +55,7 @@ public class DefaultCombatPhase implements Phase {
             //Dichiarazione dei difensori 
             if(!scontri.isEmpty()){
                 i=0;
-                int j=0;
+                j=0;
                 do{
                     System.out.println(opponent.name()+", select the creature that must defend, 0 to pass");
                     for(Creature c:opponent.getCreatures()){
@@ -99,9 +99,11 @@ public class DefaultCombatPhase implements Phase {
                     //System.out.println(scontri.get(i).getAttaccante().name()+" Attacca l'avversario");
                     scontri.get(i).getAttaccante().attack();
                 }else{
-                    for(int j=0;j<scontri.get(i).getDifensore().size();j++){
+                    for(j=0;j<scontri.get(i).getDifensore().size();j++){
                         //System.out.println(scontri.get(i).getAttaccante().name()+" Attacca "+scontri.get(i).getDifensore().get(j).name());
                         scontri.get(i).getDifensore().get(j).inflictDamage(scontri.get(i).getAttaccante().getPower()); //Danni al difensore
+                        //COSI' FACENDO PERO' UN MOSTRO ATTACCA SEMPRE CON GLI STESSI PUNTI DI ATTACCO TUTTI I DIFENSORI
+                        //MESSI A DIFENDERE DA QUEL MOSTRO
                     }
                 }
             }           
