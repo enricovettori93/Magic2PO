@@ -64,7 +64,12 @@ public class BoilingEarth implements Card{
     public String ruleText() {
         return "Boiling Earth deals 1 damage to each creature";
     }
-
+    
+    @Override
+    public String toString(){
+        return name() + " (" + type() + ") [" + ruleText() +"]";
+    }
+    
     @Override
     public boolean isInstant() {
         return false;
