@@ -32,10 +32,10 @@ public class FalsePeace implements Card {
                 in =  input.nextInt();
             }while(in != 0 && in != 1);
             if(in == 0){
-                CardGame.instance.getCurrentPlayer().removePhase(Phases.COMBAT, new SkipPhase(Phases.COMBAT));
+                CardGame.instance.getCurrentPlayer().setPhase(Phases.COMBAT,new SkipPhase(Phases.COMBAT));
             }
             else{
-                CardGame.instance.getCurrentAdversary().removePhase(Phases.COMBAT, new SkipPhase(Phases.COMBAT));
+                CardGame.instance.getCurrentAdversary().setPhase(Phases.COMBAT,new SkipPhase(Phases.COMBAT));
             }
         }
     }
