@@ -53,7 +53,10 @@ public class DayOfJudgment implements Card{
     public String ruleText() {
         return "Day of Judgment destroy all creatures";
     }
-
+    
+    @Override
+    public String toString() { return name() + " (" + type() + ") [" + ruleText() +"]";}
+    
     @Override
     public boolean isInstant() {
         return false;
