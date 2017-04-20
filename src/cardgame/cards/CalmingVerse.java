@@ -55,6 +55,9 @@ public class CalmingVerse implements Card{
     }
 
     @Override
+    public String toString() { return name() + " (" + type() + ") [" + ruleText() +"]";}
+    
+    @Override
     public boolean isInstant() {
         return false;
     }
