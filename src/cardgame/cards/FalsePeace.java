@@ -30,7 +30,7 @@ public class FalsePeace implements Card {
             System.out.println("Select player target -> 0 = player, 1 = adversary");
             do{
                 in =  input.nextInt();
-            }while(in != 0 || in != 1);
+            }while(in != 0 && in != 1);
             if(in == 0){
                 CardGame.instance.getCurrentPlayer().removePhase(Phases.COMBAT, new SkipPhase(Phases.COMBAT));
             }
