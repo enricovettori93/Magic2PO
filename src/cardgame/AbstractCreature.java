@@ -14,6 +14,7 @@ public abstract class AbstractCreature implements Creature {
     protected Player owner;
     protected boolean isTapped=false;
     protected int damageLeft = getToughness();
+    protected StructDecoratorCreature sdc=new StructDecoratorCreature(this);
         
         protected AbstractCreature(Player owner) { this.owner=owner; }
         
@@ -72,4 +73,25 @@ public abstract class AbstractCreature implements Creature {
         public String toString() {
             return name() + " (Creature)";
         }
+        
+        public String valueOfCreaure(){
+            return toString()+" ( "+sdc.peek().getPower()+" )( "+sdc.peek().getToughness()+" )";
+        }
+        
+        public Decorator decoratorPeek(){
+            return sdc.peek();
+        }
+        
+        public void addDecorator(Decorator dec){
+            sdc.add(dec);
+        }
+        
+        public void removeDecorator(Object obj){
+            sdc.remove(obj);
+        }
+        
+        public int getDamageLeft(){
+            return this.damageLeft;
+        }
+        
 }

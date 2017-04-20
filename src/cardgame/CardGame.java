@@ -26,16 +26,76 @@ public class CardGame {
     public static void main(String[] args) {
         //create decks
         ArrayList<Card> deck = new ArrayList<>();
-        for (int i=0; i!=5; ++i) deck.add(new Homeopathy());
         for (int i=0; i!=5; ++i) deck.add(new Reflexologist());
         for (int i=0; i!=5; ++i) deck.add(new FriendlyEnvironment());
-        //Aggiunta 5 carte VolcanicHammer per prova
+        //Aggiunta carte per prova
         for (int i=0; i!=5; ++i) deck.add(new BoilingEarth());
+        for (int i=0; i!=5; ++i) deck.add(new AncestralMask());
         
         instance.getPlayer(0).setDeck(deck.iterator());
         instance.getPlayer(1).setDeck(deck.iterator());
         
         instance.run();
+
+        /*
+        AbstractCreature ac=new AbstractCreature(new Player()) {
+            @Override
+            public int getPower() {
+                return 1;
+            }
+            
+            @Override
+            public int getToughness() {
+                return 1;
+            }
+            
+            @Override
+            public List<Effect> effects() {
+                return null;
+            }
+            
+            @Override
+            public List<Effect> avaliableEffects() {
+                return null;
+            }
+            
+            @Override
+            public String name() {
+                return "AbstractCreature";
+            }
+        };
+        
+        Decorator pud=new Decorator(ac) {};
+                
+        PowerUpDecorator pud2=new PowerUpDecorator(pud,new Object(), 7, 6);
+        
+        PowerUpDecorator pud3=new PowerUpDecorator(pud2,new Object(), -5, -5);
+        
+        //Prova struct
+        System.out.println("---Prova struct---");
+        
+        StructDecoratorCreature sdc=new StructDecoratorCreature(ac);
+        System.out.println(sdc.peek().name()+" A "+sdc.peek().getPower()+" D "+sdc.peek().getToughness());
+
+        sdc.add(pud2);
+        System.out.println(sdc.peek().name()+" A "+sdc.peek().getPower()+" D "+sdc.peek().getToughness());
+
+        sdc.add(pud3);
+        System.out.println(sdc.peek().name()+" A "+sdc.peek().getPower()+" D "+sdc.peek().getToughness());
+
+        sdc.clear();
+        System.out.println(sdc.peek().name()+" A "+sdc.peek().getPower()+" D "+sdc.peek().getToughness());
+
+        sdc.add(new PowerUpDecorator(sdc.peek(),new Object(), 3, 3));
+        System.out.println(sdc.peek().name()+" A "+sdc.peek().getPower()+" D "+sdc.peek().getToughness());
+
+        sdc.add(new PowerUpDecorator(sdc.peek(),new Object(), -2, -2));
+        System.out.println(sdc.peek().name()+" A "+sdc.peek().getPower()+" D "+sdc.peek().getToughness());
+
+        sdc.add(new PowerUpDecorator(sdc.peek(),new Object(), 1, -1));
+        System.out.println(sdc.peek().name()+" A "+sdc.peek().getPower()+" D "+sdc.peek().getToughness());
+        */
+        
     }
     
     //Signleton and instance access
