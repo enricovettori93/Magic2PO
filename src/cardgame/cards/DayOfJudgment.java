@@ -16,28 +16,21 @@ public class DayOfJudgment implements Card{
         DayOfJudgmentEffect(Player p, Card c) { super(p,c); }
         
         int i = 0;
-        int j = 0;
         @Override
         public void resolve() {
-           // distruggi tutte le creature in campo */
-           //   prova effetto: se vedete errori o avete un'idea migliore cambiate pure
-           
-           // prendere la lista di creature del giocatore - QUELLE GIOCATE? */
-           List<Creature> plrcrt = CardGame.instance.getCurrentPlayer().getCreatures();
-           // prendere la lista di creature dell'avversario */
-           List<Creature> advcrt = CardGame.instance.getCurrentAdversary().getCreatures();
-           
-           while (i < plrcrt.size()){
-               System.out.println("Creature:"+ plrcrt.get(i).name()+" destroyed");
-               plrcrt.get(i).remove();
-               i++;
+           // distruggi tutte le creature in campo
+           // prendere la lista di creature del giocatore
+           List<Creature> app = CardGame.instance.getCurrentPlayer().getCreatures();
+           for (i = 0;i < app.size(); i ++){
+               System.out.println("Creature:"+ app.get(i).name()+" destroyed");
+               CardGame.instance.getCurrentPlayer().destroy(CardGame.instance.getCurrentPlayer().getCreatures().get(i));
            }
-        
-           while (j < advcrt.size()){
-               System.out.println("Creature:"+ advcrt.get(i).name()+" destroyed");
+           // prendere la lista di creature dell'avversario
+           app = CardGame.instance.getCurrentAdversary().getCreatures();
+           for (i = 0;i < app.size(); i ++){
+               System.out.println("Creature:"+ app.get(i).name()+" destroyed");
                /*rimuove la creatura - DUBBIO : va bene solo rimuoverla o anche distruggerla? Se si come?*/
-               advcrt.get(j).remove();
-               j++;
+               CardGame.instance.getCurrentAdversary().destroy(CardGame.instance.getCurrentAdversary().getCreatures().get(i));
            }
            
         }
