@@ -7,6 +7,7 @@ import cardgame.Card;
 import cardgame.CardGame;
 import cardgame.Effect;
 import cardgame.Enchantment;
+import cardgame.PermanentTarget;
 import cardgame.Player;
 import cardgame.Target;
 import java.util.Scanner;
@@ -45,7 +46,7 @@ public class AuraBlast implements Card{
                 choice =  input.nextInt();
             }while(choice < 0 && choice > rival.getEnchantments().size());
             if(choice!=0)
-                targets.add(new Target(rival, rival.getEnchantments().get(choice-1)));
+                targets.add(new PermanentTarget(rival, rival.getEnchantments().get(choice-1)));
             else{
                 if(choice == 0){
                     do{
@@ -54,7 +55,7 @@ public class AuraBlast implements Card{
                         choice = input.nextInt();
                     }while(choice < 0 && choice > owner.getEnchantments().size());
                     if(choice != 0)
-                        targets.add(new Target(owner, owner.getEnchantments().get(choice-1)));
+                        targets.add(new PermanentTarget(owner, owner.getEnchantments().get(choice-1)));
                 }
             }
         }
@@ -62,7 +63,7 @@ public class AuraBlast implements Card{
         public void resolve() {
             //destroy target         
             for(Target t : targets){
-                t.getTargetOwner().getEnchantments().remove((Enchantment)t.getTarget());
+                ((PermanentTarget)t).getTargetOwner().getEnchantments().remove((Enchantment)t.getTarget());
             }
             //draw a card
             owner.draw();
