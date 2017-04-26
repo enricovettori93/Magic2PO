@@ -5,6 +5,9 @@
  */
 package cardgame;
 
+import cardgame.decorator.AbstractDecorator;
+import cardgame.decorator.DecoratorManagementSystem;
+
 /**
  *
  * @author atorsell
@@ -13,8 +16,8 @@ public abstract class AbstractCreature implements Creature {
     
     protected Player owner;
     protected boolean isTapped=false;
-    protected int damageLeft = getToughness();
-    protected StructDecoratorCreature sdc=new StructDecoratorCreature(this);
+    public int damageLeft = getToughness();
+    protected DecoratorManagementSystem dms=new DecoratorManagementSystem(this);
         
         protected AbstractCreature(Player owner) { this.owner=owner; }
         
@@ -56,7 +59,7 @@ public abstract class AbstractCreature implements Creature {
         }
         
     @Override
-        public void resetDamage() { damageLeft = getToughness(); }
+        public void resetDamage() { damageLeft = getToughnessDecorated(); }
     
     @Override
         public void insert() {
@@ -74,24 +77,38 @@ public abstract class AbstractCreature implements Creature {
             return name() + " (Creature)";
         }
         
-        public String valueOfCreaure(){
-            return toString()+" ( "+sdc.peek().getPower()+" )( "+sdc.peek().getToughness()+" )";
-        }
-        
-        public Decorator decoratorPeek(){
-            return sdc.peek();
-        }
-        
-        public void addDecorator(Decorator dec){
-            sdc.add(dec);
-        }
-        
-        public void removeDecorator(Object obj){
-            sdc.remove(obj);
-        }
-        
-        public int getDamageLeft(){
-            return this.damageLeft;
-        }
-        
+    public void addDecorator(AbstractDecorator d){
+        dms.addDecorator(d);
+    }
+    
+    public void removeDecorator(Object l){
+        dms.removeDecorator(l);
+    }
+    
+    @Override
+    public int getPowerDecorated(){
+        return dms.peek().getPowerDecorated();
+    }
+    
+    @Override
+    public int getToughnessDecorated(){
+        return dms.peek().getToughnessDecorated();
+    }
+    
+    public int getDamageLeft(){
+        return damageLeft;
+    }
+    
+    public void init(){
+        damageLeft=getToughness();
+    }
+    
+    public void increaseDamageLeft(int val){
+        damageLeft+=val;
+    }
+
+    public String valueOfCreature(){
+        return name()+" "+getPowerDecorated()+"/"+getDamageLeft();
+    }
+    
 }

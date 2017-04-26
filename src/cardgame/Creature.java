@@ -22,6 +22,8 @@ public interface Creature extends Permanent {
     void resetDamage();
     int getPower();
     int getToughness();
+    int getPowerDecorated();
+    int getToughnessDecorated();
     
     // returns all the effects associated to this creature
     List<Effect> effects();
@@ -29,4 +31,9 @@ public interface Creature extends Permanent {
     // returns only the effects that can be played currently
     // depending on state, e.g., tapped/untapped
     List<Effect> avaliableEffects();
+
+    public void increaseDamageLeft(int val);
+
+    public int getDamageLeft();
+
 }

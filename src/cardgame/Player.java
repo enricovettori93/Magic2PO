@@ -180,7 +180,7 @@ public class Player {
    public void printPermanents(){
        int i=1;
        for(Creature c : creatures){
-           System.out.println(i+". "+c.name());
+           System.out.println(i+". "+c.name()+" "+c.getPowerDecorated()+"/"+c.getToughnessDecorated());
            i++;
        }
    }
