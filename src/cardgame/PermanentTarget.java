@@ -12,9 +12,9 @@ package cardgame;
 public class PermanentTarget implements Target{
     Player targetOwner;
     Permanent target;
-    public PermanentTarget(Player targetOwner, Permanent target){
+    public PermanentTarget(Player owner, Permanent target){
         this.target=target;
-        this.targetOwner=targetOwner;
+        this.targetOwner=owner;
     }
     @Override
     public Object getTarget() {
@@ -22,5 +22,8 @@ public class PermanentTarget implements Target{
     }
     public Player getTargetOwner(){
         return targetOwner;
+    }
+    public String toString(){
+        return target.name();
     }
 }

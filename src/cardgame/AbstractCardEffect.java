@@ -21,4 +21,7 @@ public abstract class AbstractCardEffect extends AbstractEffect {
     }
     
     public String toString() { return card.toString(); }
+    public Card getCard(){
+        return card;
+    }
 }

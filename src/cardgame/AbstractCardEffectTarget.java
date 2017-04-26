@@ -19,7 +19,21 @@ public abstract class AbstractCardEffectTarget extends AbstractCardEffect{
         targets = new ArrayList<>();
     }
     public abstract void setTarget();
-       
+    public void printTarget(){
+        for(Target i : targets){
+            if(i instanceof PermanentTarget)
+                System.out.println(((Permanent)((PermanentTarget)i).getTarget()).name());
+            else if(i instanceof PlayerTarget)
+                System.out.println(((Player)((PlayerTarget)i).getTarget()).name());
+        }
+    }
+    public String toString(){
+        String out = new String();
+        for(Target i : targets){
+            out+=i.toString()+",";
+        }
+        return out;
+    }
     
     
 }
