@@ -1,18 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cardgame.cards;
 
 import cardgame.AbstractCardEffectTarget;
 import cardgame.Card;
 import cardgame.CardGame;
 import cardgame.Effect;
-import cardgame.Enchantment;
-import cardgame.PermanentTarget;
 import cardgame.Player;
-import cardgame.Target;
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
@@ -22,8 +14,9 @@ import java.util.Scanner;
 public class Deflection implements Card{
     
     private class DeflectionEffect extends AbstractCardEffectTarget {
-        //costruttore
+
         AbstractCardEffectTarget effectTarget;
+        
         public DeflectionEffect(Player p, Card c) { 
             super(p,c);
             effectTarget = null;
