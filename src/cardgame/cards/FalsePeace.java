@@ -6,6 +6,7 @@
 package cardgame.cards;
 
 import cardgame.AbstractCardEffect;
+import cardgame.AbstractCardEffectTarget;
 import cardgame.Card;
 import cardgame.CardGame;
 import cardgame.Effect;
@@ -19,12 +20,29 @@ import java.util.Scanner;
  * @author Enrico
  */
 public class FalsePeace implements Card {
-    private class FalsePeaceEffect extends AbstractCardEffect{
+    private class FalsePeaceEffect extends AbstractCardEffectTarget{
 
-        FalsePeaceEffect(Player p, Card c) { super(p,c); }
+        FalsePeaceEffect(Player p, Card c) { 
+            super(p,c);
+            effectTarget = null;
+        }
+        
+        AbstractCardEffectTarget effectTarget;
+        
         @Override
         public void resolve() {
-           int powerup = 0;
+            if(effectTarget!=null)
+                effectTarget.setTarget();
+        }
+        
+        @Override
+        public boolean play() {
+            setTarget();
+            return super.play();
+        }
+        
+        @Override
+        public void setTarget() {
             int in;
             Scanner input = new Scanner(System.in);
             System.out.println("Select player target -> 0 = player, 1 = adversary");
