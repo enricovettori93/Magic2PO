@@ -50,7 +50,8 @@ public class DefaultCombatPhase implements Phase {
                 }
                 i=0;
             }while(idx!=0);
-            //TODO: Fase Effetti Stack e istantanei
+            
+            CardGame.instance.getStack().resolve();
             
             //Dichiarazione dei difensori 
             if(!scontri.isEmpty()){
@@ -100,11 +101,13 @@ public class DefaultCombatPhase implements Phase {
                     scontri.get(i).getAttaccante().attack();
                 }else{
                     j = 0;
+                    int atk = scontri.get(i).getAttaccante().getPower();
+                    int boneggio;
                     for(j=0;j<scontri.get(i).getDifensore().size()||scontri.get(i).getAttaccante().getPower()<=0;j++){
                         //System.out.println(scontri.get(i).getAttaccante().name()+" Attacca "+scontri.get(i).getDifensore().get(j).name());
-                        scontri.get(i).getDifensore().get(j).inflictDamage(scontri.get(i).getAttaccante().getPower()); //Danni al difensore
-                        //DA TOGLIERE IL COMMENTO QUANDO SI PREDISPONE IL METODO PER RIDURRE L'ATTRIBUTO ATTACCO DEL MOSTRO
-                        //scontri.get(i).getAttaccante().reducePower(scontri.get(i).getDifensiore.getToughness());
+                        System.out.println("" + scontri.get(i).getDifensore().get(j).toString());
+                        scontri.get(i).getDifensore().get(j).inflictDamage(atk); //Danni al difensore
+                        atk = atk - scontri.get(i).getDifensore().get(j).getToughnessDecorated();
                     }
                 }
             }           

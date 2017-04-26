@@ -26,10 +26,10 @@ public class CardGame {
     public static void main(String[] args) {
         //create decks
         ArrayList<Card> deck = new ArrayList<>();
-        for (int i=0; i!=5; ++i) deck.add(new Reflexologist());
-        for (int i=0; i!=5; ++i) deck.add(new FriendlyEnvironment());
+        //for (int i=0; i!=5; ++i) deck.add(new Reflexologist());
+        //for (int i=0; i!=5; ++i) deck.add(new FriendlyEnvironment());
         //Aggiunta carte per prova
-        for (int i=0; i!=5; ++i) deck.add(new BoilingEarth());
+        for (int i=0; i!=5; ++i) deck.add(new BronzeSable());
         for (int i=0; i!=5; ++i) deck.add(new AncestralMask());
         
         instance.getPlayer(0).setDeck(deck.iterator());
