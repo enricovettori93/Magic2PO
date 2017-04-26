@@ -5,6 +5,7 @@
  */
 package cardgame;
 
+import cardgame.decorator.AbstractDecorator;
 import java.util.List;
 
 /**
@@ -35,5 +36,8 @@ public interface Creature extends Permanent {
     public void increaseDamageLeft(int val);
 
     public int getDamageLeft();
-
+    
+    public void addDecorator(AbstractDecorator d);
+    
+    public void removeDecorator(Object l);
 }

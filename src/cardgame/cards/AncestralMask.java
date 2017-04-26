@@ -12,6 +12,7 @@ import cardgame.Creature;
 import cardgame.Effect;
 import cardgame.Enchantment;
 import cardgame.Player;
+import cardgame.decorator.PowerUpDecorator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -24,6 +25,7 @@ public class AncestralMask implements Card{
     private class AncestralMaskEffect extends AbstractCardEffect{
 
         AncestralMaskEffect(Player p, Card c) { super(p,c); }
+        PowerUpDecorator app;
         
         @Override
         public void resolve() {
@@ -49,16 +51,16 @@ public class AncestralMask implements Card{
                 do{
                     in = input.nextInt();
                 }while(in < 0 && in > CardGame.instance.getCurrentPlayer().getCreatures().size());
-                //DA DEFINIRE DECORATORE PER AUMENTARE ATTACCO E DIFESA DELLA CREATURA
-                //CardGame.instance.getCurrentPlayer().getCreatures().get(in+1).DECORATOREAUMENTAATKDEF(powerup);
+                app = new PowerUpDecorator(this, powerup, powerup);
+                CardGame.instance.getCurrentPlayer().getCreatures().get(in+1).addDecorator(app);
             }
             else{
                 CardGame.instance.getCurrentAdversary().printPermanents();
                 do{
                     in = input.nextInt();
                 }while(in < 0 && in > CardGame.instance.getCurrentAdversary().getCreatures().size());
-                //DA DEFINIRE DECORATORE PER AUMENTARE ATTACCO E DIFESA DELLA CREATURA
-                //CardGame.instance.getCurrentAdversary().getCreatures().get(in+1).DECORATOREAUMENTAATKDEF(powerup);
+                app = new PowerUpDecorator(this, powerup, powerup);
+                CardGame.instance.getCurrentPlayer().getCreatures().get(in+1).addDecorator(app);
             }
         }
     }

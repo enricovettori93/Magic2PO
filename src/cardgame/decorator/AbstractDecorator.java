@@ -77,5 +77,13 @@ public abstract class AbstractDecorator implements Creature{
     public void increaseDamageLeft(int val){
         creature.increaseDamageLeft(val);
     }
-
+    @Override
+    public void addDecorator(AbstractDecorator d){
+        creature.addDecorator(d);
+    };
+    
+    @Override
+    public void removeDecorator(Object l){
+        creature.removeDecorator(l);
+    };
 }
