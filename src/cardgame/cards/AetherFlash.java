@@ -14,7 +14,7 @@ import cardgame.Enchantment;
 import cardgame.Player;
 import cardgame.TriggerAction;
 import cardgame.Triggers;
-import java.util.Scanner;
+import java.util.Iterator;
 /**
  *
  * @author Enrico
@@ -89,6 +89,7 @@ public class AetherFlash implements Card{
     public boolean isInstant() {
        return false;
     }
+    @Override
     public String toString(){
         return name() + " (" + type() + ") [" + ruleText() +"]";
     }
