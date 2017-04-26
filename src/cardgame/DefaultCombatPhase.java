@@ -99,11 +99,12 @@ public class DefaultCombatPhase implements Phase {
                     //System.out.println(scontri.get(i).getAttaccante().name()+" Attacca l'avversario");
                     scontri.get(i).getAttaccante().attack();
                 }else{
-                    for(j=0;j<scontri.get(i).getDifensore().size();j++){
+                    j = 0;
+                    for(j=0;j<scontri.get(i).getDifensore().size()||scontri.get(i).getAttaccante().getPower()<=0;j++){
                         //System.out.println(scontri.get(i).getAttaccante().name()+" Attacca "+scontri.get(i).getDifensore().get(j).name());
                         scontri.get(i).getDifensore().get(j).inflictDamage(scontri.get(i).getAttaccante().getPower()); //Danni al difensore
-                        //COSI' FACENDO PERO' UN MOSTRO ATTACCA SEMPRE CON GLI STESSI PUNTI DI ATTACCO TUTTI I DIFENSORI
-                        //MESSI A DIFENDERE DA QUEL MOSTRO
+                        //DA TOGLIERE IL COMMENTO QUANDO SI PREDISPONE IL METODO PER RIDURRE L'ATTRIBUTO ATTACCO DEL MOSTRO
+                        //scontri.get(i).getAttaccante().reducePower(scontri.get(i).getDifensiore.getToughness());
                     }
                 }
             }           
