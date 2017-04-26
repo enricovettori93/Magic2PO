@@ -104,8 +104,7 @@ public class DefaultCombatPhase implements Phase {
                     int atk = scontri.get(i).getAttaccante().getPower();
                     int boneggio;
                     for(j=0;j<scontri.get(i).getDifensore().size()||scontri.get(i).getAttaccante().getPower()<=0;j++){
-                        //System.out.println(scontri.get(i).getAttaccante().name()+" Attacca "+scontri.get(i).getDifensore().get(j).name());
-                        System.out.println("" + scontri.get(i).getDifensore().get(j).toString());
+                        System.out.println("Mostro " + scontri.get(i).getAttaccante().name() + " sta attaccando "+scontri.get(i).getDifensore().get(j).name());
                         scontri.get(i).getDifensore().get(j).inflictDamage(atk); //Danni al difensore
                         atk = atk - scontri.get(i).getDifensore().get(j).getToughnessDecorated();
                     }
