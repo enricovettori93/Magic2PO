@@ -21,7 +21,7 @@ public abstract class AbstractCreature implements Creature {
     public int damageLeft = getToughness();
     protected DecoratorManagementSystem dms=new DecoratorManagementSystem(this);
     protected CreatureInflictDamageStrategy cids = new CreatureDefaultInflictDamage();
-        protected AbstractCreature(Player owner) { this.owner=owner; }
+    protected AbstractCreature(Player owner) { this.owner=owner; }
         
     @Override
         public boolean tap() { 
@@ -115,5 +115,14 @@ public abstract class AbstractCreature implements Creature {
     public String valueOfCreature(){
         return name()+" "+getPowerDecorated()+"/"+getDamageLeft();
     }
-    
+    public void setCids(CreatureInflictDamageStrategy cids){
+        this.cids = cids;
+        
+    }
+    public Player getOwner(Player owner){
+        return owner;
+    }
+    public void setOwner(Player owner){
+        this.owner = owner;
+    }
 }

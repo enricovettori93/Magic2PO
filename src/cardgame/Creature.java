@@ -5,6 +5,7 @@
  */
 package cardgame;
 
+import cardgame.creaturestrategy.CreatureInflictDamageStrategy;
 import cardgame.decorator.AbstractDecorator;
 import java.util.List;
 
@@ -41,4 +42,10 @@ public interface Creature extends Permanent {
     public void addDecorator(AbstractDecorator d);
     
     public void removeDecorator(Object l);
+    
+    public void setOwner(Player owner);
+
+    public Player getOwner();
+
+    public void setCids(CreatureInflictDamageStrategy cids);
 }
