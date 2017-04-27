@@ -81,6 +81,8 @@ public class Abduction implements Card{
         public void remove() {
             /*quando viene rimossso, andrò a settare la Strategy per il metodo destroy della creatura*/
             AbstractCreature c =((AbstractCreature)targets.get(0).getTarget());
+            if(c.isTapped())
+                c.untap();
             c.setCids(new AbductionStrategy(c.getOwner()));
         }
         @Override
