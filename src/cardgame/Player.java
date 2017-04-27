@@ -5,6 +5,8 @@
  */
 package cardgame;
 
+import cardgame.playerstrategy.DefaultInflictDamage;
+import cardgame.playerstrategy.PlayerInflictDamageStrategy;
 import java.util.Iterator;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -31,15 +33,21 @@ public class Player {
     public void setDeck(Iterator<Card> deck) { library.add(deck); }
     public Library getDeck() { return library; }
     
-    
+    private PlayerInflictDamageStrategy inflictDmgStrategy = new DefaultInflictDamage();
+    public void setInflictDmgStrategy(PlayerInflictDamageStrategy inflictDmgStrategy){
+        this.inflictDmgStrategy=inflictDmgStrategy;
+    }
     
     private int life=10;
     public int getLife() {return life;}
     
     // need to attach strategy/decorator
     public void inflictDamage(int pts) {
-        life -= pts;
-        if (life <=0) lose("received fatal damage");
+        inflictDmgStrategy.inflictDamage(this, pts);
+    }
+    public void defaultInflictDamage(int pts){
+        life-= pts;
+        if(life <= 0) lose("received fatal damage");
     }
     
     public void heal(int pts) { life += pts; }
