@@ -58,14 +58,12 @@ public class AggressiveUrge implements Card {
             }while(in != 0 && in != 1);
             System.out.println("Select creature");
             if(in == 0){
-                System.out.println("" + CardGame.instance.getCurrentPlayer().getCreatures());
                 do{
                     in = input.nextInt();
                 }while(in < 0 || in > CardGame.instance.getCurrentPlayer().getCreatures().size());
                 effectTarget = new PermanentTarget(owner,CardGame.instance.getCurrentPlayer().getCreatures().get(in+1));
             }
             else{
-                System.out.println("" + CardGame.instance.getCurrentAdversary().getCreatures());
                 do{
                     in = input.nextInt();
                 }while(in < 0 || in > CardGame.instance.getCurrentAdversary().getCreatures().size());
