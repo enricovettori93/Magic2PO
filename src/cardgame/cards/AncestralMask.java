@@ -7,6 +7,7 @@ package cardgame.cards;
 
 import cardgame.AbstractCardEffect;
 import cardgame.AbstractCardEffectTarget;
+import cardgame.AbstractCreature;
 import cardgame.AbstractEnchantment;
 import cardgame.AbstractEnchantmentCardEffect;
 import cardgame.Card;
@@ -14,6 +15,7 @@ import cardgame.CardGame;
 import cardgame.Creature;
 import cardgame.Effect;
 import cardgame.Enchantment;
+import cardgame.Permanent;
 import cardgame.target.PermanentTarget;
 import cardgame.Player;
 import cardgame.TriggerAction;
@@ -46,7 +48,8 @@ public class AncestralMask implements Card{
         @Override
         public void resolve() {
             app = new PowerUpDecorator(this, powerup, powerup);
-            ((Creature)effectTarget).addDecorator(app);
+            ((Creature)effectTarget.getTarget()).addDecorator(app);
+            //System.out.println(" " + effectTarget.getTarget().toString()+((Creature)effectTarget.getTarget()).getPowerDecorated());
         }
 
         public void setTarget() {
