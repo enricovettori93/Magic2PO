@@ -46,7 +46,6 @@ public class AggressiveUrge implements Card {
 
         @Override
         public void setTarget() {
-            int powerup = 0;
             int in;
             Scanner input = new Scanner(System.in);
             System.out.println("Player's creature");
@@ -62,14 +61,14 @@ public class AggressiveUrge implements Card {
                 System.out.println("" + CardGame.instance.getCurrentPlayer().getCreatures());
                 do{
                     in = input.nextInt();
-                }while(in < 0 && in > CardGame.instance.getCurrentPlayer().getCreatures().size());
+                }while(in < 0 || in > CardGame.instance.getCurrentPlayer().getCreatures().size());
                 effectTarget = new PermanentTarget(owner,CardGame.instance.getCurrentPlayer().getCreatures().get(in+1));
             }
             else{
                 System.out.println("" + CardGame.instance.getCurrentAdversary().getCreatures());
                 do{
                     in = input.nextInt();
-                }while(in < 0 && in > CardGame.instance.getCurrentAdversary().getCreatures().size());
+                }while(in < 0 || in > CardGame.instance.getCurrentAdversary().getCreatures().size());
                 effectTarget = new PermanentTarget(owner,CardGame.instance.getCurrentAdversary().getCreatures().get(in+1));
             }
         }
