@@ -7,13 +7,16 @@ package cardgame.cards;
 
 import cardgame.AbstractCardEffect;
 import cardgame.AbstractCardEffectTarget;
+import cardgame.AbstractEnchantment;
 import cardgame.Card;
 import cardgame.CardGame;
 import cardgame.Creature;
 import cardgame.Effect;
 import cardgame.Enchantment;
-import cardgame.PermanentTarget;
+import cardgame.target.PermanentTarget;
 import cardgame.Player;
+import cardgame.TriggerAction;
+import cardgame.Triggers;
 import cardgame.decorator.PowerUpDecorator;
 import java.util.List;
 import java.util.Scanner;
@@ -24,13 +27,19 @@ import java.util.Scanner;
  */
 public class AncestralMask implements Card{
     
+    //BEGIN EFFECT CARD
     private class AncestralMaskEffect extends AbstractCardEffectTarget{
             
         PermanentTarget effectTarget;
         PowerUpDecorator app;
         int powerup;
         
-        AncestralMaskEffect(Player p, Card c) { super(p,c); }
+        AncestralMaskEffect(Player p, Card c) { 
+            super(p,c); 
+            //COME CAZZO SI METTE?
+            @Override
+            protected Enchantment createEnchantment() { return new AncestralMaskEnchantment(owner); }
+        }
         
         
         @Override
@@ -41,13 +50,10 @@ public class AncestralMask implements Card{
 
         @Override
         public void setTarget() {
-            powerup = 0;
             int in;
             Scanner input = new Scanner(System.in);
-            List<Enchantment> temp=CardGame.instance.getCurrentAdversary().getEnchantments();
-            powerup = temp.size();
-            temp=CardGame.instance.getCurrentPlayer().getEnchantments();
-            powerup = powerup + temp.size();
+            powerup = 0;
+            powerup = getNumberEnchantmens();
             powerup = 2 * powerup;
             System.out.println("Player's creature");
             System.out.println("" + CardGame.instance.getCurrentPlayer().getCreatures());
@@ -73,12 +79,56 @@ public class AncestralMask implements Card{
                 effectTarget = new PermanentTarget(owner,CardGame.instance.getCurrentAdversary().getCreatures().get(in-1));
             }
         }
+        
+        public int getNumberEnchantmens(){
+            List<Enchantment> temp=CardGame.instance.getCurrentAdversary().getEnchantments();
+            powerup = temp.size();
+            temp=CardGame.instance.getCurrentPlayer().getEnchantments();
+            powerup = powerup + temp.size();
+            return powerup;
+        }
+        
         @Override
         public boolean play() {
             setTarget();
             return super.play();
         }
+        
+        //CLASSE ANONIMA PER IL TRIGGER
+        private class AncestralMaskEnchantment extends AbstractEnchantment {
+            public AncestralMaskEnchantment(Player owner) {
+                super(owner);
+            }
+
+            private final TriggerAction PowerUpAction = new TriggerAction() {
+                    @Override
+                    public void execute(Object args) {
+                        if (args != null  && args instanceof Creature) {
+                            Creature c = (Creature)args;
+                            int newPowerUp = getNumberEnchantmens();
+                            powerup = newPowerUp * 2;
+                            resolve();
+                        }
+                    }
+                };
+
+            @Override
+            public void insert() {
+                super.insert();
+                CardGame.instance.getTriggers().register(Triggers.ENTER_ENCHANTMENT_FILTER, PowerUpAction);
+            }
+
+            @Override
+            public void remove() {
+                super.remove();
+                CardGame.instance.getTriggers().deregister(PowerUpAction);
+            }
+
+            @Override
+            public String name() { return "Ancestral Mask"; }
+        }
     }
+    //END EFFECT CLASS
     
     @Override
     public Effect getEffect(Player owner) {
