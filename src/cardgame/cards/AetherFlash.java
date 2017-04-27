@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cardgame.cards;
 import cardgame.AbstractEnchantment;
 import cardgame.AbstractEnchantmentCardEffect;
@@ -14,11 +10,7 @@ import cardgame.Enchantment;
 import cardgame.Player;
 import cardgame.TriggerAction;
 import cardgame.Triggers;
-import java.util.Iterator;
-/**
- *
- * @author Enrico
- */
+
 public class AetherFlash implements Card{
     private class AetherFlashEffect extends AbstractEnchantmentCardEffect{
         public AetherFlashEffect(Player p, Card c) { 
@@ -42,11 +34,12 @@ public class AetherFlash implements Card{
                 public void execute(Object args) {
                     if (args != null  && args instanceof Creature) {
                         Creature c = (Creature)args;
-                        System.out.println("[AetherFlash] inflict 3 damage");
-                        c.inflictDamage(3);
+                        System.out.println("[AetherFlash] inflict 2 damage to "+c.name());
+                        c.inflictDamage(2);
                     }
                 }
             };
+        
         @Override
         public void insert() {
             super.insert();
@@ -61,7 +54,7 @@ public class AetherFlash implements Card{
         
         @Override
         public String name() {
-            return "Aether Flash"; //To change body of generated methods, choose Tools | Templates.
+            return "Aether Flash";
         }
     }
     
