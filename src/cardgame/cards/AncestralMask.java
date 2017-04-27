@@ -6,11 +6,13 @@
 package cardgame.cards;
 
 import cardgame.AbstractCardEffect;
+import cardgame.AbstractCardEffectTarget;
 import cardgame.Card;
 import cardgame.CardGame;
 import cardgame.Creature;
 import cardgame.Effect;
 import cardgame.Enchantment;
+import cardgame.PermanentTarget;
 import cardgame.Player;
 import cardgame.decorator.PowerUpDecorator;
 import java.util.List;
@@ -22,14 +24,24 @@ import java.util.Scanner;
  */
 public class AncestralMask implements Card{
     
-    private class AncestralMaskEffect extends AbstractCardEffect{
-
-        AncestralMaskEffect(Player p, Card c) { super(p,c); }
+    private class AncestralMaskEffect extends AbstractCardEffectTarget{
+            
+        PermanentTarget effectTarget;
         PowerUpDecorator app;
+        int powerup;
+        
+        AncestralMaskEffect(Player p, Card c) { super(p,c); }
+        
         
         @Override
         public void resolve() {
-            int powerup = 0;
+            app = new PowerUpDecorator(this, powerup, powerup);
+            ((Creature)effectTarget).addDecorator(app);
+        }
+
+        @Override
+        public void setTarget() {
+            powerup = 0;
             int in;
             Scanner input = new Scanner(System.in);
             List<Enchantment> temp=CardGame.instance.getCurrentAdversary().getEnchantments();
@@ -51,17 +63,20 @@ public class AncestralMask implements Card{
                 do{
                     in = input.nextInt();
                 }while(in < 0 && in > CardGame.instance.getCurrentPlayer().getCreatures().size());
-                app = new PowerUpDecorator(this, powerup, powerup);
-                CardGame.instance.getCurrentPlayer().getCreatures().get(in+1).addDecorator(app);
+                effectTarget = new PermanentTarget(owner,CardGame.instance.getCurrentPlayer().getCreatures().get(in-1));
             }
             else{
                 CardGame.instance.getCurrentAdversary().printPermanents();
                 do{
                     in = input.nextInt();
                 }while(in < 0 && in > CardGame.instance.getCurrentAdversary().getCreatures().size());
-                app = new PowerUpDecorator(this, powerup, powerup);
-                CardGame.instance.getCurrentPlayer().getCreatures().get(in+1).addDecorator(app);
+                effectTarget = new PermanentTarget(owner,CardGame.instance.getCurrentAdversary().getCreatures().get(in-1));
             }
+        }
+        @Override
+        public boolean play() {
+            setTarget();
+            return super.play();
         }
     }
     
