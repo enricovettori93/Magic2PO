@@ -14,4 +14,8 @@ public class PlayerTarget implements Target{
     public Player getTarget() {
         return target;
     }
+    
+    public String toString(){
+        return target.name();
+    }
 }

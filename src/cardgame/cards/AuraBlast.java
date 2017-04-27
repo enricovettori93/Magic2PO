@@ -1,7 +1,6 @@
 
 package cardgame.cards;
 
-
 import cardgame.AbstractCardEffectTarget;
 import cardgame.Card;
 import cardgame.CardGame;
@@ -10,12 +9,8 @@ import cardgame.Enchantment;
 import cardgame.target.PermanentTarget;
 import cardgame.Player;
 import cardgame.target.Target;
-import java.util.Scanner;
+import cardgame.target.TargetManager;
 
-/**
- *
- * @author giaco
- */
 public class AuraBlast implements Card{
     
     private class AuraBlastEffect extends AbstractCardEffectTarget {
@@ -33,32 +28,9 @@ public class AuraBlast implements Card{
        
         @Override
         public void setTarget(){
-            Player rival;
-            Scanner input = new Scanner(System.in);
-            int choice;
-            if(owner == CardGame.instance.getCurrentPlayer())
-                rival = CardGame.instance.getCurrentAdversary();
-            else
-                rival = CardGame.instance.getCurrentPlayer();
-            do{
-                System.out.println( "[AURA BLAST] SELECT TARGET (from the rival Enchantments), 0 for pass:");
-                rival.printEnchantments();
-                choice =  input.nextInt();
-            }while(choice < 0 && choice > rival.getEnchantments().size());
-            if(choice!=0)
-                targets.add(new PermanentTarget(rival, rival.getEnchantments().get(choice-1)));
-            else{
-                if(choice == 0){
-                    do{
-                        System.out.println( "[AURA BLAST] SELECT TARGET (from your Enchantments), 0 for skip:");
-                        owner.printEnchantments();
-                        choice = input.nextInt();
-                    }while(choice < 0 && choice > owner.getEnchantments().size());
-                    if(choice != 0)
-                        targets.add(new PermanentTarget(owner, owner.getEnchantments().get(choice-1)));
-                }
-            }
+            targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.ENCHANTMENT_ON_FIELD_TARGET));
         }
+        
         @Override
         public void resolve() {
             //destroy target         

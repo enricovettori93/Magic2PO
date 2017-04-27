@@ -1,18 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cardgame;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-/**
- *
- * @author atorsell
- */
 public class CardStack implements Iterable<Effect> {
     private final ArrayDeque<Effect> stack = new ArrayDeque<>();
     
@@ -44,4 +36,11 @@ public class CardStack implements Iterable<Effect> {
         return effectTargets;
     }
     
+    public ArrayList<Effect> getAllEffect(){
+        ArrayList<Effect> temp=new ArrayList<>();
+        for(Effect e : stack){
+            temp.add(e);
+        }
+        return temp;
+    }
 }

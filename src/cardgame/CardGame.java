@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cardgame;
 
 import java.util.ArrayDeque;
@@ -11,23 +7,17 @@ import java.util.Deque;
 import java.util.Scanner;
 
 import cardgame.cards.*;
-/**
- *
- * @author atorsell
- */
+import cardgame.target.TargetManager;
+
 public class CardGame {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         //create decks
         ArrayList<Card> deck = new ArrayList<>();
         /*for (int i=0; i!=5; ++i) deck.add(new Reflexologist());
         for (int i=0; i!=5; ++i) deck.add(new FriendlyEnvironment());
-        Aggiunta carte per prova
         for (int i=0; i!=5; ++i) deck.add(new BronzeSable());
-        for (int i=0; i!=5; ++i) deck.add(new AncestralMask());*/
+        for (int i=0; i!=5; ++i) deck.add(new AuraBlast());*/
         
         //Creo deck per il giocatore1
         instance.createDeck(0,deck);
@@ -251,4 +241,7 @@ public class CardGame {
     //IO resources  to be dropped in final version
     private final Scanner reader = new Scanner(System.in);
     Scanner getScanner() { return reader; }
+    
+    private TargetManager targetManager=new TargetManager();
+    public TargetManager getTargetManager(){ return targetManager; }
 }

@@ -72,7 +72,7 @@ public class BronzeSable implements Card {
     @Override
     public String name() { return "Bronze Sable"; }
     @Override
-    public String type() { return "Artifact Creature"; }
+    public String type() { return "Creature"; }
     @Override
     public String ruleText() { return "Put in play a creature Bronze Sable(2/1) with tap: Bronze Sable does nothing"; }
     @Override

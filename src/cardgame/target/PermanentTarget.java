@@ -24,6 +24,7 @@ public class PermanentTarget implements Target{
     }
     
     public String toString(){
-        return target.name();
+        return targetOwner.name()+": "+target.name();
     }
+
 }
