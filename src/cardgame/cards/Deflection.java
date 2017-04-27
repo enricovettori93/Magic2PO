@@ -5,6 +5,8 @@ import cardgame.Card;
 import cardgame.CardGame;
 import cardgame.Effect;
 import cardgame.Player;
+import cardgame.target.EffectTarget;
+import cardgame.target.Target;
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
@@ -15,11 +17,11 @@ public class Deflection implements Card{
     
     private class DeflectionEffect extends AbstractCardEffectTarget {
 
-        AbstractCardEffectTarget effectTarget;
+        ArrayList<Target> effectTarget;
         
         public DeflectionEffect(Player p, Card c) { 
             super(p,c);
-            effectTarget = null;
+            effectTarget = new ArrayList<>();
         }
 
         @Override
@@ -43,7 +45,7 @@ public class Deflection implements Card{
                     }
                     choice =  input.nextInt();
                 }while(choice < 0 && choice > effects.size());
-                effectTarget = effects.get(choice-1);
+                effectTarget.add(new EffectTarget(effects.get(choice-1)));
             }
             else{
                 System.out.println("[DEFLECTION] Nothing to select... PASS");
@@ -51,8 +53,13 @@ public class Deflection implements Card{
         }
         @Override
         public void resolve() {
-            if(effectTarget!=null)
-                effectTarget.setTarget();
+            if(effectTarget.size()>0){
+                for(Target e : effectTarget){
+                    EffectTarget eT = (EffectTarget) e;
+                    ((AbstractCardEffectTarget)e.getTarget()).setTarget();
+                }
+            }
+                
         }
         
     }
