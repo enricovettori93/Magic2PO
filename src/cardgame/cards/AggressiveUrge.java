@@ -6,10 +6,13 @@
 package cardgame.cards;
 
 import cardgame.AbstractCardEffect;
+import cardgame.AbstractCardEffectTarget;
 import cardgame.Card;
 import cardgame.CardGame;
+import cardgame.Creature;
 import cardgame.Effect;
 import cardgame.Player;
+import cardgame.decorator.PowerUpDecorator;
 import java.util.Scanner;
 
 /**
@@ -17,11 +20,30 @@ import java.util.Scanner;
  * @author Enrico
  */
 public class AggressiveUrge implements Card {
-    private class AggressiveUrgeEffect extends AbstractCardEffect {
-        public AggressiveUrgeEffect(Player p, Card c) { super(p,c); }
+    private class AggressiveUrgeEffect extends AbstractCardEffectTarget {
+        
+        Creature effectTarget;
+        PowerUpDecorator pd;
+        
+        public AggressiveUrgeEffect(Player p, Card c) { 
+            super(p,c); 
+            effectTarget = null;
+        }
+        
         @Override
-        //MANCA IMPLEMENTAZIONE METODO RESOLVE
         public void resolve() {
+            pd = new PowerUpDecorator(effectTarget,1,1);
+            effectTarget.addDecorator(pd);
+        }
+        
+        @Override
+        public boolean play() {
+            setTarget();
+            return super.play();
+        }
+
+        @Override
+        public void setTarget() {
             int powerup = 0;
             int in;
             Scanner input = new Scanner(System.in);
@@ -41,6 +63,7 @@ public class AggressiveUrge implements Card {
                 }while(in < 0 && in > CardGame.instance.getCurrentPlayer().getCreatures().size());
                 //DA DEFINIRE DECORATORE PER AUMENTARE ATTACCO E DIFESA DELLA CREATURA
                 //CardGame.instance.getCurrentPlayer().getCreatures().get(in+1).DECORATOREAUMENTAATKDEF(1);
+                effectTarget = CardGame.instance.getCurrentPlayer().getCreatures().get(in+1);
             }
             else{
                 System.out.println("" + CardGame.instance.getCurrentAdversary().getCreatures());
@@ -49,6 +72,7 @@ public class AggressiveUrge implements Card {
                 }while(in < 0 && in > CardGame.instance.getCurrentAdversary().getCreatures().size());
                 //DA DEFINIRE DECORATORE PER AUMENTARE ATTACCO E DIFESA DELLA CREATURA
                 //CardGame.instance.getCurrentAdversary().getCreatures().get(in+1).DECORATOREAUMENTAATKDEF(1);
+                effectTarget = CardGame.instance.getCurrentAdversary().getCreatures().get(in+1);
             }
         }
     }
