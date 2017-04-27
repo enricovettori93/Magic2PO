@@ -7,10 +7,12 @@ package cardgame.cards;
 
 import cardgame.AbstractCardEffect;
 import cardgame.AbstractCardEffectTarget;
+import cardgame.AbstractCreature;
 import cardgame.Card;
 import cardgame.CardGame;
 import cardgame.Creature;
 import cardgame.Effect;
+import cardgame.PermanentTarget;
 import cardgame.Player;
 import cardgame.decorator.PowerUpDecorator;
 import java.util.Scanner;
@@ -22,7 +24,7 @@ import java.util.Scanner;
 public class AggressiveUrge implements Card {
     private class AggressiveUrgeEffect extends AbstractCardEffectTarget {
         
-        Creature effectTarget;
+        PermanentTarget effectTarget;
         PowerUpDecorator pd;
         
         public AggressiveUrgeEffect(Player p, Card c) { 
@@ -33,7 +35,7 @@ public class AggressiveUrge implements Card {
         @Override
         public void resolve() {
             pd = new PowerUpDecorator(effectTarget,1,1);
-            effectTarget.addDecorator(pd);
+            ((AbstractCreature)effectTarget.getTarget()).addDecorator(pd);
         }
         
         @Override
@@ -61,14 +63,14 @@ public class AggressiveUrge implements Card {
                 do{
                     in = input.nextInt();
                 }while(in < 0 && in > CardGame.instance.getCurrentPlayer().getCreatures().size());
-                effectTarget = CardGame.instance.getCurrentPlayer().getCreatures().get(in+1);
+                effectTarget = new PermanentTarget(owner,CardGame.instance.getCurrentPlayer().getCreatures().get(in+1));
             }
             else{
                 System.out.println("" + CardGame.instance.getCurrentAdversary().getCreatures());
                 do{
                     in = input.nextInt();
                 }while(in < 0 && in > CardGame.instance.getCurrentAdversary().getCreatures().size());
-                effectTarget = CardGame.instance.getCurrentAdversary().getCreatures().get(in+1);
+                effectTarget = new PermanentTarget(owner,CardGame.instance.getCurrentAdversary().getCreatures().get(in+1));
             }
         }
     }
