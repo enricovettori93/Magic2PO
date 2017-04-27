@@ -5,8 +5,9 @@
  */
 package cardgame.cards;
 
+import cardgame.AbstractCardEffect;
 import cardgame.AbstractCreature;
-import cardgame.AbstractEnchantmentCardEffectTarget;
+import cardgame.AbstractEnchantmentCardEffect;
 import cardgame.AbstractEnchantmentTarget;
 import cardgame.Card;
 import cardgame.CardGame;
@@ -23,22 +24,15 @@ import cardgame.target.TargetManager;
  */
 public class Abduction implements Card{
     
-    private class AbductionEffect extends AbstractEnchantmentCardEffectTarget{
+    private class AbductionEffect extends AbstractEnchantmentCardEffect{
         public AbductionEffect(Player p, Card c){
             super(p,c);
             //quando creo l'effetto metto il target?!?
-            setTarget();
         }
-
-        @Override
-        public void setTarget() {
-           
+            protected Enchantment createEnchantment() {
+                return new AbductionEnchantment(owner);
+            }
         }
-        
-        protected Enchantment createEnchantment() {
-            return new AbductionEnchantment(owner);
-        }
-    }
     private class AbductionEnchantment extends AbstractEnchantmentTarget{
         private class AbductionStrategy implements CreatureInflictDamageStrategy{
             Player oldOwner;
