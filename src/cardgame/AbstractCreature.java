@@ -119,7 +119,7 @@ public abstract class AbstractCreature implements Creature {
         this.cids = cids;
         
     }
-    public Player getOwner(Player owner){
+    public Player getOwner(){
         return owner;
     }
     public void setOwner(Player owner){

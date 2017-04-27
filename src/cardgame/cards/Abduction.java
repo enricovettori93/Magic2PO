@@ -5,7 +5,6 @@
  */
 package cardgame.cards;
 
-import cardgame.AbstractCardEffect;
 import cardgame.AbstractCreature;
 import cardgame.AbstractEnchantmentCardEffect;
 import cardgame.AbstractEnchantmentTarget;
@@ -102,7 +101,7 @@ public class Abduction implements Card{
 
     @Override
     public String ruleText() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return name()+" When abduction come into play, untap enchanted creature. You control enchanted creature. When enchanted creature die, return that creature to play under is own control"; 
     }
 
     @Override
