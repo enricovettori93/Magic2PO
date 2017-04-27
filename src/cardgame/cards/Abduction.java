@@ -5,10 +5,7 @@
  */
 package cardgame.cards;
 
-import cardgame.AbstractCardEffectTarget;
 import cardgame.AbstractCreature;
-import cardgame.AbstractEnchantment;
-import cardgame.AbstractEnchantmentCardEffect;
 import cardgame.AbstractEnchantmentCardEffectTarget;
 import cardgame.AbstractEnchantmentTarget;
 import cardgame.Card;
@@ -16,9 +13,7 @@ import cardgame.CardGame;
 import cardgame.Creature;
 import cardgame.Effect;
 import cardgame.Enchantment;
-import cardgame.Permanent;
 import cardgame.Player;
-import cardgame.TriggerAction;
 import cardgame.creaturestrategy.CreatureDefaultInflictDamage;
 import cardgame.creaturestrategy.CreatureInflictDamageStrategy;
 import cardgame.target.TargetManager;
