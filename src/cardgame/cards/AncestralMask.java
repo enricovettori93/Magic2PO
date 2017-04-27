@@ -47,6 +47,8 @@ public class AncestralMask implements Card{
         
         @Override
         public void resolve() {
+            if(app != null)
+                ((Creature)effectTarget.getTarget()).removeDecorator(app);
             app = new PowerUpDecorator(this, powerup, powerup);
             ((Creature)effectTarget.getTarget()).addDecorator(app);
             //System.out.println(" " + effectTarget.getTarget().toString()+((Creature)effectTarget.getTarget()).getPowerDecorated());
@@ -120,6 +122,7 @@ public class AncestralMask implements Card{
             @Override
             public void remove() {
                 super.remove();
+                ((Creature)effectTarget.getTarget()).removeDecorator(app);
                 CardGame.instance.getTriggers().deregister(PowerUpAction);
             }
 
