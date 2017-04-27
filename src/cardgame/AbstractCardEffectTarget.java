@@ -5,6 +5,9 @@
  */
 package cardgame;
 
+import cardgame.target.PermanentTarget;
+import cardgame.target.PlayerTarget;
+import cardgame.target.Target;
 import java.util.ArrayList;
 
 /**

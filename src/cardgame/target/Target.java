@@ -1,10 +1,6 @@
 
-package cardgame;
+package cardgame.target;
 
-/**
- *
- * @author giaco
- */
 public interface Target {
     public Object getTarget();
 }
