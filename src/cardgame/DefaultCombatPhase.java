@@ -15,6 +15,7 @@ import java.util.Scanner;
 public class DefaultCombatPhase implements Phase {
     Player currentPlayer;
     Player opponent;
+    ExecuteBattleStrategy ebs = new DefaultExecuteBattleStrategy();
     ArrayList <Creature>idxAttaccanti=new ArrayList<Creature>();
     ArrayList <Creature>idxDifensore=new ArrayList<Creature>();
     ArrayList <Scontro> scontri= new ArrayList<Scontro>();
@@ -43,6 +44,7 @@ public class DefaultCombatPhase implements Phase {
                 i=0;
             }while(idx!=0);
     }
+    
     private void declareDefender(){
         Scanner reader = CardGame.instance.getScanner();
         int idx;
@@ -87,25 +89,11 @@ public class DefaultCombatPhase implements Phase {
                 }while(idx!=0);
             }
     }
+    
     private void executeBattle(){
-        //Esecuzione scontri
-        int i, j;
-        for(i=0;i<scontri.size();i++){
-            //scontri.get(i).getAttaccante().attack(scontri.get(i).getDifensore());
-            if(scontri.get(i).nessunDif){
-                //System.out.println(scontri.get(i).getAttaccante().name()+" Attacca l'avversario");
-                scontri.get(i).getAttaccante().attack();
-            }else{
-                j = 0;
-                int atk = scontri.get(i).getAttaccante().getPower();
-                for(j=0;j<scontri.get(i).getDifensore().size()||scontri.get(i).getAttaccante().getPower()<=0;j++){
-                    System.out.println("Mostro " + scontri.get(i).getAttaccante().name() + " sta attaccando "+scontri.get(i).getDifensore().get(j).name());
-                    scontri.get(i).getDifensore().get(j).inflictDamage(atk); //Danni al difensore
-                    atk = atk - scontri.get(i).getDifensore().get(j).getToughnessDecorated();
-                    }
-                }
-            }  
+        ebs.executeBattle(this, scontri);
     }
+    
     @Override
     public void execute() {
         currentPlayer = CardGame.instance.getCurrentPlayer();
@@ -126,7 +114,12 @@ public class DefaultCombatPhase implements Phase {
         }
     }
     
-    
+    public void setEbs(ExecuteBattleStrategy ebs){
+        this.ebs = ebs;
+    }
+    public ExecuteBattleStrategy getEbs(){
+        return ebs;
+    }
     //Classe usata per tener conto degli attaccanti e dei difensori
     public class Scontro{
         public Creature attaccante;
