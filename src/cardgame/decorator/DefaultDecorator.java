@@ -7,6 +7,8 @@ package cardgame.decorator;
 
 import cardgame.Creature;
 import cardgame.Effect;
+import cardgame.Player;
+import cardgame.creaturestrategy.CreatureInflictDamageStrategy;
 import java.util.List;
 
 /**
@@ -63,5 +65,20 @@ public class DefaultDecorator extends AbstractDecorator{
     public void increaseDamageLeft(int val){
         resetDamage();
         creature.increaseDamageLeft(val);
+    }
+
+    @Override
+    public void setOwner(Player owner) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Player getOwner() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setCids(CreatureInflictDamageStrategy cids) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
