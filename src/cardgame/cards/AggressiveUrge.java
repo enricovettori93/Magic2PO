@@ -61,8 +61,6 @@ public class AggressiveUrge implements Card {
                 do{
                     in = input.nextInt();
                 }while(in < 0 && in > CardGame.instance.getCurrentPlayer().getCreatures().size());
-                //DA DEFINIRE DECORATORE PER AUMENTARE ATTACCO E DIFESA DELLA CREATURA
-                //CardGame.instance.getCurrentPlayer().getCreatures().get(in+1).DECORATOREAUMENTAATKDEF(1);
                 effectTarget = CardGame.instance.getCurrentPlayer().getCreatures().get(in+1);
             }
             else{
@@ -70,8 +68,6 @@ public class AggressiveUrge implements Card {
                 do{
                     in = input.nextInt();
                 }while(in < 0 && in > CardGame.instance.getCurrentAdversary().getCreatures().size());
-                //DA DEFINIRE DECORATORE PER AUMENTARE ATTACCO E DIFESA DELLA CREATURA
-                //CardGame.instance.getCurrentAdversary().getCreatures().get(in+1).DECORATOREAUMENTAATKDEF(1);
                 effectTarget = CardGame.instance.getCurrentAdversary().getCreatures().get(in+1);
             }
         }
