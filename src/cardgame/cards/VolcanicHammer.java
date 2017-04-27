@@ -27,7 +27,7 @@ public class VolcanicHammer implements Card{
             choice = 0;
             Scanner input = new Scanner(System.in);
             if(CardGame.instance.getCurrentPlayer().getCreatures().isEmpty() && CardGame.instance.getCurrentAdversary().getCreatures().isEmpty()){
-                System.out.println("Would you like ti damage youselves or the opponent? 0 = yourselves, 1 = adversaty");
+                System.out.println("Would you like to damage youselves or the opponent? 0 = yourselves, 1 = adversaty");
                 do{
                     choice = input.nextInt();
                 }while(choice != 0 && choice != 1);
@@ -42,7 +42,7 @@ public class VolcanicHammer implements Card{
                     choice = input.nextInt();
                 }while(choice != 0 && choice != 1);
                 if(choice == 0){
-                    System.out.println("Would you like ti damage youselves or the opponent? 0 = yourselves, 1 = adversaty");
+                    System.out.println("Would you like to damage youselves or the opponent? 0 = yourselves, 1 = adversaty");
                     do{
                         choice = input.nextInt();
                     }while(choice != 0 && choice != 1);
