@@ -7,9 +7,9 @@ import cardgame.Card;
 import cardgame.CardGame;
 import cardgame.Effect;
 import cardgame.Enchantment;
-import cardgame.PermanentTarget;
+import cardgame.target.PermanentTarget;
 import cardgame.Player;
-import cardgame.Target;
+import cardgame.target.Target;
 import java.util.Scanner;
 
 /**

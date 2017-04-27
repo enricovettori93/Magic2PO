@@ -11,7 +11,7 @@ import cardgame.AbstractCreature;
 import cardgame.Card;
 import cardgame.CardGame;
 import cardgame.Effect;
-import cardgame.PermanentTarget;
+import cardgame.target.PermanentTarget;
 import cardgame.Player;
 import cardgame.decorator.PowerUpDecorator;
 import java.util.Scanner;
