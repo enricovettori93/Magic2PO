@@ -6,8 +6,6 @@
 package cardgame;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Scanner;
 
 /**
@@ -15,20 +13,14 @@ import java.util.Scanner;
  * @author atorsell
  */
 public class DefaultCombatPhase implements Phase {
-    @Override
-    public void execute() {
-        Player currentPlayer = CardGame.instance.getCurrentPlayer();
-        Player opponent=CardGame.instance.getCurrentAdversary();
-        Scanner reader = CardGame.instance.getScanner();
-        System.out.println(currentPlayer.name() + ": combat phase");
-        int idx,i,j;
-        ArrayList <Creature>idxAttaccanti=new ArrayList<Creature>();
-        ArrayList <Creature>idxDifensore=new ArrayList<Creature>();
-        ArrayList <Scontro> scontri= new ArrayList<Scontro>();
-        CardGame.instance.getTriggers().trigger(Triggers.COMBAT_FILTER);
-        
-        if(!currentPlayer.getCreatures().isEmpty()){ //nel programma del prof., le creature giocate sono contenute in "Player"
-            i=0;
+    Player currentPlayer;
+    Player opponent;
+    ArrayList <Creature>idxAttaccanti=new ArrayList<Creature>();
+    ArrayList <Creature>idxDifensore=new ArrayList<Creature>();
+    ArrayList <Scontro> scontri= new ArrayList<Scontro>();
+    private void declareAttacker(){
+         Scanner reader = CardGame.instance.getScanner();
+         int i=0, idx;
             //Dichiarazione degli attaccanti
             do{
                 System.out.println(currentPlayer.name()+", select the creature that must attack, 0 to pass");
@@ -50,13 +42,14 @@ public class DefaultCombatPhase implements Phase {
                 }
                 i=0;
             }while(idx!=0);
-            
-            CardGame.instance.getStack().resolve();
-            
-            //Dichiarazione dei difensori 
+    }
+    private void declareDefender(){
+        Scanner reader = CardGame.instance.getScanner();
+        int idx;
+        //Dichiarazione dei difensori 
             if(!scontri.isEmpty()){
-                i=0;
-                j=0;
+                int i=0;
+                int j=0;
                 do{
                     System.out.println(opponent.name()+", select the creature that must defend, 0 to pass");
                     for(Creature c:opponent.getCreatures()){
@@ -93,25 +86,46 @@ public class DefaultCombatPhase implements Phase {
                     i=0;
                 }while(idx!=0);
             }
-            //Esecuzione scontri
-            for(i=0;i<scontri.size();i++){
-                //scontri.get(i).getAttaccante().attack(scontri.get(i).getDifensore());
-                if(scontri.get(i).nessunDif){
-                    //System.out.println(scontri.get(i).getAttaccante().name()+" Attacca l'avversario");
-                    scontri.get(i).getAttaccante().attack();
-                }else{
-                    j = 0;
-                    int atk = scontri.get(i).getAttaccante().getPower();
-                    int boneggio;
-                    for(j=0;j<scontri.get(i).getDifensore().size()||scontri.get(i).getAttaccante().getPower()<=0;j++){
-                        System.out.println("Mostro " + scontri.get(i).getAttaccante().name() + " sta attaccando "+scontri.get(i).getDifensore().get(j).name());
-                        scontri.get(i).getDifensore().get(j).inflictDamage(atk); //Danni al difensore
-                        atk = atk - scontri.get(i).getDifensore().get(j).getToughnessDecorated();
+    }
+    private void executeBattle(){
+        //Esecuzione scontri
+        int i, j;
+        for(i=0;i<scontri.size();i++){
+            //scontri.get(i).getAttaccante().attack(scontri.get(i).getDifensore());
+            if(scontri.get(i).nessunDif){
+                //System.out.println(scontri.get(i).getAttaccante().name()+" Attacca l'avversario");
+                scontri.get(i).getAttaccante().attack();
+            }else{
+                j = 0;
+                int atk = scontri.get(i).getAttaccante().getPower();
+                for(j=0;j<scontri.get(i).getDifensore().size()||scontri.get(i).getAttaccante().getPower()<=0;j++){
+                    System.out.println("Mostro " + scontri.get(i).getAttaccante().name() + " sta attaccando "+scontri.get(i).getDifensore().get(j).name());
+                    scontri.get(i).getDifensore().get(j).inflictDamage(atk); //Danni al difensore
+                    atk = atk - scontri.get(i).getDifensore().get(j).getToughnessDecorated();
                     }
                 }
-            }           
+            }  
+    }
+    @Override
+    public void execute() {
+        currentPlayer = CardGame.instance.getCurrentPlayer();
+        opponent = CardGame.instance.getCurrentAdversary();
+        System.out.println(currentPlayer.name() + ": combat phase");
+       
+        CardGame.instance.getTriggers().trigger(Triggers.COMBAT_FILTER);
+
+        if(!currentPlayer.getCreatures().isEmpty()){ //nel programma del prof., le creature giocate sono contenute in "Player"
+           declareAttacker();
+            
+           CardGame.instance.getStack().resolve();
+           
+           declareDefender();
+           
+           executeBattle();
+           
         }
     }
+    
     
     //Classe usata per tener conto degli attaccanti e dei difensori
     public class Scontro{
