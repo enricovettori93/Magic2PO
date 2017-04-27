@@ -83,7 +83,8 @@ public class CardGame {
         do{
             do{
                 System.out.print("Select the card " + i + " di 20 -> ");
-                choice = in.nextInt();
+                choice = 1 + (int)(Math.random() * 25); 
+                //choice = in.nextInt();
                 if(choice<1 || choice > 25)
                     System.out.println("Wrong index.");
                 else{
