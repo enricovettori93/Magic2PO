@@ -26,7 +26,7 @@ public class PreventAllDamageStrategy implements ExecuteBattleStrategy{
                 int atk = scontri.get(i).getAttaccante().getPower();
                 for(j=0;j<scontri.get(i).getDifensore().size()||scontri.get(i).getAttaccante().getPower()<=0;j++){
                     System.out.println("Mostro " + scontri.get(i).getAttaccante().name() + " sta attaccando "+scontri.get(i).getDifensore().get(j).name()+" [PREVENT ALL DAMAGED ACTIVATED]");
-                    scontri.get(i).getDifensore().get(j).inflictDamage(atk); //Danni al difensore
+                    scontri.get(i).getDifensore().get(j).inflictDamage(0); //Danni al difensore
                     atk = atk - scontri.get(i).getDifensore().get(j).getToughnessDecorated();
                     }
                 }

@@ -10,7 +10,6 @@ import cardgame.AbstractCardEffectTarget;
 import cardgame.AbstractCreature;
 import cardgame.Card;
 import cardgame.CardGame;
-import cardgame.Creature;
 import cardgame.Effect;
 import cardgame.PermanentTarget;
 import cardgame.Player;
