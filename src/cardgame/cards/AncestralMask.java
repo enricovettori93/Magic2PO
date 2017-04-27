@@ -55,10 +55,6 @@ public class AncestralMask implements Card{
             powerup = 0;
             powerup = getNumberEnchantmens();
             powerup = 2 * powerup;
-            System.out.println("Player's creature");
-            System.out.println("" + CardGame.instance.getCurrentPlayer().getCreatures());
-            System.out.println("Adversary's creature");
-            System.out.println("" + CardGame.instance.getCurrentAdversary().getCreatures());
             System.out.println("Select player creature target -> 0 = player, 1 = adversary");
             do{
                 in =  input.nextInt();
