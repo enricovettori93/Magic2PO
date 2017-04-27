@@ -86,4 +86,9 @@ public abstract class AbstractDecorator implements Creature{
     public void removeDecorator(Object l){
         creature.removeDecorator(l);
     };
+    
+    @Override
+    public void defaultInflictDamage(int dmg) {
+        creature.defaultInflictDamage(dmg);
+    }
 }
