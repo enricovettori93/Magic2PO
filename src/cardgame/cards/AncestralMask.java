@@ -8,6 +8,7 @@ package cardgame.cards;
 import cardgame.AbstractCardEffect;
 import cardgame.AbstractCardEffectTarget;
 import cardgame.AbstractEnchantment;
+import cardgame.AbstractEnchantmentCardEffect;
 import cardgame.Card;
 import cardgame.CardGame;
 import cardgame.Creature;
@@ -28,7 +29,7 @@ import java.util.Scanner;
 public class AncestralMask implements Card{
     
     //BEGIN EFFECT CARD
-    private class AncestralMaskEffect extends AbstractCardEffectTarget{
+    private class AncestralMaskEffect extends AbstractEnchantmentCardEffect{
             
         PermanentTarget effectTarget;
         PowerUpDecorator app;
@@ -36,11 +37,11 @@ public class AncestralMask implements Card{
         
         AncestralMaskEffect(Player p, Card c) { 
             super(p,c); 
-            //COME CAZZO SI METTE?
-            @Override
-            protected Enchantment createEnchantment() { return new AncestralMaskEnchantment(owner); }
+            
         }
-        
+
+        @Override
+        protected Enchantment createEnchantment() { return new AncestralMaskEnchantment(owner); }
         
         @Override
         public void resolve() {
@@ -48,7 +49,6 @@ public class AncestralMask implements Card{
             ((Creature)effectTarget).addDecorator(app);
         }
 
-        @Override
         public void setTarget() {
             int in;
             Scanner input = new Scanner(System.in);
@@ -68,14 +68,14 @@ public class AncestralMask implements Card{
                 CardGame.instance.getCurrentPlayer().printPermanents();
                 do{
                     in = input.nextInt();
-                }while(in < 0 && in > CardGame.instance.getCurrentPlayer().getCreatures().size());
+                }while(in < 0 || in > CardGame.instance.getCurrentPlayer().getCreatures().size());
                 effectTarget = new PermanentTarget(owner,CardGame.instance.getCurrentPlayer().getCreatures().get(in-1));
             }
             else{
                 CardGame.instance.getCurrentAdversary().printPermanents();
                 do{
                     in = input.nextInt();
-                }while(in < 0 && in > CardGame.instance.getCurrentAdversary().getCreatures().size());
+                }while(in < 0 || in > CardGame.instance.getCurrentAdversary().getCreatures().size());
                 effectTarget = new PermanentTarget(owner,CardGame.instance.getCurrentAdversary().getCreatures().get(in-1));
             }
         }
@@ -85,7 +85,7 @@ public class AncestralMask implements Card{
             powerup = temp.size();
             temp=CardGame.instance.getCurrentPlayer().getEnchantments();
             powerup = powerup + temp.size();
-            return powerup;
+            return powerup - 1;
         }
         
         @Override
