@@ -19,6 +19,40 @@ public class DefaultCombatPhase implements Phase {
     ArrayList <Creature>idxAttaccanti=new ArrayList<Creature>();
     ArrayList <Creature>idxDifensore=new ArrayList<Creature>();
     ArrayList <Scontro> scontri= new ArrayList<Scontro>();
+    private boolean playAvailableEffect(Player activePlayer, boolean isMain) {
+        //collect and display available effects...
+        ArrayList<Effect> availableEffects = new ArrayList<>();
+        Scanner reader = CardGame.instance.getScanner();
+
+        //...cards first
+        System.out.println(activePlayer.name() + " select card/effect to play, 0 to pass");
+        int i=0;
+        for( Card c:activePlayer.getHand() ) {
+            if ( isMain || c.isInstant() ) {
+                availableEffects.add( c.getEffect(activePlayer) );
+                System.out.println(Integer.toString(i+1)+") " + c );
+                ++i;
+            }
+        }
+        
+        //...creature effects last
+        for ( Creature c:activePlayer.getCreatures()) {
+            for (Effect e:c.avaliableEffects()) {
+                availableEffects.add(e);
+                System.out.println(Integer.toString(i+1)+") " + c.name() + 
+                    " ["+ e + "]" );
+                ++i;
+            }
+        }
+        
+        //get user choice and play it
+        int idx= reader.nextInt()-1;
+        if (idx<0 || idx>=availableEffects.size()) return false;
+
+        availableEffects.get(idx).play();
+        return true;
+    }
+    
     private void declareAttacker(){
          Scanner reader = CardGame.instance.getScanner();
          int i=0, idx;
@@ -47,11 +81,11 @@ public class DefaultCombatPhase implements Phase {
     
     private void declareDefender(){
         Scanner reader = CardGame.instance.getScanner();
-        int idx;
+        int idx, i, j;
         //Dichiarazione dei difensori 
-            if(!scontri.isEmpty()){
-                int i=0;
-                int j=0;
+        if(!scontri.isEmpty()){
+                i=0;
+                j=0;
                 do{
                     System.out.println(opponent.name()+", select the creature that must defend, 0 to pass");
                     for(Creature c:opponent.getCreatures()){
@@ -73,7 +107,8 @@ public class DefaultCombatPhase implements Phase {
                             System.out.println((j+1)+")"+scontri.get(j).getAttaccante().name());
 
                         //TODO: Fase Effetti Stack e istantanei sulla sungola creatura(Difensore)
-                        
+                        playAvailableEffect(opponent,false);
+            
                         //definizione dei difensori rispetto agli attaccanti
                         idxDif=reader.nextInt();
                         if((idxDif-1)<scontri.size()){
@@ -87,7 +122,7 @@ public class DefaultCombatPhase implements Phase {
                     j=0;
                     i=0;
                 }while(idx!=0);
-            }
+        }
     }
     
     private void executeBattle(){
@@ -104,9 +139,9 @@ public class DefaultCombatPhase implements Phase {
 
         if(!currentPlayer.getCreatures().isEmpty()){ //nel programma del prof., le creature giocate sono contenute in "Player"
            declareAttacker();
-            
+           playAvailableEffect(opponent, false);
            CardGame.instance.getStack().resolve();
-           
+           playAvailableEffect(opponent, false);
            declareDefender();
            
            executeBattle();
