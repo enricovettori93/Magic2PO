@@ -5,6 +5,8 @@
  */
 package cardgame;
 
+import cardgame.creaturestrategy.CreatureDefaultInflictDamage;
+import cardgame.creaturestrategy.CreatureInflictDamageStrategy;
 import cardgame.decorator.AbstractDecorator;
 import cardgame.decorator.DecoratorManagementSystem;
 
@@ -18,7 +20,7 @@ public abstract class AbstractCreature implements Creature {
     protected boolean isTapped=false;
     public int damageLeft = getToughness();
     protected DecoratorManagementSystem dms=new DecoratorManagementSystem(this);
-        
+    protected CreatureInflictDamageStrategy cids = new CreatureDefaultInflictDamage();
         protected AbstractCreature(Player owner) { this.owner=owner; }
         
     @Override
@@ -53,11 +55,14 @@ public abstract class AbstractCreature implements Creature {
         public void defend(Creature c) {} // to do in assignment 2
     @Override
         public void inflictDamage(int dmg) { 
+               cids.inflictDamage(this, dmg);
+        }
+     @Override
+        public void defaultInflictDamage(int dmg){
             damageLeft -= dmg; 
             if (damageLeft<=0)
-                owner.destroy(this);        
+                owner.destroy(this);  
         }
-        
     @Override
         public void resetDamage() { damageLeft = getToughnessDecorated(); }
     

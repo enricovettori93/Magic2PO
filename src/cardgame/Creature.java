@@ -20,6 +20,7 @@ public interface Creature extends Permanent {
     void attack();
     void defend(Creature c);
     void inflictDamage(int dmg);
+    void defaultInflictDamage(int dmg);
     void resetDamage();
     int getPower();
     int getToughness();
@@ -34,7 +35,7 @@ public interface Creature extends Permanent {
     List<Effect> avaliableEffects();
 
     public void increaseDamageLeft(int val);
-
+    
     public int getDamageLeft();
     
     public void addDecorator(AbstractDecorator d);
