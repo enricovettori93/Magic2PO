@@ -33,9 +33,11 @@ public class AuraBlast implements Card{
         
         @Override
         public void resolve() {
-            //destroy target         
-            for(Target t : targets){
-                ((PermanentTarget)t).getTargetOwner().getEnchantments().remove((Enchantment)t.getTarget());
+            //destroy target
+            if(targets.size()>0){
+                for(Target t : targets){
+                    ((PermanentTarget)t).getTargetOwner().getEnchantments().remove((Enchantment)t.getTarget());
+                }
             }
             //draw a card
             owner.draw();

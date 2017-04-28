@@ -6,7 +6,9 @@
 package cardgame.cards;
 
 import cardgame.AbstractCreature;
+import cardgame.AbstractEnchantment;
 import cardgame.AbstractEnchantmentCardEffect;
+import cardgame.AbstractEnchantmentCardEffectTarget;
 import cardgame.AbstractEnchantmentTarget;
 import cardgame.Card;
 import cardgame.CardGame;
@@ -16,6 +18,8 @@ import cardgame.Enchantment;
 import cardgame.Player;
 import cardgame.creaturestrategy.CreatureDefaultInflictDamage;
 import cardgame.creaturestrategy.CreatureInflictDamageStrategy;
+import cardgame.target.PermanentTarget;
+import cardgame.target.Target;
 import cardgame.target.TargetManager;
 /**
  *
@@ -23,16 +27,7 @@ import cardgame.target.TargetManager;
  */
 public class Abduction implements Card{
     
-    private class AbductionEffect extends AbstractEnchantmentCardEffect{
-        public AbductionEffect(Player p, Card c){
-            super(p,c);
-            //quando creo l'effetto metto il target?!?
-        }
-            protected Enchantment createEnchantment() {
-                return new AbductionEnchantment(owner);
-            }
-        }
-    private class AbductionEnchantment extends AbstractEnchantmentTarget{
+    private class AbductionEffect extends AbstractEnchantmentCardEffectTarget{
         private class AbductionStrategy implements CreatureInflictDamageStrategy{
             Player oldOwner;
             public AbductionStrategy(Player oldOwner){
@@ -53,38 +48,61 @@ public class Abduction implements Card{
             
             }
         }
+        public AbductionEffect(Player p, Card c){
+            super(p,c);
+        }
+        @Override
+        protected Enchantment createEnchantment() {
+            return new AbductionEnchantment(owner);
+        }
+        
+        @Override
+        public boolean play() {
+            setTarget();
+            return super.play(); //To change body of generated methods, choose Tools | Templates.
+        }
+        
+        /**
+         * setta il target di Abduction
+         */
+        @Override
+        public void setTarget() {
+            targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.CREATURE_TARGET));
+        }
+        @Override
+        public void resolve() {
+            if(targets.size()>0){ /*se c'è un target, sennò nothing*/
+                AbstractCreature c =((AbstractCreature)targets.get(0).getTarget());
+                System.out.println("[ABDUCTION] moving "+c.name()+" from Player "+c.getOwner()+" to "+this.owner+"...");
+                c.getOwner().getCreatures().remove(c);
+                c.setOwner(this.owner);
+                owner.getCreatures().add(c);
+                System.out.println("[ABDUCTION] untap "+c.name()+"...");
+                if(c.isTapped())
+                    c.untap();
+                c.setOwner(this.owner);
+                System.out.println("[ABDUCTION] set AbductionStrategy...");
+                c.setCids(new AbductionStrategy(c.getOwner()));
+                System.out.println("[ABDUCTION] Done.");
+        }
+    }
+    }
+    private class AbductionEnchantment extends AbstractEnchantment{
+
         public AbductionEnchantment(Player owner){
             super(owner);
         }
-        
-        @Override
-        public void insert(){
-            /*prima di inserire l'effetto nello stack, setto il target..*/
-            setTarget();
-            super.insert();
-            
-        }
-        
-        @Override
-        public void remove() {
-            /*quando viene rimossso, andrò a settare la Strategy per il metodo destroy della creatura*/
-            if(targets.size()>0){ /*se c'è un target, sennò nothing*/
-                AbstractCreature c =((AbstractCreature)targets.get(0).getTarget());
-                if(c.isTapped())
-                    c.untap();
-                c.setCids(new AbductionStrategy(c.getOwner()));
-            }
-        }
+
         @Override
         public String name() {
             return "Abduction";
         }
-
-        @Override
-        public void setTarget() {
-            targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.CREATURE_TARGET));        }
+            @Override
+        public void remove() {
+            System.out.println("[ABDUCTION] reset Target(s)... (TODO?) :(");
+            super.remove();
         }
-
+    }
 
     @Override
     public Effect getEffect(Player owner) {
@@ -111,4 +129,7 @@ public class Abduction implements Card{
         return false;
     }
     
+    public String toString(){
+         return name() + " (" + type() + ") [" + ruleText() +"]";
+    }
 }
