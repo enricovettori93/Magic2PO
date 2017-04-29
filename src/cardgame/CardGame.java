@@ -7,6 +7,7 @@ import java.util.Deque;
 import java.util.Scanner;
 
 import cardgame.cards.*;
+import cardgame.factory.*;
 import cardgame.target.TargetManager;
 
 public class CardGame {
@@ -36,6 +37,7 @@ public class CardGame {
     //Metodo per creare i mazzi
     private void createDeck(int player, ArrayList deck){
         int i,choice;
+        CardFactory factory = new CardFactory();
         i = 1;
         Scanner in;
         in = new Scanner(System.in);
@@ -72,114 +74,14 @@ public class CardGame {
         System.out.println("25 - Friendly Envirorment");
         do{
             do{
+                /*AL MOMENTO LA CREAZIONE AVVIENE RANDOMICAMENTE, DA RIMODIFICARE PRIMA DELLA CONSEGNA*/
                 System.out.print("Select the card " + i + " di 20 -> ");
                 choice = 1 + (int)(Math.random() * 25); 
                 //choice = in.nextInt();
                 if(choice<1 || choice > 25)
                     System.out.println("Wrong index.");
                 else{
-                    switch (choice){
-                        case 1:
-                            //deck.add(new Abduction());
-                            System.out.println("Added Abduction");
-                            break;
-                        case 2:
-                            deck.add(new AetherBarrier());
-                            System.out.println("Added AetherBarrier");
-                            break;
-                        case 3:
-                            deck.add(new AetherFlash());
-                            System.out.println("Added AetherFlash");
-                            break;
-                        case 4:
-                            //deck.add(new Afflict());
-                            System.out.println("Added Afflict");
-                            break;
-                        case 5:
-                            deck.add(new AggressiveUrge());
-                            System.out.println("Added AggressiveUrge");
-                            break;
-                        case 6:
-                            deck.add(new AncestralMask());
-                            System.out.println("Added AncestralMask");
-                            break;
-                        case 7:
-                            //deck.add(new ArgothianEnchantress());
-                            System.out.println("Added ArgothianEnchantress");
-                            break;
-                        case 8:
-                            deck.add(new AuraBlast());
-                            System.out.println("Added AuraBlast");
-                            break;
-                        case 9:
-                            //deck.add(new BenevolentAncestror());
-                            System.out.println("Added BenevolentAncestror");
-                            break;
-                        case 10:
-                            deck.add(new BoilingEarth());
-                            System.out.println("Added BoilingEarth");
-                            break;
-                        case 11:
-                            deck.add(new BronzeSable());
-                            System.out.println("Added BronzeSable");
-                            break;
-                        case 12:
-                            deck.add(new CalmingVerse());
-                            System.out.println("Added CalmingVerse");
-                            break;
-                        case 13:
-                            deck.add(new Cancel());
-                            System.out.println("Added Cancel");
-                            break;
-                        case 14:
-                            //deck.add(new Darkness());
-                            System.out.println("Added Darkness");
-                            break;
-                        case 15:
-                            deck.add(new DayOfJudgment());
-                            System.out.println("Added DayOfJudgment");
-                            break;
-                        case 16:
-                            deck.add(new Deflection());
-                            System.out.println("Added Deflection");
-                            break;
-                        case 17:
-                            deck.add(new FalsePeace());
-                            System.out.println("Added FalsePeace");
-                            break;
-                        case 18:
-                            deck.add(new Fatigue());
-                            System.out.println("Added Fatigue");
-                            break;
-                        case 19:
-                            deck.add(new NorwoodRanger());
-                            System.out.println("Added NorwoodRanger");
-                            break;
-                        case 20:
-                            deck.add(new SavorTheMoment());
-                            System.out.println("Added SavorTheMoment");
-                            break;
-                        case 21:
-                            deck.add(new VolcanicHammer());
-                            System.out.println("Added VolcanicHammer");
-                            break;
-                        case 22:
-                            deck.add(new WorldAtWar());
-                            System.out.println("Added WorldAtWar");
-                            break;
-                        case 23:
-                            deck.add(new Reflexologist());
-                            System.out.println("Added Reflexologist");
-                            break;
-                        case 24:
-                            deck.add(new Homeopathy());
-                            System.out.println("Added Homeopathy");
-                            break;
-                        case 25:
-                            deck.add(new FriendlyEnvironment());
-                            System.out.println("Added FriendlyEnvironment");
-                            break;
-                    }
+                    deck.add(factory.returnCard(choice));
                     i++;
                 }
             }while(choice < 1 || choice > 25);
