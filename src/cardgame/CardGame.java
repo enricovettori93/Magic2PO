@@ -1,12 +1,11 @@
 
 package cardgame;
 
+import cardgame.cards.*;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.Scanner;
-
-import cardgame.cards.*;
 import cardgame.factory.*;
 import cardgame.target.TargetManager;
 
@@ -15,17 +14,17 @@ public class CardGame {
     public static void main(String[] args) {
         //create decks
         ArrayList<Card> deck = new ArrayList<>();
-        /*for (int i=0; i!=5; ++i) deck.add(new Reflexologist());
-        for (int i=0; i!=5; ++i) deck.add(new FriendlyEnvironment());
+        for (int i=0; i!=5; ++i) deck.add(new Reflexologist());
+        for (int i=0; i!=5; ++i) deck.add(new Abduction());
         for (int i=0; i!=5; ++i) deck.add(new BronzeSable());
-        for (int i=0; i!=5; ++i) deck.add(new AuraBlast());*/
+        for (int i=0; i!=5; ++i) deck.add(new BoilingEarth());
         
         //Creo deck per il giocatore1
-        instance.createDeck(0,deck);
+        //instance.createDeck(0,deck);
         instance.getPlayer(0).setDeck(deck.iterator());
-        deck.clear();
+        //deck.clear();
         //Creo deck per il giocatore2
-        instance.createDeck(1, deck);
+        //instance.createDeck(1, deck);
         instance.getPlayer(1).setDeck(deck.iterator());
         
         instance.run();

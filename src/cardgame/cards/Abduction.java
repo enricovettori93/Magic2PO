@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cardgame.cards;
 
 import cardgame.AbstractCreature;
 import cardgame.AbstractEnchantment;
-import cardgame.AbstractEnchantmentCardEffect;
 import cardgame.AbstractEnchantmentCardEffectTarget;
-import cardgame.AbstractEnchantmentTarget;
 import cardgame.Card;
 import cardgame.CardGame;
 import cardgame.Creature;
@@ -18,13 +12,8 @@ import cardgame.Enchantment;
 import cardgame.Player;
 import cardgame.creaturestrategy.CreatureDefaultInflictDamage;
 import cardgame.creaturestrategy.CreatureInflictDamageStrategy;
-import cardgame.target.PermanentTarget;
-import cardgame.target.Target;
 import cardgame.target.TargetManager;
-/**
- *
- * @author giaco
- */
+
 public class Abduction implements Card{
     
     private class AbductionEffect extends AbstractEnchantmentCardEffectTarget{

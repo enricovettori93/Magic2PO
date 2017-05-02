@@ -1,16 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cardgame;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author giaco
- */
 public class PreventAllDamageStrategy implements ExecuteBattleStrategy{
 
     @Override
@@ -20,7 +12,8 @@ public class PreventAllDamageStrategy implements ExecuteBattleStrategy{
             //scontri.get(i).getAttaccante().attack(scontri.get(i).getDifensore());
             if(scontri.get(i).nessunDif){
                 //System.out.println(scontri.get(i).getAttaccante().name()+" Attacca l'avversario");
-                scontri.get(i).getAttaccante().attack();
+                //scontri.get(i).getAttaccante().attack();
+                CardGame.instance.getCurrentAdversary().inflictDamage(0);
             }else{
                 j = 0;
                 int atk = scontri.get(i).getAttaccante().getPower();

@@ -1,16 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cardgame.cards;
 
 import cardgame.*;
 import java.util.List;
-/**
- *
- * @author Utente
- */
+
 public class BoilingEarth implements Card{
 
     private class BoilingEarthEffect extends AbstractCardEffect{
@@ -19,27 +12,11 @@ public class BoilingEarth implements Card{
         
         @Override
         public void resolve() {
-            //prova effetto: se vedete errori o avete un'idea migliore cambiate pure
-            int i=0;
-            //infliggo danni alle creature dell'avversario
             List<Creature> temp=CardGame.instance.getCurrentAdversary().getCreatures();
-            while(i<temp.size()){
-                System.out.println("Creature:"+temp.get(i).name()+" get 3 damages: "+temp.get(i).getToughness()+" -> "+(temp.get(i).getToughness()-3));
-                if(temp.get(i).getToughness() >3){
-                    temp.get(i).inflictDamage(3);
-                    i++;
-                }else
-                    temp.get(i).inflictDamage(3);
-            }
-            //infliggo alle creature del giocatore corrente
-            temp=CardGame.instance.getCurrentPlayer().getCreatures();
-            while(i<temp.size()){
-                System.out.println("Creature:"+temp.get(i).name()+" get 3 damages: "+temp.get(i).getToughness()+" -> "+(temp.get(i).getToughness()-3));
-                if(temp.get(i).getToughness() >3){
-                    temp.get(i).inflictDamage(3);
-                    i++;
-                }else
-                    temp.get(i).inflictDamage(3);
+            temp.addAll(CardGame.instance.getCurrentPlayer().getCreatures());
+            for(int i=0;i<temp.size();i++){
+                System.out.println(temp.get(i).name()+" get 1 damage: "+temp.get(i).getToughnessDecorated()+" ->"+(temp.get(i).getToughnessDecorated()-1));
+                temp.get(i).inflictDamage(1);
             }
         }
     
