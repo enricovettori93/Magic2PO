@@ -43,10 +43,14 @@ public abstract class AbstractCreature implements Creature {
         public boolean isTapped() { return isTapped; }
     @Override
         public void attack() {
+            //PERCHé non vai?!?!?
+            System.out.println("["+name()+"] attacking rival... "+this.getPowerDecorated());
             CardGame.instance.getCurrentAdversary().inflictDamage(this.getPowerDecorated());
         }
     @Override
-        public void defend(Creature c) {} // to do in assignment 2
+        public void defend(Creature c) {}
+                
+     // to do in assignment 2
     @Override
         public void inflictDamage(int dmg) { 
                cids.inflictDamage(this, dmg);
@@ -122,4 +126,5 @@ public abstract class AbstractCreature implements Creature {
     public void setOwner(Player owner){
         this.owner = owner;
     }
+    
 }

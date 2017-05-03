@@ -102,7 +102,7 @@ public class DefaultCombatPhase implements Phase {
                                 j++;
                             }
                             //TODO: Fase Effetti Stack e istantanei sulla sungola creatura(Difensore)
-                            playAvailableEffect(opponent,false);
+                            //playAvailableEffect(opponent,false); boh si fa dopo
                             //definizione dei difensori rispetto agli attaccanti
                             idxDif=reader.nextInt();
                             if(idxDif>attacker.size() && idxDif<1)
@@ -112,9 +112,8 @@ public class DefaultCombatPhase implements Phase {
                         ArrayList<Creature> defendFrom = fight.get(att);
                         defendFrom.add(defender);
                         fight.put(att, defendFrom);
+                        playAvailableEffect(opponent, false);
                     }
-                        else
-                            System.out.println("Error: there isn't any attacker in that position");
                 }while(idx!=0);
         }
     }
@@ -139,7 +138,7 @@ public class DefaultCombatPhase implements Phase {
            declareDefender();
            
            executeBattle();
-           
+           System.out.println("[END_COMBAT_PHASE] STATUS: "+currentPlayer.name()+" LIFE:"+currentPlayer.getLife()+" "+opponent.name()+" LIFE:"+opponent.getLife());
         }
     }
     
