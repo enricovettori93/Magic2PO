@@ -19,19 +19,8 @@ public class DayOfJudgment implements Card{
         @Override
         public void resolve() {
            // distruggi tutte le creature in campo
-           // prendere la lista di creature del giocatore
-           List<Creature> app = CardGame.instance.getCurrentPlayer().getCreatures();
-           for (i = 0;i < app.size(); i ++){
-               System.out.println("Creature:"+ app.get(i).name()+" destroyed");
-               CardGame.instance.getCurrentPlayer().destroy(CardGame.instance.getCurrentPlayer().getCreatures().get(i));
-           }
-           // prendere la lista di creature dell'avversario
-           app = CardGame.instance.getCurrentAdversary().getCreatures();
-           for (i = 0;i < app.size(); i ++){
-               System.out.println("Creature:"+ app.get(i).name()+" destroyed");
-               CardGame.instance.getCurrentAdversary().destroy(CardGame.instance.getCurrentAdversary().getCreatures().get(i));
-           }
-           
+           CardGame.instance.getCurrentPlayer().getCreatures().clear();
+           CardGame.instance.getCurrentAdversary().getCreatures().clear();
         }
     }
     @Override
