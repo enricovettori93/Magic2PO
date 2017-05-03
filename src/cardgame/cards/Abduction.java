@@ -48,12 +48,9 @@ public class Abduction implements Card{
         @Override
         public boolean play() {
             setTarget();
-            return super.play(); //To change body of generated methods, choose Tools | Templates.
+            return super.play(); 
         }
         
-        /**
-         * setta il target di Abduction
-         */
         @Override
         public void setTarget() {
             targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.CREATURE_TARGET));
@@ -63,15 +60,13 @@ public class Abduction implements Card{
             if(targets.size()>0){ /*se c'è un target, sennò nothing*/
                 AbstractCreature c =((AbstractCreature)targets.get(0).getTarget());
                 System.out.println("[ABDUCTION] moving "+c.name()+" from Player "+c.getOwner()+" to "+this.owner+"...");
+                c.setCids(new AbductionStrategy(c.getOwner()));
                 c.getOwner().getCreatures().remove(c);
                 c.setOwner(this.owner);
                 owner.getCreatures().add(c);
                 System.out.println("[ABDUCTION] untap "+c.name()+"...");
                 if(c.isTapped())
                     c.untap();
-                c.setOwner(this.owner);
-                System.out.println("[ABDUCTION] set AbductionStrategy...");
-                c.setCids(new AbductionStrategy(c.getOwner()));
                 System.out.println("[ABDUCTION] Done.");
         }
     }

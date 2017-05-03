@@ -12,8 +12,7 @@ public class AetherFlash implements Card{
         @Override
         protected Enchantment createEnchantment() {
             return new AetherFlashEnchantment(owner); 
-        }
-        
+        }        
         
     }
     
@@ -26,7 +25,7 @@ public class AetherFlash implements Card{
                 public void execute(Object args) {
                     if (args != null  && args instanceof Creature) {
                         Creature c = (Creature)args;
-                        System.out.println("[AetherFlash] inflict 2 damage to "+c.name());
+                        System.out.println("[AETHER FLASH] inflict 2 damage to "+c.name());
                         c.inflictDamage(2);
                     }
                 }

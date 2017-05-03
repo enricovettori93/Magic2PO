@@ -3,16 +3,14 @@ package cardgame.cards;
 
 import cardgame.*;
 import cardgame.decorator.PowerUpDecorator;
+import cardgame.target.TargetManager;
 
 public class Afflict implements Card{
     
-    private class AfflictEffect extends AbstractCardEffect {
+    private class AfflictEffect extends AbstractCardEffectTarget {
     
         AbstractCreature CreatureTarget;
-        PowerUpDecorator PuD;
-        TriggerAction AfflictTriggerAcrion;
-        
-        
+        PowerUpDecorator PuD;     
         
         public AfflictEffect (Player p, Card c){
             super(p,c);
@@ -28,32 +26,48 @@ public class Afflict implements Card{
         
     @Override
         public void resolve(){
+            CreatureTarget=(AbstractCreature)targets.remove(0).getTarget();
             // Aggiungere decoratore al Target - nell'else perchè è quando si può eseguire tale azione
-            if (CreatureTarget.getToughnessDecorated() == 1){
+            if (CreatureTarget.getDamageLeft()== 1){
                 CreatureTarget.remove();
                 // rimuovo la carta perchè la vita va a 0
             }
             else {
                 // la toughness della carta decorata cambia
-                PuD = new PowerUpDecorator(this, -1, -1);
+                System.out.println(CreatureTarget.valueOfCreature());
+                PuD = new PowerUpDecorator(AfflictTrigger, -1, -1);
                 CreatureTarget.addDecorator(PuD);
+                System.out.println(CreatureTarget.valueOfCreature());
+                insert();
             }
-            
-            
-            
-            // Aggiungere Trigger su END_PHASE - fino alla fine del turno esiste questo effetto.
         }
         
         public void setTarget(){
-            // Bisogna far scegliere la carta
+            targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.CREATURE_ON_FIELD_TARGET));
+        }
+        
+        private TriggerAction AfflictTrigger=new TriggerAction() {
+            @Override
+            public void execute(Object args) {
+                System.out.println(CreatureTarget.valueOfCreature());
+                CreatureTarget.removeDecorator(this);
+                System.out.println(CreatureTarget.valueOfCreature());
+            }
+        };
+
+        public void insert() {
+            CardGame.instance.getTriggers().register(Triggers.END_FILTER, AfflictTrigger);
+        }
+
+        public void remove() {            
+            CardGame.instance.getTriggers().deregister(AfflictTrigger);
         }
     }
-    
+
     @Override
     public Effect getEffect(Player owner) { 
         return new AfflictEffect(owner, this); 
-    }
-    
+    }    
     
     @Override
     public String name() {
@@ -77,7 +91,5 @@ public class Afflict implements Card{
     public boolean isInstant() {
         return true;
     }
-        
-
     
 }
