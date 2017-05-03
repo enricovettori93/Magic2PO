@@ -5,6 +5,7 @@ package cardgame.cards;
 import cardgame.*;
 import cardgame.decorator.PowerUpDecorator;
 import cardgame.target.TargetManager;
+import java.util.List;
 
 public class AncestralMask implements Card{
     
@@ -12,7 +13,6 @@ public class AncestralMask implements Card{
     private class AncestralMaskEffect extends AbstractEnchantmentCardEffect{
             
         AbstractCreature CreatureTarget;
-        PowerUpDecorator app;
         
         AncestralMaskEffect(Player p, Card c) { 
             super(p,c);             
@@ -29,6 +29,19 @@ public class AncestralMask implements Card{
         public boolean play() {
             setTarget();
             return super.play();
+        }
+        
+        public void resolve(){
+            super.resolve();
+            List<Enchantment> temp=CardGame.instance.getCurrentAdversary().getEnchantments();
+            temp.addAll(CardGame.instance.getCurrentPlayer().getEnchantments());
+            
+            for(Enchantment e :temp){
+                if(!e.equals(createEnchantment())){
+                    CreatureTarget.addDecorator(new PowerUpDecorator(this, 2, 2));
+                }
+            }
+            System.out.println(CreatureTarget.valueOfCreature());
         }
         
         //CLASSE ANONIMA PER IL TRIGGER

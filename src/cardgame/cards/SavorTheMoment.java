@@ -1,30 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cardgame.cards;
 
-import cardgame.AbstractCardEffect;
-import cardgame.Card;
-import cardgame.CardGame;
-import cardgame.DefaultCombatPhase;
-import cardgame.DefaultDrawPhase;
-import cardgame.DefaultEndPhase;
-import cardgame.DefaultMainPhase;
-import cardgame.DefaultPhaseManager;
-import cardgame.Effect;
-import cardgame.Phase;
-import cardgame.Phases;
-import cardgame.Player;
-import cardgame.SkipPhase;
-import java.util.ArrayDeque;
-import java.util.Scanner;
+import cardgame.*;
 
-/**
- *
- * @author Enrico
- */
 public class SavorTheMoment implements Card {
     private class SavorTheMomentEffect extends AbstractCardEffect{
 

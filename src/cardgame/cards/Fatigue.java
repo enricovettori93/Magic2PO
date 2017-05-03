@@ -1,42 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cardgame.cards;
 
-import cardgame.AbstractCardEffect;
-import cardgame.Card;
-import cardgame.CardGame;
-import cardgame.Effect;
-import cardgame.Phases;
-import cardgame.Player;
-import cardgame.SkipPhase;
+import cardgame.*;
+import cardgame.target.TargetManager;
 import java.util.Scanner;
 
-/**
- *
- * @author Enrico
- */
 public class Fatigue implements Card{
-    private class FatigueEffect extends AbstractCardEffect{
+    private class FatigueEffect extends AbstractCardEffectTarget{
 
         FatigueEffect(Player p, Card c) { super(p,c); }
         @Override
-        public void resolve() {
-           int powerup = 0;
-            int in;
-            Scanner input = new Scanner(System.in);
-            System.out.println("Select player target -> 0 = player, 1 = adversary");
-            do{
-                in =  input.nextInt();
-            }while(in != 0 && in != 1);
-            if(in == 0){
-                CardGame.instance.getCurrentPlayer().setPhase(Phases.DRAW,new SkipPhase(Phases.DRAW));
-            }
-            else{
-                CardGame.instance.getCurrentAdversary().setPhase(Phases.DRAW,new SkipPhase(Phases.DRAW));
-            }
+        public void resolve() {            
+            ((Player)targets.get(0).getTarget()).setPhase(Phases.DRAW, new SkipPhase(Phases.DRAW));
+        }
+
+        @Override
+        public void setTarget() {
+            targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.PLAYER_TARGET));
         }
     }
     @Override

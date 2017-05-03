@@ -1,24 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cardgame.cards;
 
-import cardgame.AbstractCreature;
-import cardgame.AbstractCreatureCardEffect;
-import cardgame.Card;
-import cardgame.CardGame;
-import cardgame.Creature;
-import cardgame.Effect;
-import cardgame.Player;
+import cardgame.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Enrico
- */
 public class NorwoodRanger implements Card{
     private class NorwoodRangerEffect extends AbstractCreatureCardEffect {
         public NorwoodRangerEffect(Player p, Card c) { super(p,c); }
@@ -54,13 +40,9 @@ public class NorwoodRanger implements Card{
         public String name() { return "Norwood Ranger"; }
         
         @Override
-        public void attack() {}
+        public int getPower() { return 1; }
         @Override
-        public void defend(Creature c) {}
-        @Override
-        public int getPower() { return 2; }
-        @Override
-        public int getToughness() { return 1; }
+        public int getToughness() { return 2; }
 
         @Override
         public List<Effect> effects() { return all_effects; }
