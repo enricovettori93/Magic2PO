@@ -57,13 +57,40 @@ public class ArgothianEnchantress implements Card{
         public ArgothianEnchantressCreature(Player owner){
             super(owner);
             all_effects.add(new AbstractEffect() {
+                private TriggerAction spell_played;
                 @Override
                 public void resolve() {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                    insert();
+                }
+                @Override
+                public boolean play(){
+                    CardGame.instance.getStack().add(this);
+                    spell_played = new TriggerAction() {
+                            @Override
+                            public void execute(Object args) {
+                                Enchantment c = (Enchantment)args;
+                                List <Enchantment> app = CardGame.instance.getCurrentPlayer().getEnchantments();
+                                if(app.contains(c)){
+                                    System.out.println("[ARGOTHIAN ENCHANTRESS] Current player " + CardGame.instance.getCurrentPlayer().name() + " pesching a card because cast an enchantment.");
+                                    CardGame.instance.getCurrentPlayer().draw();
+                                }
+                            }
+                        };
+
+                    return true;
+                }
+                
+                public void insert() {
+                    CardGame.instance.getTriggers().register(Triggers.ENTER_ENCHANTMENT_FILTER, spell_played);
+                }
+
+                public void remove() {
+                    CardGame.instance.getTriggers().deregister(spell_played);
                 }
             });
         }
         
+        @Override
         public int getPower() {
             return 0;
         }
@@ -88,5 +115,7 @@ public class ArgothianEnchantress implements Card{
             return "ArgothianEnchantress";
         }
         
+        @Override
+        public String toString() { return name() + " (" + type() + ") [" + ruleText() +"]";}
     }
 }
