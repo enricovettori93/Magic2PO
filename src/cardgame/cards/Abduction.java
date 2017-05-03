@@ -61,6 +61,7 @@ public class Abduction implements Card{
                     c.untap();
                 System.out.println("[ABDUCTION] Done.");
         }
+        super.resolve();
     }
     }
     private class AbductionEnchantment extends AbstractEnchantment{
@@ -73,9 +74,11 @@ public class Abduction implements Card{
         public String name() {
             return "Abduction";
         }
+        public void insert() {
+            super.insert();
+        }
             @Override
         public void remove() {
-            System.out.println("[ABDUCTION] reset Target(s)... (TODO?) :(");
             super.remove();
         }
     }
