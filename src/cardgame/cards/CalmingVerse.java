@@ -6,9 +6,6 @@
 package cardgame.cards;
 
 import cardgame.*;
-import java.util.List;
-
-
 
 public class CalmingVerse implements Card{
 
@@ -19,16 +16,8 @@ public class CalmingVerse implements Card{
         int i = 0;
         @Override
         public void resolve() {
-           
            // distruggere incantesimi che non si controllano - quelli dell'avversario?
-           // prendere la lista di incantesimi dell'avversario */
-           
-           List<Enchantment> advenc = CardGame.instance.getCurrentAdversary().getEnchantments();
-           
-           for(i=0;i<advenc.size();i++){
-               System.out.println("Enchantment:"+ advenc.get(i).name()+" destroyed");
-               CardGame.instance.getCurrentAdversary().getEnchantments().remove(i);
-           }
+           CardGame.instance.getCurrentAdversary().getEnchantments().clear();
         }
     }
     @Override
