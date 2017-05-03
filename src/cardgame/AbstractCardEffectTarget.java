@@ -13,7 +13,10 @@ public abstract class AbstractCardEffectTarget extends AbstractCardEffect{
         super(p, c);
         targets = new ArrayList<>();
     }
-    public abstract void setTarget();
+    public void setTarget(){
+        targets.clear();
+    }
+            
     public void printTarget(){
         for(Target i : targets){
             if(i instanceof PermanentTarget)

@@ -47,7 +47,6 @@ public class Afflict implements Card{
             @Override
             public void execute(Object args) {
                 CreatureTarget.removeDecorator(this);
-                remove();
             }
         };
 

@@ -1,27 +1,14 @@
 package cardgame.cards;
 
-import cardgame.AbstractCardEffectTarget;
-import cardgame.Card;
-import cardgame.CardGame;
-import cardgame.Effect;
-import cardgame.Player;
-import cardgame.target.EffectTarget;
-import cardgame.target.Target;
-import java.util.ArrayList;
-import java.util.Scanner;
-/**
- *
- * @author giaco
- */
+import cardgame.*;
+import cardgame.target.TargetManager;
+
 public class Deflection implements Card{
     
     private class DeflectionEffect extends AbstractCardEffectTarget {
-
-        ArrayList<Target> effectTarget;
         
         public DeflectionEffect(Player p, Card c) { 
             super(p,c);
-            effectTarget = new ArrayList<>();
         }
 
         @Override
@@ -32,34 +19,12 @@ public class Deflection implements Card{
        
         @Override
         public void setTarget(){
-            Scanner input = new Scanner(System.in);
-            int choice;
-            ArrayList<AbstractCardEffectTarget> effects = CardGame.instance.getStack().getALSingleTargets();
-            if(effects.size()>0){
-                do{
-                    int i = 1;
-                    System.out.println( "[DEFLECTION] SELECT TARGET (from effect stack):");
-                    for(AbstractCardEffectTarget e : effects){
-                        System.out.println(i+". "+e.getCard().toString()+" [TARGET: "+e.toString()+"]");
-                        i++;
-                    }
-                    choice =  input.nextInt();
-                }while(choice < 0 && choice > effects.size());
-                effectTarget.add(new EffectTarget(effects.get(choice-1)));
-            }
-            else{
-                System.out.println("[DEFLECTION] Nothing to select... PASS");
-            }
+            super.setTarget();
+            targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.STACK_TARGETSPELL_TARGET));            
         }
         @Override
         public void resolve() {
-            if(effectTarget.size()>0){
-                for(Target e : effectTarget){
-                    EffectTarget eT = (EffectTarget) e;
-                    ((AbstractCardEffectTarget)e.getTarget()).setTarget();
-                }
-            }
-                
+            ((AbstractCardEffectTarget)targets.get(0).getTarget()).setTarget();
         }
         
     }

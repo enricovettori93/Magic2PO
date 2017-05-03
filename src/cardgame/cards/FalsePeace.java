@@ -1,38 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cardgame.cards;
 
-import cardgame.AbstractCardEffect;
-import cardgame.AbstractCardEffectTarget;
-import cardgame.Card;
-import cardgame.CardGame;
-import cardgame.Effect;
-import cardgame.Phases;
-import cardgame.Player;
-import cardgame.SkipPhase;
-import java.util.Scanner;
+import cardgame.*;
+import cardgame.target.TargetManager;
 
-/**
- *
- * @author Enrico
- */
 public class FalsePeace implements Card {
     private class FalsePeaceEffect extends AbstractCardEffectTarget{
 
         FalsePeaceEffect(Player p, Card c) { 
             super(p,c);
-            effectTarget = null;
         }
-        
-        AbstractCardEffectTarget effectTarget;
-        
+                
         @Override
         public void resolve() {
-            if(effectTarget!=null)
-                effectTarget.setTarget();
+            ((Player)targets.get(0).getTarget()).setPhase(Phases.COMBAT, new SkipPhase(Phases.COMBAT));
         }
         
         @Override
@@ -43,19 +24,9 @@ public class FalsePeace implements Card {
         
         @Override
         public void setTarget() {
-            int in;
-            Scanner input = new Scanner(System.in);
-            System.out.println("Select player target -> 0 = player, 1 = adversary");
-            do{
-                in =  input.nextInt();
-            }while(in != 0 && in != 1);
-            if(in == 0){
-                CardGame.instance.getCurrentPlayer().setPhase(Phases.COMBAT,new SkipPhase(Phases.COMBAT));
-            }
-            else{
-                CardGame.instance.getCurrentAdversary().setPhase(Phases.COMBAT,new SkipPhase(Phases.COMBAT));
-            }
+            targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.PLAYER_TARGET));
         }
+        
     }
     @Override
     public Effect getEffect(Player owner) {

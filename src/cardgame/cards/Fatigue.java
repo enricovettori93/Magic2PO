@@ -3,7 +3,6 @@ package cardgame.cards;
 
 import cardgame.*;
 import cardgame.target.TargetManager;
-import java.util.Scanner;
 
 public class Fatigue implements Card{
     private class FatigueEffect extends AbstractCardEffectTarget{
@@ -18,7 +17,12 @@ public class Fatigue implements Card{
         public void setTarget() {
             targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.PLAYER_TARGET));
         }
+        public boolean  play(){
+            setTarget();
+            return super.play();
+        }
     }
+    
     @Override
     public Effect getEffect(Player owner) {
         return new FatigueEffect(owner, this);

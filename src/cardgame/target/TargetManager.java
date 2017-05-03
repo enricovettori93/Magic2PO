@@ -64,6 +64,9 @@ public class TargetManager {
                 getEnchantment(CardGame.instance.getCurrentPlayer());
                 getEnchantment(CardGame.instance.getCurrentAdversary());
                 break;
+            case STACK_TARGETSPELL_TARGET: 
+                getTargetSpell();
+                break;
             default: 
                 System.out.println("Bad target!");
         }
@@ -177,17 +180,25 @@ public class TargetManager {
         } 
     }
     
+    private void getTargetSpell(){
+        ArrayList<AbstractCardEffectTarget> temp=CardGame.instance.getStack().getALSingleTargets();
+        for(AbstractCardEffectTarget e:temp){
+            targets.add(new EffectTarget(e));
+        }
+    }
+    
     public static final int ENCHANTMENT_ON_FIELD_TARGET=1;
     public static final int CREATURE_ON_FIELD_TARGET=2;
-    public static final int PERMANENT_TARGET=4;
-    public static final int PLAYER_TARGET=8;
-    public static final int STACK_EFFECT_TARGET=16;
-    public static final int STACK_CREATURE_EFFECT_TARGET=32;
-    public static final int STACK_ISTANT_EFFECT_TARGET=64;
-    public static final int STACK_SORCERY_EFFECT_TARGET=128;
-    public static final int STACK_ENCHANTMENT_EFFECT_TARGET=256;
-    public static final int CREATURE_OR_PLAYER_TARGET=512;
-    public static final int ENCHANTMENT_TARGET=3;
-    public static final int CREATURE_TARGET=6;
+    public static final int PERMANENT_TARGET=3;
+    public static final int PLAYER_TARGET=4;
+    public static final int STACK_EFFECT_TARGET=5;
+    public static final int STACK_CREATURE_EFFECT_TARGET=6;
+    public static final int STACK_ISTANT_EFFECT_TARGET=7;
+    public static final int STACK_SORCERY_EFFECT_TARGET=8;
+    public static final int STACK_ENCHANTMENT_EFFECT_TARGET=9;
+    public static final int CREATURE_OR_PLAYER_TARGET=10;
+    public static final int ENCHANTMENT_TARGET=11;
+    public static final int CREATURE_TARGET=12;
+    public static final int STACK_TARGETSPELL_TARGET=13;
     
 }
