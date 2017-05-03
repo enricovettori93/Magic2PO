@@ -2,6 +2,7 @@
 package cardgame;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 public class OneTimeExecuteBattleStrategy implements ExecuteBattleStrategy{
     ExecuteBattleStrategy old, cur;
@@ -10,8 +11,8 @@ public class OneTimeExecuteBattleStrategy implements ExecuteBattleStrategy{
         this.cur=cur;
     }
     @Override
-    public void executeBattle(DefaultCombatPhase combat, ArrayList<DefaultCombatPhase.Scontro> scontri) {
-        cur.executeBattle(combat, scontri);
+   public void executeBattle(DefaultCombatPhase combat,LinkedHashMap<Creature, ArrayList<Creature>> fight) {
+        cur.executeBattle(combat, fight);
         combat.setEbs(old);
     }
     

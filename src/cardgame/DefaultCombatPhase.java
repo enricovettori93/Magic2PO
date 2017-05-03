@@ -2,15 +2,15 @@
 package cardgame;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class DefaultCombatPhase implements Phase {
     Player currentPlayer;
     Player opponent;
     ExecuteBattleStrategy ebs = new DefaultExecuteBattleStrategy();
-    ArrayList <Creature>idxAttaccanti=new ArrayList<Creature>();
-    ArrayList <Creature>idxDifensore=new ArrayList<Creature>();
-    ArrayList <Scontro> scontri= new ArrayList<Scontro>();
+    LinkedHashMap<Creature, ArrayList<Creature>> fight=new LinkedHashMap<>();
     private boolean playAvailableEffect(Player activePlayer, boolean isMain) {
         //collect and display available effects...
         ArrayList<Effect> availableEffects = new ArrayList<>();
@@ -48,77 +48,79 @@ public class DefaultCombatPhase implements Phase {
     private void declareAttacker(){
          Scanner reader = CardGame.instance.getScanner();
          int i=0, idx;
-            //Dichiarazione degli attaccanti
-            do{
-                System.out.println(currentPlayer.name()+", select the creature that must attack, 0 to pass");
-                for(Creature c:currentPlayer.getCreatures()){
-                    if(!c.isTapped()){
-                        if(!idxAttaccanti.contains(c))
-                            System.out.println((i+1)+")"+c.name());
-                         i++;
-                    }
-                }
-                
-                idx=reader.nextInt();
-                //inserisco gli indici degli attaccanti in una lista, in modo da far scegliere all'avversario quale 
-                //minion vuole bloccare
-                
-                if(idx!=0 && (idx-1)<currentPlayer.getCreatures().size() && !idxAttaccanti.contains(currentPlayer.getCreatures().get(idx-1))){
-                    scontri.add(new Scontro(currentPlayer.getCreatures().get(idx-1)));
-                    idxAttaccanti.add(currentPlayer.getCreatures().get(idx-1));
-                }
-                i=0;
-            }while(idx!=0);
+         ArrayList<Creature> canAttack = new ArrayList<>();
+         for(Creature c:currentPlayer.getCreatures()){
+                    if(!c.isTapped())
+                        canAttack.add(c);
+         }
+        //Dichiarazione degli attaccanti
+        do{
+            System.out.println(currentPlayer.name()+", select the creature that must attack, 0 to pass");
+            for(Creature d: canAttack){
+               System.out.println((i+1)+")"+d.toString());
+               i++;
+            }
+            idx=reader.nextInt();
+            if(idx!=0 && (idx-1)<currentPlayer.getCreatures().size()){
+                fight.put(canAttack.get(idx-1), new ArrayList<Creature>()); /*la aggiungo alla mappa*/
+                canAttack.remove(idx-1); /*la rimuovo dalla lista*/
+            }
+            i=0;
+        }while(idx!=0 && !canAttack.isEmpty());
     }
     
     private void declareDefender(){
         Scanner reader = CardGame.instance.getScanner();
-        int idx, i, j;
+        int idx;
+        ArrayList<Creature> canDefend = new ArrayList<>();
+        ArrayList<Creature> attacker = new ArrayList<>();
+        for(Creature c:opponent.getCreatures())
+            if(!c.isTapped())
+                canDefend.add(c);
         //Dichiarazione dei difensori 
-        if(!scontri.isEmpty()){
-                i=0;
-                j=0;
-                do{
-                    System.out.println(opponent.name()+", select the creature that must defend, 0 to pass");
-                    for(Creature c:opponent.getCreatures()){
-                        if(!c.isTapped()){
-                            if(!idxDifensore.contains(c))
-                                System.out.println((i+1)+")"+c.name());
-                            }
-                        i++;
-                    }
-
-                    idx=reader.nextInt();
-                    
-                    if(idx!=0 && (idx-1)<opponent.getCreatures().size()){
+        if(!fight.isEmpty()){ /*se c'è almeno un attaccante...*/
+            do{
+                int i=0;
+                for(Map.Entry<Creature, ArrayList<Creature>> m: fight.entrySet())
+                    attacker.add(m.getKey());
+                System.out.println(opponent.name()+", select the creature that must defend, 0 to pass");
+                for(Creature c: canDefend){
+                    System.out.println((i+1)+" "+c.toString());
+                    i++;
+                }
+                idx=reader.nextInt();
+                    if(idx!=0 && (idx-1)<canDefend.size()){
+                        Creature defender = canDefend.get(idx-1);
+                        canDefend.remove(idx-1);
                         int idxDif;
-                        System.out.println(opponent.name()+", select the creature from which you have to defend yourself");
-                        System.out.println("Opponent's attackers:");
-                        
-                        for(j=0;j<scontri.size();j++)
-                            System.out.println((j+1)+")"+scontri.get(j).getAttaccante().name());
-
-                        //TODO: Fase Effetti Stack e istantanei sulla sungola creatura(Difensore)
-                        playAvailableEffect(opponent,false);
-            
-                        //definizione dei difensori rispetto agli attaccanti
-                        idxDif=reader.nextInt();
-                        if((idxDif-1)<scontri.size()){
-                            idxDifensore.add(opponent.getCreatures().get(idx-1));
-                            scontri.get(idxDif-1).addDifensore(opponent.getCreatures().get(idx-1));
-                           
-                        }
+                        int j=0;
+                        do{
+                            System.out.println(opponent.name()+", select the creature from which you have to defend yourself");
+                            System.out.println("Opponent's attackers:");
+                            for(Creature c : attacker){
+                                System.out.println((j+1)+" "+c.toString());
+                                j++;
+                            }
+                            //TODO: Fase Effetti Stack e istantanei sulla sungola creatura(Difensore)
+                            playAvailableEffect(opponent,false);
+                            //definizione dei difensori rispetto agli attaccanti
+                            idxDif=reader.nextInt();
+                            if(idxDif>attacker.size() && idxDif<1)
+                                System.out.println("Error: there isn't any attacker in that position. Reselect");
+                        }while(idxDif>attacker.size() && idxDif<1);
+                        Creature att = attacker.get(idxDif-1);
+                        ArrayList<Creature> defendFrom = fight.get(att);
+                        defendFrom.add(defender);
+                        fight.put(att, defendFrom);
+                    }
                         else
                             System.out.println("Error: there isn't any attacker in that position");
-                    }
-                    j=0;
-                    i=0;
                 }while(idx!=0);
         }
     }
     
     private void executeBattle(){
-        ebs.executeBattle(this, scontri);
+        ebs.executeBattle(this, fight);
     }
     
     @Override
@@ -146,33 +148,5 @@ public class DefaultCombatPhase implements Phase {
     }
     public ExecuteBattleStrategy getEbs(){
         return ebs;
-    }
-    //Classe usata per tener conto degli attaccanti e dei difensori
-    public class Scontro{
-        public Creature attaccante;
-        public ArrayList <Creature> difensore;
-        public boolean nessunDif;
-        public Scontro(Creature att){
-            difensore=new ArrayList<Creature>();
-            this.attaccante=att;
-            nessunDif=true;
-        }
-        
-        public void addDifensore(Creature dif){
-            this.difensore.add(dif);
-            nessunDif=false;
-        }
-        
-        public Creature getAttaccante(){
-            return this.attaccante;
-        }
-        
-        public ArrayList <Creature> getDifensore(){
-            return difensore;
-        }
-        
-        public boolean isEmpty(){
-            return nessunDif;
-        }
     }
 }
