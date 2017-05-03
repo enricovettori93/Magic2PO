@@ -2,7 +2,6 @@
 package cardgame.target;
 
 import cardgame.AbstractCardEffect;
-import cardgame.Card;
 import cardgame.Player;
 
 public class CardTarget implements Target{

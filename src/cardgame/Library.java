@@ -1,18 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cardgame;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
-/**
- *
- * @author atorsell
- */
 public class Library {
     private ArrayList<Card> cards= new ArrayList<Card>();
     final private Random rnd=new Random();

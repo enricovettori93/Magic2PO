@@ -1,17 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cardgame;
 
 import java.util.Deque;
 import java.util.EnumMap;
 
-/**
- *
- * @author atorsell
- */
 public class DefaultPhaseManager implements PhaseManager {
     private final EnumMap<Phases, Deque<Phase> > phases;
     private Phases currentPhaseIdx=Phases.NULL;

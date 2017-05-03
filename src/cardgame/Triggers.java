@@ -1,17 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cardgame;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 
-/**
- *
- * @author atorsell
- */
 public class Triggers {
     private class Entry { 
         public int filter; 

@@ -1,18 +1,10 @@
 
 package cardgame.target;
 
-import cardgame.AbstractCardEffect;
-import cardgame.Card;
-import cardgame.CardGame;
-import cardgame.CardStack;
-import cardgame.Creature;
-import cardgame.Effect;
-import cardgame.Enchantment;
-import cardgame.Player;
+import cardgame.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Stack;
 
 public class TargetManager {
     

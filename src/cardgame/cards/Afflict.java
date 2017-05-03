@@ -1,27 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cardgame.cards;
 
-import cardgame.AbstractCardEffect;
-import cardgame.AbstractCardEffectTarget;
-import cardgame.AbstractCreature;
-import cardgame.AbstractCreatureCardEffect;
-import cardgame.Card;
-import cardgame.CardGame;
-import cardgame.Effect;
-import cardgame.target.PermanentTarget;
-import cardgame.Player;
+import cardgame.*;
 import cardgame.decorator.PowerUpDecorator;
-import cardgame.Triggers;
-import cardgame.TriggerAction;
-import java.util.Scanner;
-/**
- *
- * @author Ilaria
- */
+
 public class Afflict implements Card{
     
     private class AfflictEffect extends AbstractCardEffect {

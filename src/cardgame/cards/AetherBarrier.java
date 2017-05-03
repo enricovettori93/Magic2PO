@@ -1,22 +1,9 @@
 
 package cardgame.cards;
 
-import cardgame.AbstractEnchantment;
-import cardgame.AbstractEnchantmentCardEffect;
-import cardgame.Card;
-import cardgame.CardGame;
-import cardgame.Creature;
-import cardgame.Effect;
-import cardgame.Enchantment;
-import cardgame.Player;
-import cardgame.TriggerAction;
-import cardgame.Triggers;
+import cardgame.*;
 import java.util.Scanner;
 
-/**
- *
- * @author giaco
- */
 public class AetherBarrier implements Card{
 
     private class AetherBarrierEffect extends AbstractEnchantmentCardEffect{

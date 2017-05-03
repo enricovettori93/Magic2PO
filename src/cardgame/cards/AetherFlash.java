@@ -1,15 +1,7 @@
 
 package cardgame.cards;
-import cardgame.AbstractEnchantment;
-import cardgame.AbstractEnchantmentCardEffect;
-import cardgame.Card;
-import cardgame.CardGame;
-import cardgame.Creature;
-import cardgame.Effect;
-import cardgame.Enchantment;
-import cardgame.Player;
-import cardgame.TriggerAction;
-import cardgame.Triggers;
+
+import cardgame.*;
 
 public class AetherFlash implements Card{
     private class AetherFlashEffect extends AbstractEnchantmentCardEffect{
