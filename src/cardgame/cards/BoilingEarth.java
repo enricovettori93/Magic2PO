@@ -15,7 +15,7 @@ public class BoilingEarth implements Card{
             List<Creature> temp=CardGame.instance.getCurrentAdversary().getCreatures();
             temp.addAll(CardGame.instance.getCurrentPlayer().getCreatures());
             for(int i=0;i<temp.size();i++){
-                System.out.println("[BOILING EARTH] "+temp.get(i).name()+" get 1 damage: "+temp.get(i).getToughnessDecorated()+" ->"+(temp.get(i).getToughnessDecorated()-1));
+                System.out.println("[BOILING EARTH] "+temp.get(i).name()+" get 1 damage");
                 temp.get(i).inflictDamage(1);
             }
         }
