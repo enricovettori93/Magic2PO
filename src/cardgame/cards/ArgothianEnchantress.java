@@ -36,7 +36,7 @@ public class ArgothianEnchantress implements Card{
 
     @Override
     public String ruleText() {
-        return "Put in play a creature ArgothianEnchantress(0/1) with effects:Shroud(this creature can't be a target) , Whenever you cast an enchantment spell,draw a card";
+        return "Put in play a creature ArgothianEnchantress(0/1) with effects: Shroud(this creature can't be a target) , Whenever you cast an enchantment spell,draw a card";
     }
 
     @Override
@@ -62,6 +62,9 @@ public class ArgothianEnchantress implements Card{
                 public void resolve() {
                     insert();
                 }
+                @Override
+                public String toString() 
+                    { return "" + ruleText(); }
                 @Override
                 public boolean play(){
                     CardGame.instance.getStack().add(this);
