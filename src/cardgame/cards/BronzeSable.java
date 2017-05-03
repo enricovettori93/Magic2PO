@@ -31,13 +31,13 @@ public class BronzeSable implements Card {
                                     public void resolve() {}
                                     @Override
                                     public String toString() 
-                                        { return "tap: Bronze Stable does nothing"; }
+                                        { return "tap: Bronze Sable does nothing"; }
                                 }
                 ); 
         }
         
         @Override
-        public String name() { return "Bronze Stable"; }
+        public String name() { return "Bronze Sable"; }
         
         @Override
         public void attack() {}
