@@ -1,40 +1,33 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cardgame.cards;
 
-import cardgame.AbstractCardEffect;
-import cardgame.AbstractCardEffectTarget;
-import cardgame.AbstractCreature;
-import cardgame.Card;
-import cardgame.CardGame;
-import cardgame.Effect;
-import cardgame.target.PermanentTarget;
-import cardgame.Player;
+import cardgame.*;
 import cardgame.decorator.PowerUpDecorator;
-import java.util.Scanner;
+import cardgame.target.TargetManager;
 
-/**
- *
- * @author Enrico
- */
 public class AggressiveUrge implements Card {
     private class AggressiveUrgeEffect extends AbstractCardEffectTarget {
         
-        PermanentTarget effectTarget;
+        AbstractCreature CreatureTarget;
         PowerUpDecorator pd;
         
         public AggressiveUrgeEffect(Player p, Card c) { 
             super(p,c); 
-            effectTarget = null;
         }
         
         @Override
         public void resolve() {
-            pd = new PowerUpDecorator(effectTarget,1,1);
-            ((AbstractCreature)effectTarget.getTarget()).addDecorator(pd);
+            CreatureTarget=(AbstractCreature)targets.remove(0).getTarget();
+            // Aggiungere decoratore al Target - nell'else perchè è quando si può eseguire tale azione
+            if (CreatureTarget.getDamageLeft()== 1){
+                CreatureTarget.remove();
+                // rimuovo la carta perchè la vita va a 0
+            }
+            else {
+                pd = new PowerUpDecorator(AggressiveUrgeTrigger, 1, 1);
+                CreatureTarget.addDecorator(pd);
+                insert();
+            }
         }
         
         @Override
@@ -45,29 +38,23 @@ public class AggressiveUrge implements Card {
 
         @Override
         public void setTarget() {
-            int in;
-            Scanner input = new Scanner(System.in);
-            System.out.println("Player's creature");
-            System.out.println("" + CardGame.instance.getCurrentPlayer().getCreatures());
-            System.out.println("Adversary's creature");
-            System.out.println("" + CardGame.instance.getCurrentAdversary().getCreatures());
-            System.out.println("Select player creature target -> 0 = player, 1 = adversary");
-            do{
-                in =  input.nextInt();
-            }while(in != 0 && in != 1);
-            System.out.println("Select creature");
-            if(in == 0){
-                do{
-                    in = input.nextInt();
-                }while(in < 0 || in > CardGame.instance.getCurrentPlayer().getCreatures().size());
-                effectTarget = new PermanentTarget(owner,CardGame.instance.getCurrentPlayer().getCreatures().get(in-1));
+            targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.CREATURE_ON_FIELD_TARGET));
+        }
+        
+        private TriggerAction AggressiveUrgeTrigger=new TriggerAction() {
+            @Override
+            public void execute(Object args) {
+                CreatureTarget.removeDecorator(this);
+                remove();
             }
-            else{
-                do{
-                    in = input.nextInt();
-                }while(in < 0 || in > CardGame.instance.getCurrentAdversary().getCreatures().size());
-                effectTarget = new PermanentTarget(owner,CardGame.instance.getCurrentAdversary().getCreatures().get(in-1));
-            }
+        };
+
+        public void insert() {
+            CardGame.instance.getTriggers().register(Triggers.END_FILTER, AggressiveUrgeTrigger);
+        }
+
+        public void remove() {            
+            CardGame.instance.getTriggers().deregister(AggressiveUrgeTrigger);
         }
     }
 

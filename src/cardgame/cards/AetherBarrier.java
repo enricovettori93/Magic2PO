@@ -15,8 +15,7 @@ public class AetherBarrier implements Card{
         @Override
         protected Enchantment createEnchantment() {
             return new AetherBarrierEnchantment(owner); 
-        }
-        
+        }        
         
     }
     

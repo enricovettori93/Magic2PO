@@ -33,11 +33,8 @@ public class Afflict implements Card{
                 // rimuovo la carta perchè la vita va a 0
             }
             else {
-                // la toughness della carta decorata cambia
-                System.out.println(CreatureTarget.valueOfCreature());
                 PuD = new PowerUpDecorator(AfflictTrigger, -1, -1);
                 CreatureTarget.addDecorator(PuD);
-                System.out.println(CreatureTarget.valueOfCreature());
                 insert();
             }
         }
@@ -49,9 +46,8 @@ public class Afflict implements Card{
         private TriggerAction AfflictTrigger=new TriggerAction() {
             @Override
             public void execute(Object args) {
-                System.out.println(CreatureTarget.valueOfCreature());
                 CreatureTarget.removeDecorator(this);
-                System.out.println(CreatureTarget.valueOfCreature());
+                remove();
             }
         };
 

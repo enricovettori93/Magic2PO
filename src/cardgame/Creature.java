@@ -40,4 +40,6 @@ public interface Creature extends Permanent {
     public Player getOwner();
 
     public void setCids(CreatureInflictDamageStrategy cids);
+
+    public void init();
 }

@@ -9,7 +9,6 @@ public class Triggers {
         public int filter; 
         public TriggerAction action;
         public Entry(int f, TriggerAction a) { filter=f; action=a; }
-        
     }
     
     ArrayList<Triggers.Entry> actions = new ArrayList<>();
@@ -20,11 +19,10 @@ public class Triggers {
     }
     
     public void deregister(TriggerAction a) {
-        for(int i=actions.size(); i>=0; --i) {
+        for(int i=actions.size()-1; i>=0; --i) {
             if (a.equals(actions.get(i))) actions.remove(i);
         }
-    }
-    
+    }    
     
     public void trigger(int event) { trigger(event, null); }
     public void trigger(int event, Object args) {

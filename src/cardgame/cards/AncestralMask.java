@@ -1,94 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cardgame.cards;
 
-import cardgame.AbstractCardEffect;
-import cardgame.AbstractCardEffectTarget;
-import cardgame.AbstractCreature;
-import cardgame.AbstractEnchantment;
-import cardgame.AbstractEnchantmentCardEffect;
-import cardgame.Card;
-import cardgame.CardGame;
-import cardgame.Creature;
-import cardgame.Effect;
-import cardgame.Enchantment;
-import cardgame.Permanent;
-import cardgame.target.PermanentTarget;
-import cardgame.Player;
-import cardgame.TriggerAction;
-import cardgame.Triggers;
-import cardgame.decorator.PowerUpDecorator;
-import java.util.List;
-import java.util.Scanner;
 
-/**
- *
- * @author Enrico
- */
+import cardgame.*;
+import cardgame.decorator.PowerUpDecorator;
+import cardgame.target.TargetManager;
+
 public class AncestralMask implements Card{
     
     //BEGIN EFFECT CARD
     private class AncestralMaskEffect extends AbstractEnchantmentCardEffect{
             
-        PermanentTarget effectTarget;
+        AbstractCreature CreatureTarget;
         PowerUpDecorator app;
-        int powerup;
         
         AncestralMaskEffect(Player p, Card c) { 
-            super(p,c); 
-            
+            super(p,c);             
         }
 
         @Override
         protected Enchantment createEnchantment() { return new AncestralMaskEnchantment(owner); }
-        
-        @Override
-        public void resolve() {
-            if(app != null)
-                ((Creature)effectTarget.getTarget()).removeDecorator(app);
-            app = new PowerUpDecorator(this, powerup, powerup);
-            ((Creature)effectTarget.getTarget()).addDecorator(app);
-            //System.out.println(" " + effectTarget.getTarget().toString()+((Creature)effectTarget.getTarget()).getPowerDecorated());
-        }
-
+       
         public void setTarget() {
-            int in;
-            Scanner input = new Scanner(System.in);
-            powerup = 0;
-            powerup = getNumberEnchantmens();
-            powerup = 2 * powerup;
-            System.out.println("Select player creature target -> 0 = player, 1 = adversary");
-            do{
-                in =  input.nextInt();
-            }while(in != 0 && in != 1);
-            System.out.println("Select creature");
-            if(in == 0){
-                CardGame.instance.getCurrentPlayer().printPermanents();
-                do{
-                    in = input.nextInt();
-                }while(in < 0 || in > CardGame.instance.getCurrentPlayer().getCreatures().size());
-                effectTarget = new PermanentTarget(owner,CardGame.instance.getCurrentPlayer().getCreatures().get(in-1));
-            }
-            else{
-                CardGame.instance.getCurrentAdversary().printPermanents();
-                do{
-                    in = input.nextInt();
-                }while(in < 0 || in > CardGame.instance.getCurrentAdversary().getCreatures().size());
-                effectTarget = new PermanentTarget(owner,CardGame.instance.getCurrentAdversary().getCreatures().get(in-1));
-            }
+            CreatureTarget=(AbstractCreature)CardGame.instance.getTargetManager().getTarget(TargetManager.CREATURE_ON_FIELD_TARGET).getTarget();
         }
-        
-        public int getNumberEnchantmens(){
-            List<Enchantment> temp=CardGame.instance.getCurrentAdversary().getEnchantments();
-            powerup = temp.size();
-            temp=CardGame.instance.getCurrentPlayer().getEnchantments();
-            powerup = powerup + temp.size();
-            return powerup - 1;
-        }
-        
+                
         @Override
         public boolean play() {
             setTarget();
@@ -101,29 +37,27 @@ public class AncestralMask implements Card{
                 super(owner);
             }
 
-            private final TriggerAction PowerUpAction = new TriggerAction() {
+            private final TriggerAction AncestralMaskTrigger = new TriggerAction() {
                     @Override
                     public void execute(Object args) {
-                        if (args != null  && args instanceof Creature) {
-                            Creature c = (Creature)args;
-                            int newPowerUp = getNumberEnchantmens();
-                            powerup = newPowerUp * 2;
-                            resolve();
-                        }
+                        CreatureTarget.addDecorator(new PowerUpDecorator(AncestralMaskTrigger, 2, 2));
+                        System.out.println(CreatureTarget.valueOfCreature());
                     }
                 };
 
             @Override
             public void insert() {
                 super.insert();
-                CardGame.instance.getTriggers().register(Triggers.ENTER_ENCHANTMENT_FILTER, PowerUpAction);
+                //setTarget();
+                CardGame.instance.getTriggers().register(Triggers.ENTER_ENCHANTMENT_FILTER,AncestralMaskTrigger);
             }
 
             @Override
             public void remove() {
                 super.remove();
-                ((Creature)effectTarget.getTarget()).removeDecorator(app);
-                CardGame.instance.getTriggers().deregister(PowerUpAction);
+                CreatureTarget.removeDecorator(AncestralMaskTrigger);
+                System.out.println(CreatureTarget.valueOfCreature());
+                CardGame.instance.getTriggers().deregister(AncestralMaskTrigger);
             }
 
             @Override

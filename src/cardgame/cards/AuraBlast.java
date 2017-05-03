@@ -1,13 +1,8 @@
 
 package cardgame.cards;
 
-import cardgame.AbstractCardEffectTarget;
-import cardgame.Card;
-import cardgame.CardGame;
-import cardgame.Effect;
-import cardgame.Enchantment;
+import cardgame.*;
 import cardgame.target.PermanentTarget;
-import cardgame.Player;
 import cardgame.target.Target;
 import cardgame.target.TargetManager;
 

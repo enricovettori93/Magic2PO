@@ -5,22 +5,8 @@
  */
 package cardgame.cards;
 
-import cardgame.Card;
-import cardgame.Effect;
-import cardgame.Enchantment;
-import cardgame.Player;
-import cardgame.AbstractEnchantmentCardEffect;
-import cardgame.AbstractEnchantment;
-import cardgame.CardGame;
-import cardgame.Creature;
-import cardgame.TriggerAction;
-import cardgame.Triggers;
+import cardgame.*;
 
-
-/**
- *
- * @author atorsell
- */
 public class FriendlyEnvironment implements Card {
     private class FriendlyEnvironmentEffect extends AbstractEnchantmentCardEffect {
         public FriendlyEnvironmentEffect(Player p, Card c) { super(p,c); }

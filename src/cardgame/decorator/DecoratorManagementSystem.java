@@ -33,10 +33,7 @@ public class DecoratorManagementSystem {
         while(!temp.isEmpty()){
             addDecorator(temp.pop());
         }
-        
-        tempDeco=dms.pop();
-        ((PowerUpDecorator)tempDeco).setCreature(dms.peek());
-        dms.push(tempDeco);
+        dms.peek().getCreature().init();
     }
     
     public AbstractDecorator peek(){

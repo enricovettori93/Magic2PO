@@ -83,4 +83,8 @@ public abstract class AbstractDecorator implements Creature{
     public void defaultInflictDamage(int dmg) {
         creature.defaultInflictDamage(dmg);
     }
+    
+    public void init(){
+        creature.init();
+    }
 }

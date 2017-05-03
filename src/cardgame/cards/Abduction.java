@@ -1,15 +1,7 @@
 
 package cardgame.cards;
 
-import cardgame.AbstractCreature;
-import cardgame.AbstractEnchantment;
-import cardgame.AbstractEnchantmentCardEffectTarget;
-import cardgame.Card;
-import cardgame.CardGame;
-import cardgame.Creature;
-import cardgame.Effect;
-import cardgame.Enchantment;
-import cardgame.Player;
+import cardgame.*;
 import cardgame.creaturestrategy.CreatureDefaultInflictDamage;
 import cardgame.creaturestrategy.CreatureInflictDamageStrategy;
 import cardgame.target.TargetManager;
@@ -113,6 +105,7 @@ public class Abduction implements Card{
         return false;
     }
     
+    @Override
     public String toString(){
          return name() + " (" + type() + ") [" + ruleText() +"]";
     }

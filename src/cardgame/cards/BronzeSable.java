@@ -1,24 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cardgame.cards;
 
-import cardgame.AbstractCreature;
-import cardgame.AbstractCreatureCardEffect;
-import cardgame.Card;
-import cardgame.CardGame;
-import cardgame.Creature;
-import cardgame.Effect;
-import cardgame.Player;
+import cardgame.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Enrico
- */
 public class BronzeSable implements Card {
     private class BronzeSableEffect extends AbstractCreatureCardEffect {
         public BronzeSableEffect(Player p, Card c) { super(p,c); }
