@@ -19,8 +19,7 @@ public class Deflection implements Card{
        
         @Override
         public void setTarget(){
-            super.setTarget();
-            targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.STACK_TARGETSPELL_TARGET));            
+            targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.STACK_TARGETSPELL_TARGET));          
         }
         @Override
         public void resolve() {

@@ -60,9 +60,9 @@ public class Abduction implements Card{
                 if(c.isTapped())
                     c.untap();
                 System.out.println("[ABDUCTION] Done.");
+            }
+            super.resolve();
         }
-        super.resolve();
-    }
     }
     private class AbductionEnchantment extends AbstractEnchantment{
 
