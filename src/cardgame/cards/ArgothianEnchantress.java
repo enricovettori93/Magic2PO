@@ -56,7 +56,7 @@ public class ArgothianEnchantress implements Card{
         
         public ArgothianEnchantressCreature(Player owner){
             super(owner);
-            all_effects.add(new AbstractEffect() {
+            all_effects.add(new Effect() {
                 private TriggerAction spell_played;
                 @Override
                 public void resolve() {
