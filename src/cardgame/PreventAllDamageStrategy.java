@@ -19,7 +19,7 @@ public class PreventAllDamageStrategy implements ExecuteBattleStrategy{
                 for(Creature defender : entry.getValue()){
                     if(attack>0){
                         System.out.println("["+entry.getKey().name()+"] attack the defender "+defender.name());
-                        defender.inflictDamage(attack); /*attacca creatura*/
+                        defender.inflictDamage(0); /*attacca creatura -> 0 perchè non fa danni */
                         attack-=defender.getToughnessDecorated();
                     }
                 }
