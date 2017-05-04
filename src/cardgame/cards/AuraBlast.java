@@ -2,9 +2,7 @@
 package cardgame.cards;
 
 import cardgame.*;
-import cardgame.target.PermanentTarget;
-import cardgame.target.Target;
-import cardgame.target.TargetManager;
+import cardgame.target.*;
 
 public class AuraBlast implements Card{
     
@@ -23,15 +21,18 @@ public class AuraBlast implements Card{
        
         @Override
         public void setTarget(){
-            targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.ENCHANTMENT_ON_FIELD_TARGET));
+            targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.ENCHANTMENT_TARGET));
         }
         
         @Override
         public void resolve() {
             //destroy target
             if(targets.size()>0){
-                for(Target t : targets){
-                    ((PermanentTarget)t).getTargetOwner().getEnchantments().remove((Enchantment)t.getTarget());
+                if(targets.get(0) instanceof PermanentTarget){
+                    ((PermanentTarget)targets.get(0)).getTargetOwner().getEnchantments().remove((Enchantment)targets.get(0).getTarget());
+                }
+                if(targets.get(0) instanceof CardTarget){
+                    CardGame.instance.getStack().remove((Effect)targets.get(0).getTarget());
                 }
             }
             //draw a card

@@ -1,6 +1,7 @@
 
 package cardgame;
 
+import cardgame.target.EffectTarget;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -25,13 +26,11 @@ public class CardStack implements Iterable<Effect> {
         }
     }
     
-    public ArrayList<AbstractCardEffectTarget> getALSingleTargets(){
-        ArrayList<AbstractCardEffectTarget> effectTargets = new ArrayList<>();
+    public ArrayList<EffectTarget> getALSingleTargets(){
+        ArrayList<EffectTarget> effectTargets = new ArrayList<>();
         for(Effect e : stack){
-            if(e instanceof AbstractCardEffectTarget){
-                if(((AbstractCardEffectTarget) e).targets.size()==1) //target singolo
-                    effectTargets.add((AbstractCardEffectTarget)e);
-            }
+            if(e instanceof AbstractCardEffectTarget || e instanceof AbstractEnchantmentCardEffectTarget)
+                effectTargets.add(new EffectTarget(e));
         }
         return effectTargets;
     }

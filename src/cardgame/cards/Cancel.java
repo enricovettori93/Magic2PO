@@ -19,11 +19,13 @@ public class Cancel implements Card {
             super(p, c);
         }
 
+        @Override
         public boolean play(){
             setTarget();
             return super.play();
         }
         
+        @Override
         public void setTarget(){
             targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.STACK_TARGETSPELL_TARGET));
         }
@@ -32,7 +34,7 @@ public class Cancel implements Card {
         public void resolve() {
             CardGame.instance.getStack().remove((Effect)targets.get(0).getTarget());
         }
-
+        
     }    
 
         

@@ -2,9 +2,7 @@
 package cardgame.target;
 
 import cardgame.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class TargetManager {
     
@@ -181,9 +179,9 @@ public class TargetManager {
     }
     
     private void getTargetSpell(){
-        ArrayList<AbstractCardEffectTarget> temp=CardGame.instance.getStack().getALSingleTargets();
-        for(AbstractCardEffectTarget e:temp){
-            targets.add(new EffectTarget(e));
+        ArrayList<EffectTarget> temp=CardGame.instance.getStack().getALSingleTargets();
+        for(EffectTarget e:temp){
+            targets.add(e);
         }
     }
     
