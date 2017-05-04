@@ -77,12 +77,13 @@ public class DefaultCombatPhase implements Phase {
         for(Creature c:opponent.getCreatures())
             if(!c.isTapped())
                 canDefend.add(c);
-        //Dichiarazione dei difensori 
+        //Dichiarazione dei difensori
+        for(Map.Entry<Creature, ArrayList<Creature>> m: fight.entrySet())
+            attacker.add(m.getKey());
         if(!fight.isEmpty()){ /*se c'è almeno un attaccante...*/
             do{
                 int i=0;
-                for(Map.Entry<Creature, ArrayList<Creature>> m: fight.entrySet())
-                    attacker.add(m.getKey());
+
                 System.out.println(opponent.name()+", select the creature that must defend, 0 to pass");
                 for(Creature c: canDefend){
                     System.out.println((i+1)+" "+c.toString());
