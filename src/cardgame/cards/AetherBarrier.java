@@ -43,31 +43,6 @@ public class AetherBarrier implements Card{
                             else
                                 System.out.println("[AETHER BARRIER] You choose a wrong owner.");
                         }while(app.getTargetOwner() != CardGame.instance.getCurrentPlayer());
-                        /*Creature c = (Creature)args;
-                        Scanner s = new Scanner(System.in);
-                        String choice = new String();
-                        //se sono qui, vuol dire che il giocatore p è il giocatore corrente (ha giocato la carta)
-                        Player p = CardGame.instance.getCurrentPlayer();
-                        do{
-                            System.out.println("[AetherBarrier]"+p.name()+ "sacrifices a Permanent? Y/N");
-                            choice = s.nextLine();
-                            choice = choice.intern();
-                        }while(!(choice.equals("Y")) && !(choice.equals("N")));
-                        if(p.getCreatures().isEmpty() && choice.equals("Y"))
-                            System.out.println("[AetherBarrier]You don't have a permanent! ");
-                        if(choice.equals("N") || p.getCreatures().isEmpty()){
-                            System.out.println("[AetherBarrier] inflict 1 damage");
-                            p.inflictDamage(1);
-                        }
-                        else{
-                            int choicePermanent;
-                            do{
-                                System.out.println("[AetherBarrier] Select the Permanent to discard:");
-                                p.printPermanents();
-                                choicePermanent=s.nextInt();
-                            }while(choicePermanent<=0 && choicePermanent >p.getCreatures().size());
-                            p.destroy(p.getCreatures().get(choicePermanent-1));
-                        }*/
                     }
                 }
             };
