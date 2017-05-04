@@ -6,18 +6,20 @@
 package cardgame.cards;
 
 import cardgame.*;
+import java.util.List;
 
 public class CalmingVerse implements Card{
 
     private class CalmingVerseEffect extends AbstractCardEffect{
 
         CalmingVerseEffect(Player p, Card c) { super(p,c); }
-        
-        int i = 0;
+
         @Override
         public void resolve() {
-           // distruggere incantesimi che non si controllano - quelli dell'avversario?
-           CardGame.instance.getCurrentAdversary().getEnchantments().clear();
+           List <Enchantment> app = CardGame.instance.getCurrentAdversary().getEnchantments();
+           for(int i = 0;i<app.size();i++){
+               app.get(i).remove();
+           }
         }
     }
     @Override

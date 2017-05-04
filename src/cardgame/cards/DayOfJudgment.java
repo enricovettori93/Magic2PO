@@ -14,13 +14,19 @@ public class DayOfJudgment implements Card{
     private class DayOfJudgmentEffect extends AbstractCardEffect{
 
         DayOfJudgmentEffect(Player p, Card c) { super(p,c); }
-        
-        int i = 0;
         @Override
         public void resolve() {
            // distruggi tutte le creature in campo
-           CardGame.instance.getCurrentPlayer().getCreatures().clear();
-           CardGame.instance.getCurrentAdversary().getCreatures().clear();
+           List <Creature> app = CardGame.instance.getCurrentPlayer().getCreatures();
+           for(int i = 0;i<app.size();i++){
+               app.get(i).remove();
+           }
+           app.clear();
+           app = CardGame.instance.getCurrentAdversary().getCreatures();
+           for(int i = 0;i<app.size();i++){
+               app.get(i).remove();
+           }
+           app.clear();
         }
     }
     @Override
