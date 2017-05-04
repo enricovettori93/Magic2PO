@@ -21,13 +21,12 @@ public abstract class AbstractEnchantmentCardEffectTarget extends AbstractEnchan
         }
     }
     public String toString(){
-        String out = new String();
+        String out = "["+this.card.name()+"] ";
         for(Target i : targets){
-            out+=i.toString()+",";
+            out+=i.toString()+", ";
         }
         return out;
     }
-
 
     
 }

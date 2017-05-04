@@ -13,5 +13,7 @@ public class EffectTarget implements Target{
     public Object getTarget() {
         return target;
     }
-    
+    public String toString(){
+        return target.toString();
+    }
 }

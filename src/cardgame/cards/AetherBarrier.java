@@ -5,7 +5,6 @@ import cardgame.*;
 import cardgame.target.PermanentTarget;
 import cardgame.target.Target;
 import cardgame.target.TargetManager;
-import java.util.Scanner;
 
 public class AetherBarrier implements Card{
 

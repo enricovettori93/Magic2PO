@@ -26,9 +26,9 @@ public abstract class AbstractCardEffectTarget extends AbstractCardEffect{
         }
     }
     public String toString(){
-        String out = new String();
+        String out = "["+this.card.name()+"] ";
         for(Target i : targets){
-            out+=i.toString()+",";
+            out+=i.toString()+", ";
         }
         return out;
     }
