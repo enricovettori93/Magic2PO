@@ -60,6 +60,7 @@ public class BenevolentAncestor implements Card{
                                         if(choice == 2){
                                             t = (Target)CardGame.instance.getTargetManager().getTarget(TargetManager.CREATURE_ON_FIELD_TARGET);
                                             ((Creature)t.getTarget()).addDecorator(new PowerUpDecorator("BenevolentAncestorDecorator",0,1));
+                                            //((Creature)t.getTarget()).se
                                         }
                                         else{
                                             System.out.println("Select player?");
@@ -69,9 +70,9 @@ public class BenevolentAncestor implements Card{
                                                 playerchoice = choice;
                                             }while(choice == 0);
                                             if(choice == 1)
-                                                CardGame.instance.getCurrentPlayer().setInflictDmgStrategy(new PreventOneDamageStrategy());
+                                                CardGame.instance.getCurrentPlayer().setInflictDmgStrategy(new PreventOneDamagePlayerStrategy());
                                             else
-                                                CardGame.instance.getCurrentAdversary().setInflictDmgStrategy(new PreventOneDamageStrategy());
+                                                CardGame.instance.getCurrentAdversary().setInflictDmgStrategy(new PreventOneDamagePlayerStrategy());
                                         }
                                     }
                                     @Override
@@ -85,9 +86,8 @@ public class BenevolentAncestor implements Card{
             @Override
             public void execute(Object args) {
                 if(type != 0){
-                        System.out.println("[BENEVOLENT ANCESTOR] End of turn, removing tap effect from player.");
                     if(type == 1){
-                        System.out.println("Reset player damage to default");
+                        System.out.println("[BENEVOLENT ANCESTOR] End of turn, removing tap effect from player.");
                         if(playerchoice == 1)
                             CardGame.instance.getCurrentPlayer().setInflictDmgStrategy(new DefaultInflictDamage());
                         else
@@ -122,7 +122,8 @@ public class BenevolentAncestor implements Card{
         public int getPower() { return 0; }
         @Override
         public int getToughness() { return 4; }
-
+        @Override
+        public boolean defender(){ return true; }
         @Override
         public List<Effect> effects() { return all_effects; }
         @Override
