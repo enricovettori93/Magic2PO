@@ -37,6 +37,7 @@ public class AncestralMask implements Card{
             return super.play();
         }
         
+        @Override
         public void resolve(){
             super.resolve();
             List<Enchantment> temp=CardGame.instance.getCurrentAdversary().getEnchantments();
