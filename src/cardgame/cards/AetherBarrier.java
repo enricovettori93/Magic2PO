@@ -2,6 +2,9 @@
 package cardgame.cards;
 
 import cardgame.*;
+import cardgame.target.PermanentTarget;
+import cardgame.target.Target;
+import cardgame.target.TargetManager;
 import java.util.Scanner;
 
 public class AetherBarrier implements Card{
@@ -28,7 +31,19 @@ public class AetherBarrier implements Card{
                 @Override
                 public void execute(Object args) {
                     if (args != null  && args instanceof Creature) {
-                        Creature c = (Creature)args;
+                        Target t;
+                        PermanentTarget app;
+                        do{
+                            t = CardGame.instance.getTargetManager().getTarget(TargetManager.PERMANENT_TARGET);
+                            app = (PermanentTarget) t;
+                            if(app.getTargetOwner() == CardGame.instance.getCurrentPlayer()){
+                                ((Permanent)app.getTarget()).remove();
+                                System.out.println("[AETHER BARRIER] Permanent destroyed");
+                            }
+                            else
+                                System.out.println("[AETHER BARRIER] You choose a wrong owner.");
+                        }while(app.getTargetOwner() != CardGame.instance.getCurrentPlayer());
+                        /*Creature c = (Creature)args;
                         Scanner s = new Scanner(System.in);
                         String choice = new String();
                         //se sono qui, vuol dire che il giocatore p è il giocatore corrente (ha giocato la carta)
@@ -52,7 +67,7 @@ public class AetherBarrier implements Card{
                                 choicePermanent=s.nextInt();
                             }while(choicePermanent<=0 && choicePermanent >p.getCreatures().size());
                             p.destroy(p.getCreatures().get(choicePermanent-1));
-                        }
+                        }*/
                     }
                 }
             };
