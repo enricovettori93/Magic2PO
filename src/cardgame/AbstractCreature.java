@@ -8,7 +8,8 @@ public abstract class AbstractCreature implements Creature {
     
     protected Player owner;
     protected boolean isTapped=false;
-    public int damageLeft = getToughness();
+    private int damageLeft = getToughness();
+    private int powerLeft = getPower();
     protected DecoratorManagementSystem dms=new DecoratorManagementSystem(this);
     protected CreatureInflictDamageStrategy cids = new CreatureDefaultInflictDamage();
     protected AbstractCreature(Player owner) { this.owner=owner; }
@@ -41,14 +42,14 @@ public abstract class AbstractCreature implements Creature {
         public boolean isTapped() { return isTapped; }
     @Override
         public void attack() {
-            //PERCHé non vai?!?!?
-            System.out.println("["+name()+"] attacking rival... "+this.getPowerDecorated());
-            CardGame.instance.getCurrentAdversary().inflictDamage(this.getPowerDecorated());
+            System.out.println("["+name()+"] attacking rival... "+this.getPowerLeft());
+            CardGame.instance.getCurrentAdversary().inflictDamage(this.getPowerLeft());
         }
     @Override
-        public void defend(Creature c) {}
-                
-     // to do in assignment 2
+        public void defend(Creature c) {
+            inflictDamage(c.getPowerLeft());
+            c.decreasePowerLeft(this.getToughnessDecorated());
+        }
     @Override
         public void inflictDamage(int dmg) { 
                cids.inflictDamage(this, dmg);
@@ -60,7 +61,10 @@ public abstract class AbstractCreature implements Creature {
                 owner.destroy(this);  
         }
     @Override
-        public void resetDamage() { damageLeft = getToughnessDecorated(); }
+        public void resetDamage() { 
+            damageLeft = getToughnessDecorated(); 
+            powerLeft = getPowerDecorated();
+        }
     
     @Override
         public void insert() {
@@ -102,10 +106,14 @@ public abstract class AbstractCreature implements Creature {
     public int getDamageLeft(){
         return damageLeft;
     }
-    
+    @Override
+    public int getPowerLeft(){
+        return powerLeft;
+    }
     @Override
     public void init(){
         damageLeft=getToughness();
+        powerLeft=getPower();
     }
     
     @Override
@@ -113,6 +121,9 @@ public abstract class AbstractCreature implements Creature {
         damageLeft+=val;
     }
 
+    public void decreasePowerLeft(int val){
+        powerLeft-=val;
+    }
     public String valueOfCreature(){
         return name()+" "+getPowerDecorated()+"/"+getDamageLeft();
     }

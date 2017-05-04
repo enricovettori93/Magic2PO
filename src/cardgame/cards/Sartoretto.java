@@ -53,10 +53,7 @@ private class ReflexologistEffect extends AbstractCreatureCardEffect {
         @Override
         public String name() { return "Sartoretto"; }
         
-        @Override
-        public void attack() {}
-        @Override
-        public void defend(Creature c) {}
+
         @Override
         public int getPower() { return 999; }
         @Override

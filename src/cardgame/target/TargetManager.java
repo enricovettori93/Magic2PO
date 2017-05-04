@@ -94,9 +94,9 @@ public class TargetManager {
     
     private void getCreatureOnField(Player p){
         List<Creature> temp= p.getCreatures();
-        int i;
-        for(i=0;i<temp.size();i++)
-            targets.add(new PermanentTarget(p,temp.get(i)));
+        for(Creature c : temp)
+            if(!c.shroud())
+                targets.add(new PermanentTarget(p, c));
     }
     
     private void getPermanent(Player p){            

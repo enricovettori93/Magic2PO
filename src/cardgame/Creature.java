@@ -28,8 +28,10 @@ public interface Creature extends Permanent {
     List<Effect> avaliableEffects();
 
     public void increaseDamageLeft(int val);
-    
+    public void decreasePowerLeft(int val);
     public int getDamageLeft();
+    
+    public int getPowerLeft();
     
     public void addDecorator(AbstractDecorator d);
     
