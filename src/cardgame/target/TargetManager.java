@@ -8,7 +8,7 @@ public class TargetManager {
     
     ArrayList<Target> targets=new ArrayList<>(); 
     
-    public Target getTarget(int filter) throws Exception{
+    public Target getTarget(int filter){
         targets.clear();
         Scanner input = new Scanner(System.in);
         int choice,index;
@@ -72,7 +72,8 @@ public class TargetManager {
             //non esistono target che soddisfano la condizione,
             //se il giocatore è saggio non dovrebbe mai finire quì
             System.out.println("You can't choose a target!");
-            throw new Exception("TARGET NULL EXC");
+            //throw new Exception("TARGET NULL EXC");
+            return null;
         }
         System.out.println("\n - Choose the target --");
         for(index=0;index<targets.size();index++){
