@@ -13,8 +13,6 @@ public class Cancel implements Card {
     
     private class CancelEffect extends AbstractCardEffectTarget {
 
-        AbstractCardEffectTarget targetSpell;
-
         public CancelEffect(Player p, Card c) {
             super(p, c);
         }

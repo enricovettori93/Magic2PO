@@ -29,7 +29,10 @@ public class Deflection implements Card{
         }
         @Override
         public void resolve() {
-            ((AbstractCardEffectTarget)targets.get(0).getTarget()).setTarget();
+            if(targets.get(0).getTarget() instanceof AbstractCardEffectTarget)
+                ((AbstractCardEffectTarget)targets.get(0).getTarget()).setTarget();
+            if(targets.get(0).getTarget() instanceof AbstractEnchantmentCardEffectTarget)
+                ((AbstractEnchantmentCardEffectTarget)targets.get(0).getTarget()).setTarget();
         }
         
     }

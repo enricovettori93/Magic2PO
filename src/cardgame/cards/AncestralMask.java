@@ -11,7 +11,7 @@ import java.util.List;
 public class AncestralMask implements Card{
     
     //BEGIN EFFECT CARD
-    private class AncestralMaskEffect extends AbstractEnchantmentCardEffect{
+    private class AncestralMaskEffect extends AbstractEnchantmentCardEffectTarget{
             
         AbstractCreature CreatureTarget;
         AncestralMaskEnchantment effetto_ancestral_mask;
