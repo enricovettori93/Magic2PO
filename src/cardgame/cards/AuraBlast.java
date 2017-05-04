@@ -15,8 +15,14 @@ public class AuraBlast implements Card{
 
         @Override
         public boolean play() {
-            setTarget();
-            return super.play(); //To change body of generated methods, choose Tools | Templates.
+            try{
+                setTarget();
+                return super.play();
+            }
+            catch(Exception e){
+                System.out.println("[ABDUCTION] No target avaiable.");
+                return false;
+            }
         }
        
         @Override

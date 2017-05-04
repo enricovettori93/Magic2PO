@@ -20,9 +20,15 @@ public class Cancel implements Card {
         }
 
         @Override
-        public boolean play(){
-            setTarget();
-            return super.play();
+        public boolean play() {
+            try{
+                setTarget();
+                return super.play();
+            }
+            catch(Exception e){
+                System.out.println("[ABDUCTION] No target avaiable.");
+                return false;
+            }
         }
         
         @Override
