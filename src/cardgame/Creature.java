@@ -42,4 +42,10 @@ public interface Creature extends Permanent {
     public void setCids(CreatureInflictDamageStrategy cids);
 
     public void init();
+    
+    //Effetti particolari
+    
+    public boolean defender();
+    
+    public boolean shroud();
 }

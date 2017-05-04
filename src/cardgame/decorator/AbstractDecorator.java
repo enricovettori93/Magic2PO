@@ -87,4 +87,12 @@ public abstract class AbstractDecorator implements Creature{
     public void init(){
         creature.init();
     }
+    
+    public boolean defender(){
+        return creature.defender();
+    }
+    
+    public boolean shroud(){
+        return creature.shroud();
+    }
 }
