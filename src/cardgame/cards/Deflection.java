@@ -13,14 +13,8 @@ public class Deflection implements Card{
 
         @Override
         public boolean play() {
-            try{
-                setTarget();
-                return super.play();
-            }
-            catch(Exception e){
-                System.out.println("[ABDUCTION] No target avaiable.");
-                return false;
-            }
+            setTarget();
+            return super.play();
         }
        
         @Override
