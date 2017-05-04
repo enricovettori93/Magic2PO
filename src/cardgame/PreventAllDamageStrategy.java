@@ -2,27 +2,29 @@
 package cardgame;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class PreventAllDamageStrategy implements ExecuteBattleStrategy{
-
     @Override
-    public void executeBattle(DefaultCombatPhase combat, ArrayList<DefaultCombatPhase.Scontro> scontri) {
-        int i, j;
-        for(i=0;i<scontri.size();i++){
-            //scontri.get(i).getAttaccante().attack(scontri.get(i).getDifensore());
-            if(scontri.get(i).nessunDif){
-                //System.out.println(scontri.get(i).getAttaccante().name()+" Attacca l'avversario");
-                //scontri.get(i).getAttaccante().attack();
-                CardGame.instance.getCurrentAdversary().inflictDamage(0);
-            }else{
-                j = 0;
-                int atk = scontri.get(i).getAttaccante().getPower();
-                for(j=0;j<scontri.get(i).getDifensore().size()||scontri.get(i).getAttaccante().getPower()<=0;j++){
-                    System.out.println("Mostro " + scontri.get(i).getAttaccante().name() + " sta attaccando "+scontri.get(i).getDifensore().get(j).name()+" [PREVENT ALL DAMAGED ACTIVATED]");
-                    scontri.get(i).getDifensore().get(j).inflictDamage(0); //Danni al difensore
-                    atk = atk - scontri.get(i).getDifensore().get(j).getToughnessDecorated();
+        public void executeBattle(DefaultCombatPhase combat,LinkedHashMap<Creature, ArrayList<Creature>> fight) {
+        for (Map.Entry<Creature,ArrayList<Creature>> entry : fight.entrySet()) {
+            if(entry.getValue().isEmpty()){
+                /*attacco l'avversario*/
+                System.out.println("["+entry.getKey().name()+"] attack the rival!");
+                 CardGame.instance.getCurrentAdversary().inflictDamage(0);
+            }
+            else{
+               int attack = entry.getKey().getPowerDecorated(); /*attacco della creatura*/
+                for(Creature defender : entry.getValue()){
+                    if(attack>0){
+                        System.out.println("["+entry.getKey().name()+"] attack the defender "+defender.name());
+                        defender.inflictDamage(attack); /*attacca creatura*/
+                        attack-=defender.getToughnessDecorated();
                     }
                 }
-            }  
-    }    
+        }
+    }
+    
+   }    
 }
