@@ -34,8 +34,14 @@ public class AncestralMask implements Card{
                 
         @Override
         public boolean play() {
-            setTarget();
-            return super.play();
+            try{
+                setTarget();
+                return super.play();
+            }
+            catch(Exception e){
+                System.out.println("[ANCESTRAL MASK] No target avaiable.");
+                return false;
+            }
         }
         
         @Override

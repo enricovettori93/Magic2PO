@@ -17,9 +17,16 @@ public class Fatigue implements Card{
         public void setTarget() {
             targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.PLAYER_TARGET));
         }
-        public boolean  play(){
-            setTarget();
-            return super.play();
+        @Override
+        public boolean play() {
+            try{
+                setTarget();
+                return super.play();
+            }
+            catch(Exception e){
+                System.out.println("[FATIGUE] No target avaiable.");
+                return false;
+            }
         }
     }
     

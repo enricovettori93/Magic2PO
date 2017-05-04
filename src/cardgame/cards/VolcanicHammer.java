@@ -10,11 +10,17 @@ public class VolcanicHammer implements Card{
     
     private class VolcanicHammerEffect extends AbstractCardEffectTarget {
         public VolcanicHammerEffect(Player p, Card c) { super(p,c); }
+        
         @Override
-
-        public boolean play(){
-            setTarget();
-            return super.play();
+        public boolean play() {
+            try{
+                setTarget();
+                return super.play();
+            }
+            catch(Exception e){
+                System.out.println("[VOLCANIC HAMMER] No target avaiable.");
+                return false;
+            }
         }
         
         @Override

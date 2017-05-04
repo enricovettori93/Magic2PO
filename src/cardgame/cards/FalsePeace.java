@@ -18,8 +18,14 @@ public class FalsePeace implements Card {
         
         @Override
         public boolean play() {
-            setTarget();
-            return super.play();
+            try{
+                setTarget();
+                return super.play();
+            }
+            catch(Exception e){
+                System.out.println("[FALSE PEACE] No target avaiable.");
+                return false;
+            }
         }
         
         @Override

@@ -17,11 +17,16 @@ public class Afflict implements Card{
             //
         }
         
-    @Override
-        public boolean play(){
-            setTarget();
-            return super.play();
-
+        @Override
+    public boolean play() {
+            try{
+                setTarget();
+                return super.play();
+            }
+            catch(Exception e){
+                System.out.println("[AFFLICT] No target avaiable.");
+                return false;
+            }
         }
         
     @Override
