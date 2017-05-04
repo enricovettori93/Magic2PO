@@ -1,10 +1,8 @@
 
 package cardgame;
 
-import cardgame.creaturestrategy.CreatureDefaultInflictDamage;
-import cardgame.creaturestrategy.CreatureInflictDamageStrategy;
-import cardgame.decorator.AbstractDecorator;
-import cardgame.decorator.DecoratorManagementSystem;
+import cardgame.creaturestrategy.*;
+import cardgame.decorator.*;
 
 public abstract class AbstractCreature implements Creature {
     
@@ -80,10 +78,12 @@ public abstract class AbstractCreature implements Creature {
             return name() + " (Creature)";
         }
         
+    @Override
     public void addDecorator(AbstractDecorator d){
         dms.addDecorator(d);
     }
     
+    @Override
     public void removeDecorator(Object l){
         dms.removeDecorator(l);
     }
@@ -98,14 +98,17 @@ public abstract class AbstractCreature implements Creature {
         return dms.peek().getToughnessDecorated();
     }
     
+    @Override
     public int getDamageLeft(){
         return damageLeft;
     }
     
+    @Override
     public void init(){
         damageLeft=getToughness();
     }
     
+    @Override
     public void increaseDamageLeft(int val){
         damageLeft+=val;
     }
@@ -114,17 +117,29 @@ public abstract class AbstractCreature implements Creature {
         return name()+" "+getPowerDecorated()+"/"+getDamageLeft();
     }
     
+    @Override
     public void setCids(CreatureInflictDamageStrategy cids){
         this.cids = cids;
         
     }
     
+    @Override
     public Player getOwner(){
         return owner;
     }
     
+    @Override
     public void setOwner(Player owner){
         this.owner = owner;
     }
     
+    //effetti particolari delle creature
+    
+    public boolean defender(){
+        return false;
+    }
+    
+    public boolean shroud(){
+        return false;
+    }
 }
