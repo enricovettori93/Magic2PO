@@ -61,7 +61,7 @@ public class Loader {
             if(c.newInstance() instanceof Card)
                 return true;
                 } catch (InstantiationException | IllegalAccessException ex) {
-            Logger.getLogger(Loader.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
         return false;
     }
