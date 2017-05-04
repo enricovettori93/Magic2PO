@@ -44,6 +44,7 @@ public class AncestralMask implements Card{
             }
         }
         
+        
         @Override
         public void resolve(){
             super.resolve();
