@@ -14,9 +14,11 @@ public class AncestralMask implements Card{
             
         AbstractCreature CreatureTarget;
         AncestralMaskEnchantment effetto_ancestral_mask;
-                
+        int hashcode;
+        
         AncestralMaskEffect(Player p, Card c) { 
-            super(p,c);             
+            super(p,c);   
+            hashcode = this.hashCode();
         }
 
         @Override
@@ -44,7 +46,7 @@ public class AncestralMask implements Card{
                 e=temp.get(i);
                 if(e.hashCode()!=effetto_ancestral_mask.hashCode()){
                     System.out.print("[ANCESTRAL MASK] -> " + CreatureTarget.valueOfCreature());
-                    CreatureTarget.addDecorator(new PowerUpDecorator(effetto_ancestral_mask, 2, 2));
+                    CreatureTarget.addDecorator(new PowerUpDecorator(hashcode, 2, 2));
                     System.out.println(" power up +2/+2 -> " + CreatureTarget.valueOfCreature());
                 }
             }
@@ -62,7 +64,7 @@ public class AncestralMask implements Card{
                     @Override
                     public void execute(Object args) {
                         System.out.print("[ANCESTRAL MASK] Get triggered, entered enchantment on field -> " + CreatureTarget.valueOfCreature());
-                        CreatureTarget.addDecorator(new PowerUpDecorator(effetto_ancestral_mask, 2, 2));
+                        CreatureTarget.addDecorator(new PowerUpDecorator(hashcode, 2, 2));
                         System.out.println(" power up +2/+2 -> " + CreatureTarget.valueOfCreature());
                     }
                 };
@@ -71,7 +73,7 @@ public class AncestralMask implements Card{
                 @Override
                 public void execute(Object args) {
                     System.out.print("[ANCESTRAL MASK] Get triggered, removed enchantment on field -> " + CreatureTarget.valueOfCreature());
-                    CreatureTarget.addDecorator(new PowerUpDecorator(effetto_ancestral_mask, -2, -2));
+                    CreatureTarget.addDecorator(new PowerUpDecorator(hashcode, -2, -2));
                     System.out.println(" power up -2/-2 -> " + CreatureTarget.valueOfCreature());
                 }   
             };
