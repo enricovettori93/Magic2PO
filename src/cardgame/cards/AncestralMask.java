@@ -5,6 +5,7 @@ package cardgame.cards;
 import cardgame.*;
 import cardgame.decorator.PowerUpDecorator;
 import cardgame.target.TargetManager;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AncestralMask implements Card{
@@ -40,7 +41,8 @@ public class AncestralMask implements Card{
         @Override
         public void resolve(){
             super.resolve();
-            List<Enchantment> temp=CardGame.instance.getCurrentAdversary().getEnchantments();
+            List<Enchantment> temp = new ArrayList<Enchantment>();
+            temp.addAll(CardGame.instance.getCurrentAdversary().getEnchantments());
             temp.addAll(CardGame.instance.getCurrentPlayer().getEnchantments());
             Enchantment e;
             for(int i = 0; i<temp.size();i++){
@@ -51,7 +53,7 @@ public class AncestralMask implements Card{
                     System.out.println(" power up +2/+2 -> " + CreatureTarget.valueOfCreature());
                 }
             }
-            temp.clear();
+            //temp.clear();
             //System.out.println(CreatureTarget.valueOfCreature());
         }
         
