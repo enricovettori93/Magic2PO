@@ -18,7 +18,7 @@ public class Deflection implements Card{
                 return super.play();
             }
             catch(Exception e){
-                System.out.println("[ABDUCTION] No target avaiable.");
+                System.out.println("[DEFLECTION] No target avaiable.");
                 return false;
             }
         }

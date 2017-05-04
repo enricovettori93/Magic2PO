@@ -20,7 +20,7 @@ public class AuraBlast implements Card{
                 return super.play();
             }
             catch(Exception e){
-                System.out.println("[ABDUCTION] No target avaiable.");
+                System.out.println("[AURA BLAST] No target avaiable.");
                 return false;
             }
         }
