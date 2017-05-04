@@ -30,8 +30,12 @@ public class Cancel implements Card {
         }
         
         @Override
-        public void setTarget(){
-            targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.STACK_TARGETSPELL_TARGET));
+        public void setTarget() throws Exception{
+            try{
+                targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.STACK_TARGETSPELL_TARGET));
+            }catch(Exception e){
+                throw new Exception(e.getMessage());
+            }
         }
 
         @Override

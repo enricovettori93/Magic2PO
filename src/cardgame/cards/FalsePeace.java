@@ -29,9 +29,12 @@ public class FalsePeace implements Card {
         }
         
         @Override
-        public void setTarget() {
-            super.setTarget();
-            targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.PLAYER_TARGET));
+        public void setTarget() throws Exception {
+            try{
+                targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.PLAYER_TARGET));
+            }catch(Exception e){
+                throw new Exception(e.getMessage());
+            }
         }
         
     }

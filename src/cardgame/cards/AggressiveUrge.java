@@ -43,8 +43,12 @@ public class AggressiveUrge implements Card {
         }
 
         @Override
-        public void setTarget() {
-            targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.CREATURE_ON_FIELD_TARGET));
+        public void setTarget() throws Exception{
+            try{
+                targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.CREATURE_ON_FIELD_TARGET));
+            }catch(Exception e){
+                throw new Exception(e.getMessage());
+            }
         }
         
         private TriggerAction AggressiveUrgeTrigger=new TriggerAction() {

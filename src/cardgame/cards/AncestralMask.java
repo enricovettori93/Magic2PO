@@ -28,8 +28,12 @@ public class AncestralMask implements Card{
             return effetto_ancestral_mask; 
         }
        
-        public void setTarget() {
-            CreatureTarget=(AbstractCreature)CardGame.instance.getTargetManager().getTarget(TargetManager.CREATURE_ON_FIELD_TARGET).getTarget();
+        public void setTarget() throws Exception {
+            try{
+                CreatureTarget=(AbstractCreature)CardGame.instance.getTargetManager().getTarget(TargetManager.CREATURE_ON_FIELD_TARGET).getTarget();
+            }catch(Exception e){
+                throw new Exception(e.getMessage());
+            }
         }
                 
         @Override

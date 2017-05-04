@@ -32,8 +32,11 @@ public class AetherBarrier implements Card{
                     if (args != null  && args instanceof Creature) {
                         Target t;
                         PermanentTarget app;
-                        do{
-                            t = CardGame.instance.getTargetManager().getTarget(TargetManager.PERMANENT_TARGET);
+                        try{
+                            do{
+                            
+                                t = CardGame.instance.getTargetManager().getTarget(TargetManager.PERMANENT_TARGET);
+                            
                             app = (PermanentTarget) t;
                             if(app.getTargetOwner() == CardGame.instance.getCurrentPlayer()){
                                 ((Permanent)app.getTarget()).remove();
@@ -42,6 +45,9 @@ public class AetherBarrier implements Card{
                             else
                                 System.out.println("[AETHER BARRIER] You choose a wrong owner.");
                         }while(app.getTargetOwner() != CardGame.instance.getCurrentPlayer());
+                        }catch(Exception e){
+                                System.out.println("You don't have a permanent!");
+                            }
                     }
                 }
             };

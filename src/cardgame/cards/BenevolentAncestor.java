@@ -51,29 +51,38 @@ public class BenevolentAncestor implements Card{
                                     public void resolve() {
                                         Scanner in = new Scanner(System.in);
                                         int choice=0;
+                                        boolean err = false;
                                         System.out.println("Would you like to prevent 1 damage to player or creature?");
                                         do{
                                             System.out.println("1 - Player\n2 - Creature");
                                             choice = in.nextInt();
                                             type = choice;
                                         }while(choice == 0);
-                                        if(choice == 2){
-                                            t = (Target)CardGame.instance.getTargetManager().getTarget(TargetManager.CREATURE_ON_FIELD_TARGET);
-                                            ((Creature)t.getTarget()).addDecorator(new PowerUpDecorator("BenevolentAncestorDecorator",0,1));
+                                        do{
+                                            err=false;
+                                            if(choice == 2){
+                                                try{
+                                                     t = (Target)CardGame.instance.getTargetManager().getTarget(TargetManager.CREATURE_ON_FIELD_TARGET);
+                                                }catch(Exception e){
+                                                    System.out.println("There aren't creatures! Selecting player...");
+                                                    err=true;
+                                                }
+                                                ((Creature)t.getTarget()).addDecorator(new PowerUpDecorator("BenevolentAncestorDecorator",0,1));
                                             //((Creature)t.getTarget()).se
-                                        }
-                                        else{
-                                            System.out.println("Select player?");
-                                            do{
-                                                System.out.println("1 - Current player\n2 - Adversary");
-                                                choice = in.nextInt();
-                                                playerchoice = choice;
-                                            }while(choice == 0);
-                                            if(choice == 1)
-                                                CardGame.instance.getCurrentPlayer().setInflictDmgStrategy(new PreventOneDamagePlayerStrategy());
-                                            else
-                                                CardGame.instance.getCurrentAdversary().setInflictDmgStrategy(new PreventOneDamagePlayerStrategy());
-                                        }
+                                            }
+                                            else{
+                                                System.out.println("Select player?");
+                                                do{
+                                                    System.out.println("1 - Current player\n2 - Adversary");
+                                                    choice = in.nextInt();
+                                                    playerchoice = choice;
+                                                }while(choice == 0);
+                                                if(choice == 1)
+                                                    CardGame.instance.getCurrentPlayer().setInflictDmgStrategy(new PreventOneDamagePlayerStrategy());
+                                                else
+                                                    CardGame.instance.getCurrentAdversary().setInflictDmgStrategy(new PreventOneDamagePlayerStrategy());
+                                            }
+                                        }while(err);
                                     }
                                     @Override
                                     public String toString() 

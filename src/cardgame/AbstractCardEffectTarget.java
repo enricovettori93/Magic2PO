@@ -13,7 +13,7 @@ public abstract class AbstractCardEffectTarget extends AbstractCardEffect{
         super(p, c);
         targets = new ArrayList<>();
     }
-    public void setTarget(){
+    public void setTarget() throws Exception{
         targets.clear();
     }
             

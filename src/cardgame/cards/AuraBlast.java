@@ -26,8 +26,12 @@ public class AuraBlast implements Card{
         }
        
         @Override
-        public void setTarget(){
-            targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.ENCHANTMENT_TARGET));
+        public void setTarget() throws Exception{
+            try{
+                targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.ENCHANTMENT_TARGET));
+            }catch(Exception e){
+                throw new Exception(e.getMessage());
+            }
         }
         
         @Override

@@ -24,15 +24,23 @@ public class Deflection implements Card{
         }
        
         @Override
-        public void setTarget(){
-            targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.STACK_TARGETSPELL_TARGET));          
+        public void setTarget() throws Exception{
+            try{
+                targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.STACK_TARGETSPELL_TARGET));          
+            }catch(Exception e){
+                throw new Exception(e.getMessage());
+            }
         }
         @Override
         public void resolve() {
-            if(targets.get(0).getTarget() instanceof AbstractCardEffectTarget)
-                ((AbstractCardEffectTarget)targets.get(0).getTarget()).setTarget();
-            if(targets.get(0).getTarget() instanceof AbstractEnchantmentCardEffectTarget)
-                ((AbstractEnchantmentCardEffectTarget)targets.get(0).getTarget()).setTarget();
+            try{
+                if(targets.get(0).getTarget() instanceof AbstractCardEffectTarget)
+                    ((AbstractCardEffectTarget)targets.get(0).getTarget()).setTarget();
+                if(targets.get(0).getTarget() instanceof AbstractEnchantmentCardEffectTarget)
+                    ((AbstractEnchantmentCardEffectTarget)targets.get(0).getTarget()).setTarget();
+            }catch(Exception e){
+                System.out.println("[ERR DEFLECTION] There aren't target! ");
+            }
         }
         
     }

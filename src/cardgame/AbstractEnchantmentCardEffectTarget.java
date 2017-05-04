@@ -11,7 +11,7 @@ public abstract class AbstractEnchantmentCardEffectTarget extends AbstractEnchan
         super(p, c);
         targets = new ArrayList<>();
     }
-    public abstract void setTarget();
+    public abstract void setTarget() throws Exception;
     public void printTarget(){
         for(Target i : targets){
             if(i instanceof PermanentTarget)
