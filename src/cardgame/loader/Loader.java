@@ -65,12 +65,4 @@ public class Loader {
         }
         return false;
     }
-    public static void main(String[] args) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException{
-        Loader l=new Loader();
-        ArrayList<Class> houseOfCards = l.loadFrom("cardgame/cards");
-        for(Class c :  houseOfCards){
-            System.out.println(c.getName());
-        }
-        
-    }
 }
