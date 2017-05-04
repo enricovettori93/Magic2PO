@@ -134,7 +134,6 @@ public class DefaultCombatPhase implements Phase {
            declareAttacker();
            playAvailableEffect(opponent, false);
            CardGame.instance.getStack().resolve();
-           playAvailableEffect(opponent, false);
            declareDefender();
            
            executeBattle();
