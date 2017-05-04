@@ -1,13 +1,25 @@
 
 package cardgame.factory;
 import cardgame.*;
-import cardgame.cards.*;
+import cardgame.loader.Loader;
+import java.util.ArrayList;
 
 public class CardFactory implements Factory{
-    public CardFactory(){}
-    public Card returnCard(int choice){
+    ArrayList<Class> houseOfCards;
+    public CardFactory(){
+        houseOfCards=new Loader().loadFrom("cardgame/cards");
+    }
+    @Override
+    public Card returnCard(int choice) {
+        Object o = null;
+        try {
+            o = houseOfCards.get(choice-1).newInstance();
+        } catch (InstantiationException | IllegalAccessException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return (Card) o;
         //Setting a null perchè altrimenti netbeans rompe a fine switch, non ritorna mai qualcosa di nullo
-        Card ritorno = null;
+        /*Card ritorno = null;
         switch (choice){
             case 1:
                 System.out.println("Added Abduction");
@@ -34,7 +46,6 @@ public class CardFactory implements Factory{
                 ritorno = new AncestralMask();
                 break;
             case 7:
-                /*DA MODIFICARE IL NEW, WORKAROUND MOMENTANEO FINCHE' NON VIENE CREATA LA CARTA*/
                 System.out.println("Added ArgothianEnchantress");
                 ritorno = new Homeopathy();
                 break;
@@ -43,7 +54,6 @@ public class CardFactory implements Factory{
                 ritorno = new AuraBlast();
                 break;
             case 9:
-                /*DA MODIFICARE IL NEW, WORKAROUND MOMENTANEO FINCHE' NON VIENE CREATA LA CARTA*/
                 System.out.println("Added BenevolentAncestror");
                 ritorno = new Homeopathy();
                 break;
@@ -112,6 +122,16 @@ public class CardFactory implements Factory{
                 ritorno = new FriendlyEnvironment();
                 break;
         }
-        return ritorno;
+        return ritorno;*/
     }
+    public void printHouseOfCards(){
+        int i=1;
+        for(Class c : houseOfCards)
+            System.out.println((i++)+" "+c.getSimpleName());
+    
+    }
+    public int getNumberOfCards(){
+        return houseOfCards.size();
+    }
+    
 }

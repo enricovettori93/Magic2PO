@@ -14,17 +14,17 @@ public class CardGame {
     public static void main(String[] args) {
         //create decks
         ArrayList<Card> deck = new ArrayList<>();
-        for (int i=0; i!=5; ++i) deck.add(new Reflexologist());
+        /*for (int i=0; i!=5; ++i) deck.add(new Reflexologist());
         for (int i=0; i!=5; ++i) deck.add(new Abduction());
         for (int i=0; i!=5; ++i) deck.add(new BronzeSable());
-        for (int i=0; i!=5; ++i) deck.add(new BoilingEarth());
+        for (int i=0; i!=5; ++i) deck.add(new BoilingEarth());*/
         
         //Creo deck per il giocatore1
-        //instance.createDeck(0,deck);
+        instance.createDeck(0,deck);
         instance.getPlayer(0).setDeck(deck.iterator());
-        //deck.clear();
+        deck.clear();
         //Creo deck per il giocatore2
-        //instance.createDeck(1, deck);
+        instance.createDeck(1, deck);
         instance.getPlayer(1).setDeck(deck.iterator());
         
         instance.run();
@@ -40,11 +40,8 @@ public class CardGame {
         i = 1;
         Scanner in;
         in = new Scanner(System.in);
-        if(player == 0)
-            System.out.println("Player 1 deck's creation");
-        else
-            System.out.println("Player 2 deck's creation");
-        
+        System.out.println("Player "+player+1+" deck's creation!");
+        /*
         System.out.println("Select the cards that you would like to insert into deck");
         System.out.println("1 - Abduction");
         System.out.println("2 - Aether Barrier");
@@ -70,14 +67,15 @@ public class CardGame {
         System.out.println("22 - World at War");
         System.out.println("23 - Reflexologist");
         System.out.println("24 - Homeophaty");
-        System.out.println("25 - Friendly Envirorment");
+        System.out.println("25 - Friendly Envirorment");*/
         do{
             do{
+                factory.printHouseOfCards();
                 /*AL MOMENTO LA CREAZIONE AVVIENE RANDOMICAMENTE, DA RIMODIFICARE PRIMA DELLA CONSEGNA*/
-                System.out.print("Select the card " + i + " di 20 -> ");
-                choice = 1 + (int)(Math.random() * 25); 
+                System.out.print("Select the card " + i + " of 20 -> ");
+                choice = in.nextInt();
                 //choice = in.nextInt();
-                if(choice<1 || choice > 25)
+                if(choice<1 || choice > factory.getNumberOfCards())
                     System.out.println("Wrong index.");
                 else{
                     deck.add(factory.returnCard(choice));
