@@ -1,21 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package cardgame.cards;
 
-import cardgame.AbstractCardEffectTarget;
-import cardgame.Card;
-import cardgame.CardGame;
-import cardgame.Effect;
-import cardgame.Player;
-import java.util.ArrayList;
-import java.util.Scanner;
-/**
- *
- * @author Ilaria
- */
+import cardgame.*;
+import cardgame.target.TargetManager;
+
 public class Cancel implements Card {
 
     @Override
@@ -31,44 +19,18 @@ public class Cancel implements Card {
             super(p, c);
         }
 
+        public boolean play(){
+            setTarget();
+            return super.play();
+        }
+        
         public void setTarget(){
-            Scanner input = new Scanner(System.in);
-            int choice;
-            ArrayList<AbstractCardEffectTarget> effects = CardGame.instance.getStack().getALSingleTargets();
-            if(effects.size()>0){
-                do{
-                    int i = 1;
-                    System.out.println( "[CANCEL] SELECT TARGET (from effect stack):");
-                    for(AbstractCardEffectTarget e : effects){
-                        System.out.println(i+". "+e.getCard().toString()+" [TARGET: "+e.toString()+"]");
-                        i++;
-                    }
-                    choice = input.nextInt();
-                }while(choice < 0 && choice > effects.size());
-                targetSpell = effects.get(choice-1);
-
-
-
-            }
-            else{
-                System.out.println("[CANCEL] Nothing to select... PASS");
-            }
+            targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.STACK_TARGETSPELL_TARGET));
         }
 
         @Override
         public void resolve() {
-            if(targetSpell!=null)
-                targetSpell = new AbstractCardEffectTarget(owner, card) {
-                    @Override
-                    public void setTarget() {
-                        // Non fa nulla, è stato neutralizzato
-                    }
-
-                    @Override
-                    public void resolve() {
-                        // Non fa nulla, è stato neutralizzato
-                    }
-                };
+            CardGame.instance.getStack().remove((Effect)targets.get(0).getTarget());
         }
 
     }    
