@@ -50,7 +50,7 @@ public class DefaultCombatPhase implements Phase {
          int i=0, idx;
          ArrayList<Creature> canAttack = new ArrayList<>();
          for(Creature c:currentPlayer.getCreatures()){
-                    if(!c.isTapped())
+                    if(!c.isTapped() && !c.defender())
                         canAttack.add(c);
          }
         //Dichiarazione degli attaccanti
