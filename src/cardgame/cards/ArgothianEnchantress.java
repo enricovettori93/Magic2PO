@@ -26,7 +26,7 @@ public class ArgothianEnchantress implements Card{
 
     @Override
     public String name() {
-        return "ArgothianEnchantress";
+        return "Argothian Enchantress";
     }
 
     @Override
@@ -56,41 +56,35 @@ public class ArgothianEnchantress implements Card{
         
         public ArgothianEnchantressCreature(Player owner){
             super(owner);
-            all_effects.add(new Effect() {
-                private TriggerAction spell_played;
-                @Override
-                public void resolve() {
-                    insert();
+        }
+        
+        private final TriggerAction ArgothianEnchantressTrigger = new TriggerAction(){
+            @Override
+            public void execute(Object args) {
+                Enchantment app = (Enchantment) args;
+                if(CardGame.instance.getCurrentPlayer() == owner){
+                    System.out.println("[ARGOTHIAN ENCANTRESS] Current player spell an enchantment -> Current player draw a card.");
+                    CardGame.instance.getCurrentAdversary().draw();
                 }
-                @Override
-                public String toString() 
-                    { return "" + ruleText(); }
-                @Override
-                public boolean play(){
-                    CardGame.instance.getStack().add(this);
-                    spell_played = new TriggerAction() {
-                            @Override
-                            public void execute(Object args) {
-                                Enchantment c = (Enchantment)args;
-                                List <Enchantment> app = CardGame.instance.getCurrentPlayer().getEnchantments();
-                                if(app.contains(c)){
-                                    System.out.println("[ARGOTHIAN ENCHANTRESS] Current player " + CardGame.instance.getCurrentPlayer().name() + " pesching a card because cast an enchantment.");
-                                    CardGame.instance.getCurrentPlayer().draw();
-                                }
-                            }
-                        };
+            }   
+        };
 
-                    return true;
-                }
-                
-                public void insert() {
-                    CardGame.instance.getTriggers().register(Triggers.ENTER_ENCHANTMENT_FILTER, spell_played);
-                }
+        @Override
+        public void insert() {
+            super.insert();
+            //setTarget();
+            CardGame.instance.getTriggers().register(Triggers.ENTER_ENCHANTMENT_FILTER,ArgothianEnchantressTrigger);
+        }
 
-                public void remove() {
-                    CardGame.instance.getTriggers().deregister(spell_played);
-                }
-            });
+        @Override
+        public void remove() {
+            super.remove();
+            CardGame.instance.getTriggers().deregister(ArgothianEnchantressTrigger);
+        }
+        
+        @Override
+        public boolean shroud(){
+            return true;
         }
         
         @Override
@@ -115,7 +109,7 @@ public class ArgothianEnchantress implements Card{
 
         @Override
         public String name() {
-            return "ArgothianEnchantress";
+            return "Argothian Enchantress";
         }
         
         @Override

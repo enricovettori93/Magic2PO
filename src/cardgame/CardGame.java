@@ -14,8 +14,8 @@ public class CardGame {
     public static void main(String[] args) {
         //create decks
         ArrayList<Card> deck = new ArrayList<>();
-        for (int i=0; i!=5; ++i) deck.add(new Reflexologist());
-        for (int i=0; i!=5; ++i) deck.add(new BenevolentAncestor());
+        for (int i=0; i!=5; ++i) deck.add(new ArgothianEnchantress());
+        for (int i=0; i!=5; ++i) deck.add(new AncestralMask());
         //for (int i=0; i!=5; ++i) deck.add(new BronzeSable());
         //for (int i=0; i!=5; ++i) deck.add(new BoilingEarth());
         
