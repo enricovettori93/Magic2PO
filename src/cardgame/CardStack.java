@@ -25,7 +25,10 @@ public class CardStack implements Iterable<Effect> {
             e.resolve();
         }
     }
-    
+    /**
+     * ritorna un ArrayList contente gli effetti che hannno un target dello stack
+     * @return 
+     */
     public ArrayList<EffectTarget> getALSingleTargets(){
         ArrayList<EffectTarget> effectTargets = new ArrayList<>();
         for(Effect e : stack){
@@ -34,7 +37,10 @@ public class CardStack implements Iterable<Effect> {
         }
         return effectTargets;
     }
-    
+    /**
+     * ritorna tutti gli effetti dello stack sottoforma di ArrayList
+     * @return 
+     */
     public ArrayList<Effect> getAllEffect(){
         ArrayList<Effect> temp=new ArrayList<>();
         for(Effect e : stack){

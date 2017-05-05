@@ -46,8 +46,8 @@ public interface Creature extends Permanent {
     public void init();
     
     //Effetti particolari
-    
+    //defender -> true se la creatura è un difensore
     public boolean defender();
-    
+    //shroud -> true se la creatura non può essere un target
     public boolean shroud();
 }

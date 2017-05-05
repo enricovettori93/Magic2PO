@@ -7,7 +7,8 @@ import java.util.Map;
 
 public class DefaultExecuteBattleStrategy implements ExecuteBattleStrategy {
     /**EXECUTE BATTLE DI DEFAULT
-     *  
+     *  se ci sono difensori, allora l'attaccante attacca i difensori dichiarati a catena
+     *  se non ci sono, viene attaccato il giocatore avversario
      * @param combat
      * @param fight 
      */
