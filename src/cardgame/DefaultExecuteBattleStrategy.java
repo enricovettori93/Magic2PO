@@ -6,6 +6,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class DefaultExecuteBattleStrategy implements ExecuteBattleStrategy {
+    /**EXECUTE BATTLE DI DEFAULT
+     *  
+     * @param combat
+     * @param fight 
+     */
     @Override
     public void executeBattle(DefaultCombatPhase combat,LinkedHashMap<Creature, ArrayList<Creature>> fight) {
         for (Map.Entry<Creature,ArrayList<Creature>> entry : fight.entrySet()) {

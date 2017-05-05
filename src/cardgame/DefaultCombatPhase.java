@@ -11,6 +11,12 @@ public class DefaultCombatPhase implements Phase {
     Player opponent;
     ExecuteBattleStrategy ebs = new DefaultExecuteBattleStrategy();
     LinkedHashMap<Creature, ArrayList<Creature>> fight=new LinkedHashMap<>();
+    /**
+     * STACKINSERT -> inserisce gli effetti nello stack, gestisce la botta e risposta
+     * @param actPlayer
+     * @param enemy
+     * @param isMain 
+     */
     private void stackInsert(Player actPlayer, Player enemy, boolean isMain){
         boolean selP1=true, selP2=true;
         do{
@@ -64,17 +70,20 @@ public class DefaultCombatPhase implements Phase {
         }while(!availableEffects.get(idx).play());
             return  true;
     }
-    
+    /**
+     * DECLARE ATTACKER -> scegli gli attaccanti per questa combat phase
+     * @return 
+     */
     private boolean declareAttacker(){
          Scanner reader = CardGame.instance.getScanner();
          int i=0, idx;
          ArrayList<Creature> canAttack = new ArrayList<>();
          for(Creature c:currentPlayer.getCreatures()){
                     if(!c.isTapped() && !c.defender())
-                        canAttack.add(c); //tappare
+                        canAttack.add(c); //lo aggiungo se non è un difensore e non è tappato
          }
         //Dichiarazione degli attaccanti
-        if(canAttack.isEmpty())
+        if(canAttack.isEmpty()) //se non ci sono possibili attaccanti, ritorno false
             return false;
         do{
             System.out.println(currentPlayer.name()+", select the creature that must attack, 0 to pass");
@@ -85,13 +94,18 @@ public class DefaultCombatPhase implements Phase {
             idx=reader.nextInt();
             if(idx!=0 && (idx-1)<currentPlayer.getCreatures().size()){
                 fight.put(canAttack.get(idx-1), new ArrayList<Creature>()); /*la aggiungo alla mappa*/
-                canAttack.remove(idx-1); /*la rimuovo dalla lista*/
+                canAttack.get(idx-1).tap(); //la tappo
+                canAttack.remove(idx-1); /*la rimuovo dalla lista di possibili attaccanti*/
+                
             }
             i=0;
         }while(idx!=0 && !canAttack.isEmpty());
-        return idx==0 ? false : true;
+        return idx==0 ? false : true; //se non ho scelto un attaccante ritorno false
     }
-    
+    /**
+     * DECLAREDEFENDER -> scegli i difensori per questa combat phase
+     * @return 
+     */
     private boolean declareDefender(){
         Scanner reader = CardGame.instance.getScanner();
         int idx=0;
@@ -127,16 +141,13 @@ public class DefaultCombatPhase implements Phase {
                             System.out.println((j+1)+" "+c.toString());
                             j++;
                         }
-                        //TODO: Fase Effetti Stack e istantanei sulla sungola creatura(Difensore)
-                        //playAvailableEffect(opponent,false); boh si fa dopo
-                        //definizione dei difensori rispetto agli attaccanti
                         idxDif=reader.nextInt();
                         if(idxDif>attacker.size() && idxDif<1)
                             System.out.println("Error: there isn't any attacker in that position. Reselect");
-                    }while(idxDif>attacker.size() && idxDif<1);
+                    }while(idxDif>attacker.size() && idxDif<1); //riseleziona se si sbaglia a scegliere
                     Creature att = attacker.get(idxDif-1);
                     ArrayList<Creature> defendFrom = fight.get(att);
-                    defendFrom.add(defender);
+                    defendFrom.add(defender); //aggiungo in coda alla lista
                     fight.put(att, defendFrom);
                 }
             }while(idx!=0 && !canDefend.isEmpty());
@@ -144,10 +155,18 @@ public class DefaultCombatPhase implements Phase {
         return idx==0 ? false : true;
     }
     
-    private void executeBattle(){
+    private void executeBattle(){ //chiamo la strategy che esegue la battaglia
         ebs.executeBattle(this, fight);
     }
-    
+    /**
+     * EXECUTE -> esegue la combat
+     * 1. dichiara attaccanti
+     * 2. se ci sono attaccanti, botta/risosta stack
+     * 3. se ci sono attaccanti, dichiara difensori
+     * 4. se ci sono attaccanti e difensori, botta/risposta stack
+     * 5. se c'è almeno un attaccante, esegui la battaglia
+     * 
+     */
     @Override
     public void execute() {
         currentPlayer = CardGame.instance.getCurrentPlayer();
