@@ -33,7 +33,7 @@ public class Cancel implements Card {
         public void setTarget() throws Exception{
             try{
                 //i possibili target sono gli incantesimi nello stack
-                targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.STACK_TARGETSPELL_TARGET));
+                targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.STACK_EFFECT_TARGET));
             }catch(Exception e){
                 throw new Exception(e.getMessage());
             }
