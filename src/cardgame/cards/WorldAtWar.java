@@ -5,8 +5,11 @@ import cardgame.*;
 
 public class WorldAtWar implements Card {
     private class WorldAtWarEffect extends AbstractCardEffect{
-
         WorldAtWarEffect(Player p, Card c) { super(p,c); }
+        /**
+         * Skip le fasi di fine turno e aggiungo tutte le varie fasi di un nuovo turno
+         * andano a rimuovere la draw phase.
+         */
         @Override
         public void resolve(){
             CardGame.instance.getCurrentPlayer().setPhase(Phases.END,new SkipPhase(Phases.END));

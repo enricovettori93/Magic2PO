@@ -22,7 +22,9 @@ public class VolcanicHammer implements Card{
                 return false;
             }
         }
-        
+        /**
+        * Infliggo il danno o al guidatore selezionato o alla creatura
+        */
         @Override
         public void resolve() {
             System.out.print("[VOLCANIC HAMMER] Inflict 3 damages to: ");

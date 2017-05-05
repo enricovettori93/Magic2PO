@@ -46,7 +46,6 @@ public class Deflection implements Card{
     }
     @Override
     public Effect getEffect(Player owner) {
-        //get effect ritorna un nuovo effetto -- 
         return new DeflectionEffect(owner, this);  
     }
 

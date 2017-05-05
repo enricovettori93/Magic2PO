@@ -10,7 +10,9 @@ public class FalsePeace implements Card {
         FalsePeaceEffect(Player p, Card c) { 
             super(p,c);
         }
-                
+        /**
+         * Skip della prossima combat phase del target
+         */   
         @Override
         public void resolve() {
             ((Player)targets.get(0).getTarget()).setPhase(Phases.COMBAT, new SkipPhase(Phases.COMBAT));

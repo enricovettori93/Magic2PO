@@ -7,6 +7,9 @@ public class SavorTheMoment implements Card {
     private class SavorTheMomentEffect extends AbstractCardEffect{
 
         SavorTheMomentEffect(Player p, Card c) { super(p,c); }
+        /**
+         * Skip delle fasi di fine turno, creo un nuovo turno senza untap phase
+         */
         @Override
         public void resolve(){
             CardGame.instance.getCurrentPlayer().setPhase(Phases.END,new SkipPhase(Phases.END));

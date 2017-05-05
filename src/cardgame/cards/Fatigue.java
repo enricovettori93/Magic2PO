@@ -8,6 +8,9 @@ public class Fatigue implements Card{
     private class FatigueEffect extends AbstractCardEffectTarget{
 
         FatigueEffect(Player p, Card c) { super(p,c); }
+        /**
+         * Skip della prossima draw phase del giocatore selezionato come target
+         */
         @Override
         public void resolve() {            
             ((Player)targets.get(0).getTarget()).setPhase(Phases.DRAW, new SkipPhase(Phases.DRAW));
