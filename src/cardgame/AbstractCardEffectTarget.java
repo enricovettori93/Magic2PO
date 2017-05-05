@@ -5,7 +5,7 @@ import cardgame.target.PermanentTarget;
 import cardgame.target.PlayerTarget;
 import cardgame.target.Target;
 import java.util.ArrayList;
-
+/**questa carta viene implementata dalle carte che hanno dei target*/
 public abstract class AbstractCardEffectTarget extends AbstractCardEffect{
     protected ArrayList<Target> targets;
     

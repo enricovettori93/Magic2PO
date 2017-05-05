@@ -3,7 +3,7 @@ package cardgame;
 
 import cardgame.target.*;
 import java.util.ArrayList;
-
+/**questa classe viene implementata dalle carte i cui incantesimi hanno un target*/
 public abstract class AbstractEnchantmentCardEffectTarget extends AbstractEnchantmentCardEffect{
         protected ArrayList<Target> targets;
     
