@@ -65,7 +65,7 @@ public class CardGame {
             }
             //Random card
             else{
-                choice =  1 + (int)(Math.random() * 20);
+                choice =  1 + (int)(Math.random() * 25);
                 deck.add(factory.returnCard(choice));
             } 
             i++;
