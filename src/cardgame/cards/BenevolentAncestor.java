@@ -38,7 +38,6 @@ public class BenevolentAncestor implements Card{
         Target t;
         int type = 0; //2 = creature, 1 = player
         int playerchoice = 0; //2 = Adversary, 1 = Current player
-        
         BenevolentAncestorCreature(Player owner) { 
             super(owner);
             all_effects.add( new Effect() { 
@@ -47,6 +46,12 @@ public class BenevolentAncestor implements Card{
                                         CardGame.instance.getStack().add(this);
                                         return tap(); 
                                     }
+                                    /**
+                                     * RESOLVE -> 1. scegli a chi prevenire 1 danno
+                                     * 2.se hai scelto una creatura -> viene applicato un decoratore con +1 di vita.
+                                     *  In questo modo, al prossimo attacco non viene inflitto 1 danno
+                                     * 3. se hai scelto un player -> viene applicata una strategy che previene un danno
+                                     */
                                     @Override
                                     public void resolve() {
                                         Scanner in = new Scanner(System.in);
@@ -68,9 +73,9 @@ public class BenevolentAncestor implements Card{
                                                     err=true;
                                                 }
                                                 ((Creature)t.getTarget()).addDecorator(new PowerUpDecorator("BenevolentAncestorDecorator",0,1));
-                                            //((Creature)t.getTarget()).se
                                             }
                                             else{
+                                                //setto la strategy
                                                 System.out.println("Select player?");
                                                 do{
                                                     System.out.println("1 - Current player\n2 - Adversary");
@@ -92,6 +97,10 @@ public class BenevolentAncestor implements Card{
         }
         
         private final TriggerAction BenevolentAncestorTrigger = new TriggerAction(){
+            /**EXECUTE -> viene rimosso il decoratore o la strategy
+             * 
+             * @param args 
+             */
             @Override
             public void execute(Object args) {
                 if(type != 0){
@@ -114,7 +123,6 @@ public class BenevolentAncestor implements Card{
         @Override
         public void insert() {
             super.insert();
-            //setTarget();
             CardGame.instance.getTriggers().register(Triggers.END_FILTER,BenevolentAncestorTrigger);
         }
 
