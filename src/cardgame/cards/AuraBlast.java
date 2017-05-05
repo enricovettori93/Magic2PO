@@ -39,7 +39,7 @@ public class AuraBlast implements Card{
             //destroy target
             if(targets.size()>0){
                 if(targets.get(0) instanceof PermanentTarget){
-                    ((PermanentTarget)targets.get(0)).getTargetOwner().getEnchantments().remove((Enchantment)targets.get(0).getTarget());
+                    ((PermanentTarget)targets.get(0)).getTargetOwner().getEnchantments().get(((PermanentTarget)targets.get(0)).getTargetOwner().getEnchantments().indexOf((Enchantment)targets.get(0).getTarget())).remove();
                 }
                 if(targets.get(0) instanceof CardTarget){
                     CardGame.instance.getStack().remove((Effect)targets.get(0).getTarget());

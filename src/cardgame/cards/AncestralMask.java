@@ -103,8 +103,8 @@ public class AncestralMask implements Card{
             @Override
             public void remove() {
                 super.remove();
-                CreatureTarget.removeDecorator(effetto_ancestral_mask);
-                //System.out.println("GAVINO " + CreatureTarget.valueOfCreature());
+                CreatureTarget.removeDecorator(hashcode);
+                System.out.println("[ANCESTRAL MASK] Destroyed, remove effect from card  " + CreatureTarget.valueOfCreature());
                 CardGame.instance.getTriggers().deregister(AncestralMaskTrigger);
                 CardGame.instance.getTriggers().deregister(AncestralMaskTriggerRemoveEnchantmentFromField);
             }
