@@ -71,7 +71,7 @@ public class DefaultCombatPhase implements Phase {
          ArrayList<Creature> canAttack = new ArrayList<>();
          for(Creature c:currentPlayer.getCreatures()){
                     if(!c.isTapped() && !c.defender())
-                        canAttack.add(c);
+                        canAttack.add(c); //tappare
          }
         //Dichiarazione degli attaccanti
         if(canAttack.isEmpty())
@@ -159,9 +159,11 @@ public class DefaultCombatPhase implements Phase {
         
            if(declareAttacker()){
                 stackInsert(opponent, currentPlayer, false);
-                if(declareDefender())
+                CardGame.instance.getStack().resolve();
+                if(declareDefender()){
                     stackInsert(currentPlayer, opponent, true );
-           CardGame.instance.getStack().resolve();
+                    CardGame.instance.getStack().resolve();
+                }
            executeBattle();
            }
            System.out.println("[END_COMBAT_PHASE] STATUS: "+currentPlayer.name()+" LIFE:"+currentPlayer.getLife()+" "+opponent.name()+" LIFE:"+opponent.getLife());

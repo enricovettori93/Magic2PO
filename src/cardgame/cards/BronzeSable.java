@@ -40,10 +40,6 @@ public class BronzeSable implements Card {
         public String name() { return "Bronze Sable"; }
         
         @Override
-        public void attack() {}
-        @Override
-        public void defend(Creature c) {}
-        @Override
         public int getPower() { return 2; }
         @Override
         public int getToughness() { return 1; }
