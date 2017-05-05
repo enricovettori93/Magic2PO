@@ -35,24 +35,40 @@ public class CardGame {
     
     //Metodo per creare i mazzi
     private void createDeck(int player, ArrayList deck){
-        int i,choice;
+        int i,choice, choice2;
         CardFactory factory = new CardFactory();
         i = 1;
+        choice = 0;
+        choice2 = 0;
         Scanner in;
         in = new Scanner(System.in);
-        System.out.println("Player "+player+1+" deck's creation!");
+        System.out.println("Player "+ (player+1) +" deck's creation!");
+        System.out.println("Would u like to generate random your deck or insert manually the cards? 0 = Random, 1 = Card Selection");
         do{
-            do{
+            System.out.print("-> ");
+            choice2 = in.nextInt();
+            if(choice2 != 0 && choice2 != 1)
+                System.out.println("Wrong input.");
+        }while(choice2 != 0 && choice2!= 1);
+        do{
+            //Input from keyboard
+            if(choice2 == 1){
                 factory.printHouseOfCards();
                 System.out.print("Select the card " + i + " of 20 -> ");
-                choice = in.nextInt();
-                if(choice<1 || choice > factory.getNumberOfCards())
-                    System.out.println("Wrong index.");
-                else{
-                    deck.add(factory.returnCard(choice));
-                    i++;
-                }
-            }while(choice < 1 || choice > 25);
+                do{
+                    choice = in.nextInt();
+                    if(choice<1 || choice > factory.getNumberOfCards())
+                        System.out.println("Wrong index.");
+                    else
+                        deck.add(factory.returnCard(choice));
+                }while(choice < 1 || choice > 25);
+            }
+            //Random card
+            else{
+                choice =  1 + (int)(Math.random() * 20);
+                deck.add(factory.returnCard(choice));
+            } 
+            i++;
         }while(i<=20);
     }
     
