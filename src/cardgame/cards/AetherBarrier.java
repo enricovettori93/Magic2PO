@@ -35,7 +35,7 @@ public class AetherBarrier implements Card{
                         try{
                             do{
                             
-                                t = CardGame.instance.getTargetManager().getTarget(TargetManager.PERMANENT_TARGET, CardGame.instance.getCurrentPlayer());
+                                t = CardGame.instance.getTargetManager().getTarget(TargetManager.PERMANENT_CURRENT_TARGET);
                             
                             app = (PermanentTarget) t;
                             if(app.getTargetOwner() == CardGame.instance.getCurrentPlayer()){

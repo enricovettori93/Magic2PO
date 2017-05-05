@@ -65,72 +65,66 @@ public class TargetManager {
             case STACK_TARGETSPELL_TARGET: 
                 getTargetSpell();
                 break;
-            default: 
-                System.out.println("Bad target!");
-        }
-        if(targets.isEmpty()){
-            //non esistono target che soddisfano la condizione,
-            //se il giocatore è saggio non dovrebbe mai finire quì
-            System.out.println("You can't choose a target!");
-            throw new Exception("TARGET NULL EXC");
-        }
-        System.out.println("\n - Choose the target --");
-        for(index=0;index<targets.size();index++){
-            System.out.println(index+") "+targets.get(index).toString());
-        }
-        do{
-            System.out.print("\n-> ");
-            choice =  input.nextInt();
-        }while(choice < 0 || choice > (targets.size()-1));        
-        return targets.get(choice);
-    }
-    
-    public Target getTarget(int filter, Player owner) throws Exception{
-        targets.clear();
-        Scanner input = new Scanner(System.in);
-        int choice,index;
-        
-        switch(filter){
-            case ENCHANTMENT_ON_FIELD_TARGET: 
-                getEnchantmentOnField(owner);
-                break;
-            case CREATURE_ON_FIELD_TARGET: 
-                getCreatureOnField(owner);
-                break;
-            case PERMANENT_TARGET: 
-                getPermanent(owner);
-                break;
-            case PLAYER_TARGET: 
-                getPlayer();
-                break;
-            case STACK_EFFECT_TARGET:
-                getStack(owner);
-                break;
-            case STACK_CREATURE_EFFECT_TARGET:
-                getCreatureStack(owner);
-                break;
-            case STACK_ISTANT_EFFECT_TARGET: 
-                getInstantStack(owner);
-                break;
-            case STACK_SORCERY_EFFECT_TARGET: 
-                getSorceryStack(owner);              
-                break;
-            case STACK_ENCHANTMENT_EFFECT_TARGET:                 
-                getEnchantmentStack(owner);
-                break;
-            case CREATURE_OR_PLAYER_TARGET: 
-                getPlayer();
-                getCreatureOnField(owner);
-                break;
-            case CREATURE_TARGET:                 
-                getCreature(owner);
-                break;
-            case ENCHANTMENT_TARGET: 
-                getEnchantment(owner);
-                break;
-            case STACK_TARGETSPELL_TARGET: 
-                getTargetSpell();
-                break;
+            case PERMANENT_CURRENT_TARGET: 
+                getPermanent(CardGame.instance.getCurrentPlayer());
+                break;   
+            case PERMANENT_ADVERSARY_TARGET: 
+                getPermanent(CardGame.instance.getCurrentAdversary());
+                break;   
+            case ENCHANTMENT_ADVERSARY_TARGET: 
+                getEnchantment(CardGame.instance.getCurrentAdversary());
+                break;      
+            case ENCHANTMENT_CURRENT_TARGET: 
+                getEnchantment(CardGame.instance.getCurrentPlayer());
+                break;      
+            case ENCHANTMENT_ON_FIELD_ADVERSARY_TARGET: 
+                getEnchantmentOnField(CardGame.instance.getCurrentAdversary());
+                break;      
+            case ENCHANTMENT_ON_FIELD_CURRENT_TARGET: 
+                getEnchantmentOnField(CardGame.instance.getCurrentPlayer());
+                break;      
+            case CREATURE_ADVERSARY_TARGET: 
+                getCreature(CardGame.instance.getCurrentAdversary());
+                break;      
+            case CREATURE_CURRENT_TARGET: 
+                getCreature(CardGame.instance.getCurrentPlayer());
+                break;      
+            case CREATURE_ON_FIELD_ADVERSARY_TARGET: 
+                getCreatureOnField(CardGame.instance.getCurrentAdversary());
+                break;      
+            case CREATURE_ON_FIELD_CURRENT_TARGET: 
+                getCreatureOnField(CardGame.instance.getCurrentPlayer());
+                break;       
+            case STACK_ENCHANTMENT_EFFECT_ADVERSARY_TARGET: 
+                getEnchantmentStack(CardGame.instance.getCurrentAdversary());
+                break;      
+            case STACK_ENCHANTMENT_EFFECT_CURRENT_TARGET: 
+                getEnchantmentStack(CardGame.instance.getCurrentPlayer());
+                break;       
+            case STACK_ISTANT_EFFECT_ADVERSARY_TARGET: 
+                getInstantStack(CardGame.instance.getCurrentAdversary());
+                break;      
+            case STACK_ISTANT_EFFECT_CURRENT_TARGET: 
+                getInstantStack(CardGame.instance.getCurrentPlayer());
+                break;       
+            case STACK_SORCERY_EFFECT_ADVERSARY_TARGET: 
+                getSorceryStack(CardGame.instance.getCurrentAdversary());
+                break;      
+            case STACK_SORCERY_EFFECT_CURRENT_TARGET: 
+                getSorceryStack(CardGame.instance.getCurrentPlayer());
+                break;       
+            case STACK_CREATURE_EFFECT_ADVERSARY_TARGET: 
+                getCreatureStack(CardGame.instance.getCurrentAdversary());
+                break;      
+            case STACK_CREATURE_EFFECT_CURRENT_TARGET: 
+                getCreatureStack(CardGame.instance.getCurrentPlayer());
+                break;       
+            case STACK_EFFECT_ADVERSARY_TARGET: 
+                getStack(CardGame.instance.getCurrentAdversary());
+                break;      
+            case STACK_EFFECT_CURRENT_TARGET: 
+                getStack(CardGame.instance.getCurrentPlayer());
+                break;                      
             default: 
                 System.out.println("Bad target!");
         }
@@ -264,5 +258,24 @@ public class TargetManager {
     public static final int ENCHANTMENT_TARGET=11;
     public static final int CREATURE_TARGET=12;
     public static final int STACK_TARGETSPELL_TARGET=13;
-    
+    public static final int PERMANENT_CURRENT_TARGET=14;
+    public static final int PERMANENT_ADVERSARY_TARGET=15;
+    public static final int ENCHANTMENT_ON_FIELD_ADVERSARY_TARGET=16;
+    public static final int ENCHANTMENT_ON_FIELD_CURRENT_TARGET=17;
+    public static final int CREATURE_ON_FIELD_ADVERSARY_TARGET=18;
+    public static final int CREATURE_ON_FIELD_CURRENT_TARGET=19;
+    public static final int STACK_EFFECT_ADVERSARY_TARGET=20;
+    public static final int STACK_EFFECT_CURRENT_TARGET=21;
+    public static final int STACK_ISTANT_EFFECT_ADVERSARY_TARGET=22;
+    public static final int STACK_ISTANT_EFFECT_CURRENT_TARGET=23;
+    public static final int STACK_CREATURE_EFFECT_ADVERSARY_TARGET=24;
+    public static final int STACK_CREATURE_EFFECT_CURRENT_TARGET=25;
+    public static final int STACK_SORCERY_EFFECT_ADVERSARY_TARGET=26;
+    public static final int STACK_SORCERY_EFFECT_CURRENT_TARGET=27;
+    public static final int STACK_ENCHANTMENT_EFFECT_ADVERSARY_TARGET=28;
+    public static final int STACK_ENCHANTMENT_EFFECT_CURRENT_TARGET=29;
+    public static final int ENCHANTMENT_ADVERSARY_TARGET=30;
+    public static final int ENCHANTMENT_CURRENT_TARGET=31;
+    public static final int CREATURE_ADVERSARY_TARGET=32;
+    public static final int CREATURE_CURRENT_TARGET=33;
 }
