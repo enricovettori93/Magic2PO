@@ -16,7 +16,9 @@ public class DayOfJudgment implements Card{
         DayOfJudgmentEffect(Player p, Card c) { super(p,c); }
         @Override
         public void resolve() {
-           // distruggi tutte le creature in campo
+           /**
+            * Itero per entrambe le liste di creature dei 2 giocatori per andare a rimuoverli
+            */
            List <Creature> app = CardGame.instance.getCurrentPlayer().getCreatures();
            for(int i = 0;i<app.size();i++){
                app.get(i).remove();

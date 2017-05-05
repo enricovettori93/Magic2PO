@@ -24,6 +24,9 @@ public class Darkness implements Card{
         public DarknessEffect(Player p, Card c){
             super(p,c);
         }
+        /**
+         * Viene cambiata la default combat phase tramite una strategy che prevede una combatphase che annulla i danni
+         */
         @Override
         public void resolve() {
            DefaultCombatPhase thisCombat = (DefaultCombatPhase)CardGame.instance.getCurrentPlayer().getPhase(Phases.COMBAT);
