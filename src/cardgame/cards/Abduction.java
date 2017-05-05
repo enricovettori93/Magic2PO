@@ -10,12 +10,18 @@ public class Abduction implements Card{
     
     private class AbductionEffect extends AbstractEnchantmentCardEffectTarget{
         private class AbductionStrategy implements CreatureInflictDamageStrategy{
-            Player oldOwner;
+            Player oldOwner; //giocatore precedente all'applicazione di questa Strategy
             public AbductionStrategy(Player oldOwner){
                 this.oldOwner=oldOwner;
             }
+            /***
+             * INFLICT DAMAGE 
+             * Quando la carta riceve più danno della sua vita rimanente, non muore ma viene spostata al suo proprietario precedente, e resettato il danno
+             * @param c
+             * @param dmg 
+             */
             @Override
-            public void inflictDamage(Creature c, int dmg) {
+            public void inflictDamage(Creature c, int dmg) { 
                 int subDmg = c.getDamageLeft()-dmg;
                 if (subDmg <= 0){
                     System.out.println("[ABDUCTION] Move "+c.name()+"to his default owner");
@@ -57,17 +63,23 @@ public class Abduction implements Card{
                 throw new Exception(e.getMessage());
             }
         }
+        /**
+         * RESOLVE
+         * 1. Viene settata una strategy al target,
+         *      in modo che quando muore viene riportata al giocatore precedente
+         * 2. Rimuovo vecchio player e setto quello nuovo, 
+         */
         @Override
         public void resolve() {
             if(targets.size()>0){ /*se c'è un target, sennò nothing*/
                 AbstractCreature c =((AbstractCreature)targets.get(0).getTarget());
                 System.out.println("[ABDUCTION] moving "+c.name()+" from Player "+c.getOwner()+" to "+this.owner+"...");
                 c.setCids(new AbductionStrategy(c.getOwner()));
-                c.getOwner().getCreatures().remove(c);
-                c.setOwner(this.owner);
-                owner.getCreatures().add(c);
+                c.getOwner().getCreatures().remove(c); //rimuovo la creatura dal campo del giocatore
+                c.setOwner(this.owner); //setto il nuovo proprietario
+                owner.getCreatures().add(c); //la inserisco nel campo del nuovo proprietario
                 System.out.println("[ABDUCTION] untap "+c.name()+"...");
-                if(c.isTapped())
+                if(c.isTapped()) //se è tappata, la untappo
                     c.untap();
                 System.out.println("[ABDUCTION] Done.");
             }
