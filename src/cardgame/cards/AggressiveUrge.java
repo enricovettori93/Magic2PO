@@ -14,20 +14,21 @@ public class AggressiveUrge implements Card {
         public AggressiveUrgeEffect(Player p, Card c) { 
             super(p,c); 
         }
-        
+        /**
+         * AGGIUNGE UN DECORATORE +1 / +1  AL TARGET
+         */
         @Override
         public void resolve() {
             CreatureTarget=(AbstractCreature)targets.remove(0).getTarget();
-            // Aggiungere decoratore al Target - nell'else perchè è quando si può eseguire tale azione
-                pd = new PowerUpDecorator(AggressiveUrgeTrigger, 1, 1);
-                CreatureTarget.addDecorator(pd);
-                insert();
+            pd = new PowerUpDecorator(AggressiveUrgeTrigger, 1, 1); //creo decoratore
+            CreatureTarget.addDecorator(pd); //aggiungo decorator
+            insert();
         }
         
         @Override
         public boolean play() {
             try{
-                setTarget();
+                setTarget(); //setto il target
                 return super.play();
             }
             catch(Exception e){
@@ -44,7 +45,9 @@ public class AggressiveUrge implements Card {
                 throw new Exception(e.getMessage());
             }
         }
-        
+        /**
+         * TRIGGER rimuove il decoratore alla fine del turno
+         */
         private TriggerAction AggressiveUrgeTrigger=new TriggerAction() {
             @Override
             public void execute(Object args) {
