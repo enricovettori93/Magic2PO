@@ -85,6 +85,72 @@ public class TargetManager {
         return targets.get(choice);
     }
     
+    public Target getTarget(int filter, Player owner) throws Exception{
+        targets.clear();
+        Scanner input = new Scanner(System.in);
+        int choice,index;
+        
+        switch(filter){
+            case ENCHANTMENT_ON_FIELD_TARGET: 
+                getEnchantmentOnField(owner);
+                break;
+            case CREATURE_ON_FIELD_TARGET: 
+                getCreatureOnField(owner);
+                break;
+            case PERMANENT_TARGET: 
+                getPermanent(owner);
+                break;
+            case PLAYER_TARGET: 
+                getPlayer();
+                break;
+            case STACK_EFFECT_TARGET:
+                getStack(owner);
+                break;
+            case STACK_CREATURE_EFFECT_TARGET:
+                getCreatureStack(owner);
+                break;
+            case STACK_ISTANT_EFFECT_TARGET: 
+                getInstantStack(owner);
+                break;
+            case STACK_SORCERY_EFFECT_TARGET: 
+                getSorceryStack(owner);              
+                break;
+            case STACK_ENCHANTMENT_EFFECT_TARGET:                 
+                getEnchantmentStack(owner);
+                break;
+            case CREATURE_OR_PLAYER_TARGET: 
+                getPlayer();
+                getCreatureOnField(owner);
+                break;
+            case CREATURE_TARGET:                 
+                getCreature(owner);
+                break;
+            case ENCHANTMENT_TARGET: 
+                getEnchantment(owner);
+                break;
+            case STACK_TARGETSPELL_TARGET: 
+                getTargetSpell();
+                break;
+            default: 
+                System.out.println("Bad target!");
+        }
+        if(targets.isEmpty()){
+            //non esistono target che soddisfano la condizione,
+            //se il giocatore è saggio non dovrebbe mai finire quì
+            System.out.println("You can't choose a target!");
+            throw new Exception("TARGET NULL EXC");
+        }
+        System.out.println("\n - Choose the target --");
+        for(index=0;index<targets.size();index++){
+            System.out.println(index+") "+targets.get(index).toString());
+        }
+        do{
+            System.out.print("\n-> ");
+            choice =  input.nextInt();
+        }while(choice < 0 || choice > (targets.size()-1));        
+        return targets.get(choice);
+    }
+    
     private void getEnchantmentOnField(Player p){
         List<Enchantment> temp= p.getEnchantments();
         int i;
