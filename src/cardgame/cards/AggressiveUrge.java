@@ -19,15 +19,9 @@ public class AggressiveUrge implements Card {
         public void resolve() {
             CreatureTarget=(AbstractCreature)targets.remove(0).getTarget();
             // Aggiungere decoratore al Target - nell'else perchè è quando si può eseguire tale azione
-            if (CreatureTarget.getDamageLeft()== 1){
-                CreatureTarget.remove();
-                // rimuovo la carta perchè la vita va a 0
-            }
-            else {
                 pd = new PowerUpDecorator(AggressiveUrgeTrigger, 1, 1);
                 CreatureTarget.addDecorator(pd);
                 insert();
-            }
         }
         
         @Override
