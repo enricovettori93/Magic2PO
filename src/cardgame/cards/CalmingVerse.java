@@ -13,7 +13,9 @@ public class CalmingVerse implements Card{
     private class CalmingVerseEffect extends AbstractCardEffect{
 
         CalmingVerseEffect(Player p, Card c) { super(p,c); }
-
+        /**
+         * RESOLVE -> prende gli incantesimi dell'avversario e gli distrugge
+         */
         @Override
         public void resolve() {
            List <Enchantment> app = CardGame.instance.getCurrentAdversary().getEnchantments();

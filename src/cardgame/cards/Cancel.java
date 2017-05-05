@@ -20,7 +20,7 @@ public class Cancel implements Card {
         @Override
         public boolean play() {
             try{
-                setTarget();
+                setTarget(); //setto il target
                 return super.play();
             }
             catch(Exception e){
@@ -32,12 +32,15 @@ public class Cancel implements Card {
         @Override
         public void setTarget() throws Exception{
             try{
+                //i possibili target sono gli incantesimi nello stack
                 targets.add(CardGame.instance.getTargetManager().getTarget(TargetManager.STACK_TARGETSPELL_TARGET));
             }catch(Exception e){
                 throw new Exception(e.getMessage());
             }
         }
-
+        /**
+         * RESOLVE -> rimuovo l'effetto dallo Stack (lo neutralizza)
+         */
         @Override
         public void resolve() {
             CardGame.instance.getStack().remove((Effect)targets.get(0).getTarget());

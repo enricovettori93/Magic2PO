@@ -9,7 +9,7 @@ public class BoilingEarth implements Card{
     private class BoilingEarthEffect extends AbstractCardEffect{
 
         BoilingEarthEffect(Player p, Card c) { super(p,c); }
-        
+        /**RESOLVE -> ad ogni creatura nel campo, infliggo 1 danno*/
         @Override
         public void resolve() {
             List<Creature> temp=CardGame.instance.getCurrentAdversary().getCreatures();
