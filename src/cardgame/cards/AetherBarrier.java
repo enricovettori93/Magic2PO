@@ -35,7 +35,7 @@ public class AetherBarrier implements Card{
                         try{
                             do{
                             
-                                t = CardGame.instance.getTargetManager().getTarget(TargetManager.PERMANENT_TARGET);
+                                t = CardGame.instance.getTargetManager().getTarget(TargetManager.PERMANENT_TARGET, CardGame.instance.getCurrentPlayer());
                             
                             app = (PermanentTarget) t;
                             if(app.getTargetOwner() == CardGame.instance.getCurrentPlayer()){
@@ -43,7 +43,7 @@ public class AetherBarrier implements Card{
                                 System.out.println("[AETHER BARRIER] Permanent destroyed");
                             }
                             else
-                                System.out.println("[AETHER BARRIER] You choose a wrong owner.");
+                                System.out.println("[AETHER BARRIER] Please reselect.");
                         }while(app.getTargetOwner() != CardGame.instance.getCurrentPlayer());
                         }catch(Exception e){
                                 System.out.println("You don't have a permanent!");
@@ -86,7 +86,7 @@ public class AetherBarrier implements Card{
 
     @Override
     public String ruleText() {
-        return "Whenever a player plays Creature Spell, that player sacrifices a permanent unless he or she pays 1";
+        return "Whenever a player plays Creature Spell, that player sacrifices a permanent";
     }
     
     @Override
