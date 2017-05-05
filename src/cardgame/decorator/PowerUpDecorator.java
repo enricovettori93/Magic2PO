@@ -81,25 +81,26 @@ public class PowerUpDecorator extends AbstractDecorator{
 
     @Override
     public void setOwner(Player owner) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       creature.setOwner(owner);
     }
 
     @Override
     public Player getOwner() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return creature.getOwner();
     }
 
     @Override
     public void setCids(CreatureInflictDamageStrategy cids) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    @Override
-    public int getPowerLeft() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        creature.setCids(cids);
     }
 
     @Override
     public void decreasePowerLeft(int val) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        creature.decreasePowerLeft(val);
+    }
+
+    @Override
+    public int getPowerLeft() {
+        return creature.getPowerLeft();
     }
 }
