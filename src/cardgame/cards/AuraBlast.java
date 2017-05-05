@@ -7,8 +7,6 @@ import cardgame.target.*;
 public class AuraBlast implements Card{
     
     private class AuraBlastEffect extends AbstractCardEffectTarget {
-        //costruttore
-        
         public AuraBlastEffect(Player p, Card c) { 
             super(p,c);
         }
@@ -33,13 +31,17 @@ public class AuraBlast implements Card{
                 throw new Exception(e.getMessage());
             }
         }
-        
+        /**
+         * RESOLVE -> Distrugge l'incantesimo target
+         */
         @Override
         public void resolve() {
             //destroy target
             if(targets.size()>0){
                 if(targets.get(0) instanceof PermanentTarget){
-                    ((PermanentTarget)targets.get(0)).getTargetOwner().getEnchantments().get(((PermanentTarget)targets.get(0)).getTargetOwner().getEnchantments().indexOf((Enchantment)targets.get(0).getTarget())).remove();
+                    //((PermanentTarget)targets.get(0)).getTargetOwner().getEnchantments().get(((PermanentTarget)targets.get(0)).getTargetOwner().getEnchantments().indexOf((Enchantment)targets.get(0).getTarget())).remove();
+                    PermanentTarget t = (PermanentTarget) targets.get(0);
+                    ((Enchantment)t.getTarget()).remove();
                 }
                 if(targets.get(0) instanceof CardTarget){
                     CardGame.instance.getStack().remove((Effect)targets.get(0).getTarget());
@@ -60,7 +62,6 @@ public class AuraBlast implements Card{
     public String name() {
        return "Aura Blast";
     }
-
     @Override
     public String type() {
         return "Instant";
