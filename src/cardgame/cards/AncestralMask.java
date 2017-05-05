@@ -39,7 +39,7 @@ public class AncestralMask implements Card{
         @Override
         public boolean play() {
             try{
-                setTarget();
+                setTarget(); //provo a settare il target
                 return super.play();
             }
             catch(Exception e){
@@ -48,7 +48,10 @@ public class AncestralMask implements Card{
             }
         }
         
-        
+        /**
+         * RESOLVE -> La creature target riceve +2 / +2 per ogni incantesimo che entra nel campo
+         *              HashCode -> 
+         */
         @Override
         public void resolve(){
             super.resolve();
@@ -64,8 +67,6 @@ public class AncestralMask implements Card{
                     System.out.println(" power up +2/+2 -> " + CreatureTarget.valueOfCreature());
                 }
             }
-            //temp.clear();
-            //System.out.println(CreatureTarget.valueOfCreature());
         }
         
         //CLASSE ANONIMA PER IL TRIGGER
@@ -73,7 +74,9 @@ public class AncestralMask implements Card{
             public AncestralMaskEnchantment(Player owner) {
                 super(owner);
             }
-
+            /**
+             * TRIGGER ANCESTRALMASKTRIGGER -> Se è entrata una creatura aggiungo un decoratore al target
+             */
             private final TriggerAction AncestralMaskTrigger = new TriggerAction() {
                     @Override
                     public void execute(Object args) {
@@ -82,7 +85,9 @@ public class AncestralMask implements Card{
                         System.out.println(" power up +2/+2 -> " + CreatureTarget.valueOfCreature());
                     }
                 };
-            
+            /**
+             * TRIGGER -> questo trigger, quando viene rimosso un incantesimo, tolgo -2 / -2 al target
+             */
             private final TriggerAction AncestralMaskTriggerRemoveEnchantmentFromField = new TriggerAction(){
                 @Override
                 public void execute(Object args) {
@@ -95,7 +100,7 @@ public class AncestralMask implements Card{
             @Override
             public void insert() {
                 super.insert();
-                //setTarget();
+                //inserisco i 2 trigger
                 CardGame.instance.getTriggers().register(Triggers.ENTER_ENCHANTMENT_FILTER,AncestralMaskTrigger);
                 CardGame.instance.getTriggers().register(Triggers.EXIT_ENCHANTMENT_FILTER,AncestralMaskTriggerRemoveEnchantmentFromField);
             }
