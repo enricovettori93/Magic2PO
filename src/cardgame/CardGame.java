@@ -14,19 +14,19 @@ public class CardGame {
     public static void main(String[] args) {
         //create decks
         ArrayList<Card> deck = new ArrayList<>();
-        for (int i=0; i!=5; ++i) deck.add(new ArgothianEnchantress());
-        for (int i=0; i!=5; ++i) deck.add(new AncestralMask());
-        //for (int i=0; i!=5; ++i) deck.add(new BronzeSable());
-        //for (int i=0; i!=5; ++i) deck.add(new BoilingEarth());
+        /* (int i=0; i!=5; ++i) deck.add(new ArgothianEnchantress());
+        for (int i=0; i!=5; ++i) deck.add(new Afflict());
+        for (int i=0; i!=5; ++i) deck.add(new BronzeSable());
+        for (int i=0; i!=5; ++i) deck.add(new BoilingEarth());*/
         
         //Creo deck per il giocatore1
-        //instance.createDeck(0,deck);
+        instance.createDeck(0,deck);
         instance.getPlayer(0).setDeck(deck.iterator());
-        //deck.clear();
+        deck.clear();
         //Creo deck per il giocatore2
-        //instance.createDeck(1, deck);
+        instance.createDeck(1, deck);
         instance.getPlayer(1).setDeck(deck.iterator());
-        
+        deck.clear();
         instance.run();
     }
     
@@ -41,40 +41,11 @@ public class CardGame {
         Scanner in;
         in = new Scanner(System.in);
         System.out.println("Player "+player+1+" deck's creation!");
-        /*
-        System.out.println("Select the cards that you would like to insert into deck");
-        System.out.println("1 - Abduction");
-        System.out.println("2 - Aether Barrier");
-        System.out.println("3 - Aether Flash");
-        System.out.println("4 - Afflict");
-        System.out.println("5 - Aggressive Urge");
-        System.out.println("6 - Ancestral Mask");
-        System.out.println("7 - Argothian Enchantment");
-        System.out.println("8 - Aura Blast");
-        System.out.println("9 - Benevolent Ancestor");
-        System.out.println("10 - Boiling Earth");
-        System.out.println("11 - Bronze Sable");
-        System.out.println("12 - Calming Verse");
-        System.out.println("13 - Cancel");
-        System.out.println("14 - Darkness");
-        System.out.println("15 - Day of Judgment");
-        System.out.println("16 - Deflection");
-        System.out.println("17 - False Peace");
-        System.out.println("18 - Fatigue");
-        System.out.println("19 - Norwood Ranger");
-        System.out.println("20 - Savor The Moment");
-        System.out.println("21 - Volcanic Hammer");
-        System.out.println("22 - World at War");
-        System.out.println("23 - Reflexologist");
-        System.out.println("24 - Homeophaty");
-        System.out.println("25 - Friendly Envirorment");*/
         do{
             do{
                 factory.printHouseOfCards();
-                /*AL MOMENTO LA CREAZIONE AVVIENE RANDOMICAMENTE, DA RIMODIFICARE PRIMA DELLA CONSEGNA*/
                 System.out.print("Select the card " + i + " of 20 -> ");
                 choice = in.nextInt();
-                //choice = in.nextInt();
                 if(choice<1 || choice > factory.getNumberOfCards())
                     System.out.println("Wrong index.");
                 else{
