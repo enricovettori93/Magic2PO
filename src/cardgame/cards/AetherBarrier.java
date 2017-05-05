@@ -25,41 +25,41 @@ public class AetherBarrier implements Card{
         private AetherBarrierEnchantment(Player owner){
             super(owner);
         }
-        
-                private final TriggerAction AetherBarrierAction = new TriggerAction() {
-                @Override
-                public void execute(Object args) {
-                    if (args != null  && args instanceof Creature) {
-                        Target t;
-                        PermanentTarget app;
-                        try{
-                            do{
-                            
-                                t = CardGame.instance.getTargetManager().getTarget(TargetManager.PERMANENT_CURRENT_TARGET);
-                            
-                            app = (PermanentTarget) t;
-                            if(app.getTargetOwner() == CardGame.instance.getCurrentPlayer()){
-                                ((Permanent)app.getTarget()).remove();
-                                System.out.println("[AETHER BARRIER] Permanent destroyed");
-                            }
-                            else
-                                System.out.println("[AETHER BARRIER] Please reselect.");
-                        }while(app.getTargetOwner() != CardGame.instance.getCurrentPlayer());
-                        }catch(Exception e){
-                                System.out.println("You don't have a permanent!");
-                            }
-                    }
+        /**
+         * TRIGGER DI AETHERBARRIER: quando viene eseguito questo Trigger,
+         * il giocatore che ha appena pescato una carta (quindi il giocatore corrente)
+         * deve scartare un Permanente. Se non ne ha, allora non succede nulla
+         * 
+         */
+        private final TriggerAction AetherBarrierAction = new TriggerAction() {
+            @Override
+            public void execute(Object args) {
+                if (args != null  && args instanceof Creature) {
+                    Target t;
+                    PermanentTarget app;
+                    try{
+                        //Il target è un  permanente del giocatore corrente
+                        t = CardGame.instance.getTargetManager().getTarget(TargetManager.PERMANENT_CURRENT_TARGET);
+                        app = (PermanentTarget) t;
+                        ((Permanent)app.getTarget()).remove(); //rimuovo il permanente
+                        System.out.println("[AETHER BARRIER] Permanent destroyed");                   
+                    }catch(Exception e){
+                            System.out.println("You don't have a permanent!");
+                        }
                 }
-            };
+            }
+        };
         @Override
         public void insert() {
             super.insert();
+            //all'inserimento registro il Trigger di AetherBarrierAction
             CardGame.instance.getTriggers().register(Triggers.ENTER_CREATURE_FILTER, AetherBarrierAction);
         }
         
         @Override
         public void remove() {
             super.remove();
+            //deregistro il Trigger
             CardGame.instance.getTriggers().deregister(AetherBarrierAction);
         }
         
