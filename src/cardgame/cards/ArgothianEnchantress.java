@@ -57,14 +57,16 @@ public class ArgothianEnchantress implements Card{
         public ArgothianEnchantressCreature(Player owner){
             super(owner);
         }
-        
+        /**
+         * TRIGGER -> Se un giocatore gioca un incantesimo, pesca una carta
+         */
         private final TriggerAction ArgothianEnchantressTrigger = new TriggerAction(){
             @Override
             public void execute(Object args) {
                 Enchantment app = (Enchantment) args;
-                if(CardGame.instance.getCurrentPlayer() == owner){
+                if(CardGame.instance.getCurrentPlayer() == owner){ //se ho giocato un incantesimo
                     System.out.println("[ARGOTHIAN ENCANTRESS] Current player spell an enchantment -> Current player draw a card.");
-                    CardGame.instance.getCurrentAdversary().draw();
+                    CardGame.instance.getCurrentAdversary().draw(); //pesco una carta
                 }
             }   
         };
@@ -82,7 +84,11 @@ public class ArgothianEnchantress implements Card{
             CardGame.instance.getTriggers().deregister(ArgothianEnchantressTrigger);
         }
         
-        @Override
+       
+        /**
+         * SHROUD -> ritorna true se la creatura è nascosta (non può essere un target)
+         */
+         @Override
         public boolean shroud(){
             return true;
         }
